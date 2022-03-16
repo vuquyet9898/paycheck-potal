@@ -1,21 +1,29 @@
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import LoginApi from './login';
+import { LOGIN } from 'constants/request'
+import fetchApi from 'helper/fetchApi'
+import NextAuth from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import LoginApi from './login'
 
 export default NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials, req) {
-        const res = await LoginApi.login({
+        const params = {
           personal_id: credentials.personal_id,
           password: credentials.password,
-        });
-
+        }
+        const res = await fetchApi({
+          url: LOGIN,
+          options: {
+            method: 'POST',
+          },
+          params,
+        })
         if (res.data) {
-          return res.data;
+          return res.data
         }
 
-        return null;
+        return null
       },
     }),
   ],
@@ -25,21 +33,22 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user)
+      if (user) {
         return {
           ...token,
           accessToken: user.accessToken,
           name: user.full_name,
           phone: user.phone_number,
-        };
-
-      return token;
+        }
+      }
+      return token
     },
     async redirect({ url, baseUrl }) {
-      return baseUrl;
+      return baseUrl
     },
     async session({ session, token }) {
-      return session;
+      session.accessToken = token?.accessToken
+      return session
     },
   },
   // Enable debug messages in the console if you are having problems
@@ -48,4 +57,4 @@ export default NextAuth({
     // Set to jwt in order to CredentialsProvider works properly
     strategy: 'jwt',
   },
-});
+})

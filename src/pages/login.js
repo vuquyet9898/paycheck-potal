@@ -1,46 +1,53 @@
-import { delay } from 'helper/utils';
-import { signIn } from 'next-auth/react';
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { delay, renderErrorMessage } from 'helper/utils'
+import { signIn } from 'next-auth/react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import { ERROR_TYPES } from 'constants/errors'
 
 function Login() {
-  const [loading, setLoading] = useState(false);
-  const [pid, setPid] = useState('');
-  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false)
+  const [pid, setPid] = useState('')
+  const [password, setPassword] = useState('')
 
-  const router = useRouter();
+  const router = useRouter()
 
   const handleChange = (e, type) => {
     if (type === 'pid') {
-      setPid(e.target.value);
+      setPid(e.target.value)
     }
     if (type === 'password') {
-      setPassword(e.target.value);
+      setPassword(e.target.value)
     }
-  };
+  }
 
   const handleSubmit = async () => {
     try {
-      setLoading(true);
+      setLoading(true)
       const values = {
         personal_id: pid,
         password,
         callbackUrl: `${window.location.origin}`,
-      };
-      const result = await signIn('credentials', { redirect: false, ...values });
-      await delay(100).then(() => setLoading(false));
-      if (result?.url) {
-        router.push(result?.url);
       }
+      const result = await signIn('credentials', { redirect: false, ...values })
+      await delay(100).then(() => setLoading(false))
+      if (result?.url) {
+        return router.push(result?.url)
+      }
+      return renderErrorMessage({
+        type: ERROR_TYPES.AUTH,
+        message: result?.error,
+      })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="border border-slate-300 rounded-lg space-y-8 p-8">
-        <p className="text-center uppercase text-3xl font-semibold">Paycheck portal</p>
+        <p className="text-center uppercase text-3xl font-semibold">
+          Paycheck portal
+        </p>
         <div className="grid grid-cols-12 gap-x-2 gap-y-3 items-center max-w-3xl w-full">
           <p className="col-span-4">ID:</p>
           <input
@@ -65,7 +72,7 @@ function Login() {
         </button>
       </div>
     </div>
-  );
+  )
 }
 
 // export async function getServerSideProps(context) {
@@ -73,4 +80,4 @@ function Login() {
 //   return { props: { csrfToken } };
 // }
 
-export default Login;
+export default Login

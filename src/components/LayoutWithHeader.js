@@ -1,28 +1,29 @@
-import { Menu, Transition } from '@headlessui/react';
-import { AUTH_STATUS } from 'constants/auth';
-import { getSession, signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { Fragment, useMemo } from 'react';
+import { Menu, Transition } from '@headlessui/react'
+import { AUTH_STATUS } from 'constants/auth'
+import { getSession, signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { Fragment, useMemo } from 'react'
+import Navbar from './Navbar'
 
 function LayoutWithHeader({ children }) {
-  const { data: session, status } = useSession();
-  const router = useRouter();
+  const { data: session, status } = useSession()
+  const router = useRouter()
 
   const renderNameAbbr = () => {
     if (session?.user) {
-      const splited = session?.user?.name.split(' ');
+      const splited = session?.user?.name.split(' ')
       if (splited.length > 1) {
-        return `${splited[0].charAt(0)}${splited[1].charAt(0)}`;
+        return `${splited[0].charAt(0)}${splited[1].charAt(0)}`
       }
-      return `${splited[0].charAt(0)}`;
+      return `${splited[0].charAt(0)}`
     }
-    return '';
-  };
+    return ''
+  }
 
   const renderLoginBtn = useMemo(() => {
     if (status === AUTH_STATUS.LOADING) {
-      return null;
+      return null
     }
     if (status === AUTH_STATUS.UNAUTHENTICATED) {
       return (
@@ -34,13 +35,13 @@ function LayoutWithHeader({ children }) {
             Login
           </a>
         </Link>
-      );
+      )
     }
     return (
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex justify-center w-full px-4 py-2 font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            <div className="flex items-center justify-between space-x-2">
+          <Menu.Button className="inline-flex justify-center w-full p-2 font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            <div className="flex items-center justify-between space-x-2 text-sm">
               <div className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-500 uppercase">
                 <p>{renderNameAbbr()}</p>
               </div>
@@ -59,12 +60,12 @@ function LayoutWithHeader({ children }) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right text-sm bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute z-10 right-0 w-56 mt-2 origin-top-right text-sm bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1">
               <Menu.Item>
                 <button
                   type="button"
-                  className="flex items-center btn-primary-reverse focus:outline-none px-8 py-3 rounded-md capitalize w-full"
+                  className="flex items-center justify-end btn-primary-reverse focus:outline-none px-4 py-3 rounded-md capitalize w-full"
                   onClick={signOut}
                 >
                   logout
@@ -74,41 +75,49 @@ function LayoutWithHeader({ children }) {
           </Menu.Items>
         </Transition>
       </Menu>
-    );
-  }, [status]);
+    )
+  }, [status])
 
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined') return null
 
   const renderChildren = () => {
-    if (session || router.pathname === '/login') {
-      return children;
+    if (session) {
+      return <div className="w-full pr-[250px]">{children}</div>
+    }
+    if (router.pathname === '/login') {
+      return <div className="w-full">{children}</div>
     }
     return (
       <div className="h-[calc(100vh-90px)] w-full flex flex-col space-y-4 items-center justify-center">
         <Link href="/login">
-          <a className="flex items-center btn-primary px-8 py-3 rounded-md">Login</a>
+          <a className="flex items-center btn-primary px-8 py-3 rounded-md">
+            Login
+          </a>
         </Link>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <>
-      <div className="px-6 py-4 bg-gradient-to-r to-indigo-500 from-purple-500 text-white flex items-center justify-between">
+      <div className="px-3 py-2 bg-gradient-to-r to-indigo-500 from-purple-500 text-white flex items-center justify-between fixed w-full top-0 left-0 right-0 z-10">
         <p className="uppercase font-bold">paycheck portal</p>
         {renderLoginBtn}
       </div>
-      {renderChildren()}
+      <div className="flex justify-between pt-[72px]">
+        {renderChildren()}
+        <Navbar isLogin={!!session?.user} />
+      </div>
     </>
-  );
+  )
 }
 
-export default LayoutWithHeader;
+export default LayoutWithHeader
 
 export async function getServerSideProps(context) {
   return {
     props: {
       session: await getSession(context),
     },
-  };
+  }
 }
