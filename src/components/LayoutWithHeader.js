@@ -78,8 +78,6 @@ function LayoutWithHeader({ children }) {
     )
   }, [status])
 
-  if (typeof window === 'undefined') return null
-
   const renderChildren = () => {
     if (session) {
       return <div className="w-full pr-[250px]">{children}</div>

@@ -25,12 +25,6 @@ function Navbar({ isLogin }) {
       icon: <IconUser />,
     },
     {
-      id: 1,
-      name: 'Statistic',
-      url: '/statistics',
-      icon: <IconStatistic />,
-    },
-    {
       id: 2,
       name: 'Payment',
       url: '/payment',
