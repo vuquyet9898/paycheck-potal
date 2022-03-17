@@ -1,21 +1,31 @@
 import {
   IconBankTransfer,
+  IconExpandNav,
   IconHelpCenter,
   IconInvoices,
   IconPaychecks,
   IconPayment,
   IconSetting,
-  IconStatistic,
   IconUser,
 } from 'constants/icons'
+import { delay } from 'helper/utils'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import NavbarTooltip from './NavbarTooltip'
 
-function Navbar({ isLogin }) {
-  const [collapse, setCollapse] = useState(false)
-
+function Navbar({ isLogin, collapse, handleCollapse }) {
   const router = useRouter()
+
+  const [showMenuText, setShowMenuText] = useState(true)
+
+  useEffect(() => {
+    if (collapse) {
+      setShowMenuText(!collapse)
+    } else {
+      delay(200).then(() => setShowMenuText(!collapse))
+    }
+  }, [collapse])
 
   const menuItems = [
     {
@@ -65,19 +75,41 @@ function Navbar({ isLogin }) {
   if (!isLogin) return null
 
   return (
-    <div className="bg-gray-100 w-full max-w-[250px] h-full min-h-[calc(100vh-72px)] flex flex-col items-end p-1 gap-1 fixed right-0">
-      {menuItems.map((menu) => (
-        <Link href={menu.url} key={menu.id}>
-          <a
-            className={`${
-              router.pathname.includes(menu.url) ? 'bg-gray-300' : ''
-            } flex items-center justify-end space-x-2 px-3 py-2 rounded-md w-full`}
-          >
-            <span className="text-sm">{menu.name}</span>
-            <span>{menu.icon}</span>
-          </a>
-        </Link>
-      ))}
+    <div
+      className={`bg-gray-100 w-full ${
+        collapse ? 'max-w-[56px]' : 'max-w-[250px]'
+      } h-[calc(100vh-72px)] items-end fixed right-0 transition-all duration-300 z-10`}
+    >
+      <div className="w-full h-full flex flex-col justify-between divide-y">
+        <div className="w-full p-1 gap-1 flex flex-col">
+          {menuItems.map((menu) => (
+            <Link href={menu.url} key={menu.id}>
+              <a
+                className={`${
+                  router.pathname.includes(menu.url)
+                    ? 'bg-indigo-400 text-white font-bold'
+                    : ''
+                } flex items-center justify-end space-x-2 px-3 py-2 rounded-md w-full hover:bg-indigo-200 relative group`}
+              >
+                <span
+                  className={`text-sm ${showMenuText ? 'block' : 'hidden'}`}
+                >
+                  {menu.name}
+                </span>
+                <span>{menu.icon}</span>
+                {collapse && <NavbarTooltip title={menu.name} />}
+              </a>
+            </Link>
+          ))}
+        </div>
+        <button
+          className="py-2 px-3 hover:bg-gray-300 flex items-center justify-center"
+          type="button"
+          onClick={handleCollapse}
+        >
+          {!showMenuText ? <IconExpandNav /> : 'Collapse'}
+        </button>
+      </div>
     </div>
   )
 }

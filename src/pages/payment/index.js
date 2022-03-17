@@ -1,115 +1,159 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import DataTable from 'react-data-table-component'
-import { parseISO, format } from 'date-fns'
 import { getPaymentData } from 'actions/payment'
-import fetchApi from 'helper/fetchApi'
-import { useTableHeight } from 'helper/utils'
+import { format, parseISO } from 'date-fns'
+import { useDebounce, useTableHeight } from 'helper/utils'
+import { useRouter } from 'next/router'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import DataTable from 'react-data-table-component'
 
 function Payment() {
   const [payment, setPayment] = useState([])
   const [loading, setLoading] = useState(false)
-  const [totalPage, setTotalPage] = useState(0)
   const [totalRows, setTotalRows] = useState(0)
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, setPerPage] = useState(20)
+  const [search, setSearch] = useState('')
 
-  const { tableHeight } = useTableHeight(136)
+  const router = useRouter()
+  const { tableHeight } = useTableHeight(302)
 
-  const getPayment = async (page, limit) => {
-    setLoading(true)
-    const result = await getPaymentData({ page, limit })
+  const getPayment = async (page, limit, query) => {
+    const result = await getPaymentData({ page, limit, query: search })
     const { data, status } = result
     if (status === 200) {
       setPayment(data?.data)
-      setTotalPage(data?.total_page)
+      setTotalRows(data?.total_page * limit)
     }
-    setLoading(false)
-    // console.log('🚀 ===== result', result)
   }
+
+  const debouncedSearchTerm = useDebounce(search, 500)
 
   useEffect(() => {
-    getPayment()
-  }, [])
+    async function loadData() {
+      setLoading(true)
+      await getPayment(0, perPage, debouncedSearchTerm)
+      setLoading(false)
+    }
+    loadData()
+  }, [debouncedSearchTerm])
 
-  const handlePageChange = (page) => {
-    getPayment(page)
+  const handlePageChange = async (page) => {
+    setLoading(true)
+    await getPayment(page - 1, perPage)
+    setLoading(false)
   }
 
-  // const handlePerRowsChange = async (newPerPage, page) => {
-  // 	setLoading(true);
+  const handlePerRowsChange = async (newPerPage, page) => {
+    setLoading(true)
+    await getPayment(page - 1, newPerPage)
+    setPerPage(newPerPage)
+    setLoading(false)
+  }
 
-  // 	const response = await fetchApi.get(`https://reqres.in/api/users?page=${page}&per_page=${newPerPage}&delay=1`);
+  const columns = useMemo(
+    () => [
+      {
+        name: 'Personal ID',
+        selector: (row) => row?.personal_id,
+        width: '130px',
+        sortable: true,
+      },
+      {
+        name: 'User ID',
+        selector: (row) => row?.user_id,
+        width: '220px',
+        sortable: true,
+      },
+      {
+        name: 'Bank ID',
+        selector: (row) => row?.bank_detail?.bank_id,
+        width: '220px',
+        sortable: true,
+      },
+      {
+        name: 'Bank Name',
+        selector: (row) => row?.bank_detail?.bank_name,
+        width: '200px',
+        sortable: true,
+      },
+      {
+        name: 'Bank Account Number',
+        selector: (row) => row?.bank_detail?.account_number,
+        width: '200px',
+        sortable: true,
+      },
+      {
+        name: 'Bank Account Owner',
+        selector: (row) => row?.bank_detail?.account_owner,
+        sortable: true,
+      },
+      {
+        name: 'Bank Branch Number',
+        selector: (row) => row?.bank_detail?.branch_number,
+        width: '200px',
+        sortable: true,
+      },
+      {
+        name: 'Created At',
+        selector: (row) => format(parseISO(row?.createdAt), 'yyyy-MM-dd'),
+        width: '150px',
+        sortable: true,
+      },
+      {
+        name: 'Updated At',
+        selector: (row) => format(parseISO(row?.updatedAt), 'yyyy-MM-dd'),
+        width: '150px',
+        sortable: true,
+      },
+    ],
+    []
+  )
 
-  // 	setData(response.data.data);
-  // 	setPerPage(newPerPage);
-  // 	setLoading(false);
-  // };
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+  }
 
-  const columns = [
-    {
-      name: 'ID',
-      selector: (row) => row?._id,
-      width: '250px',
-      sortable: true,
+  const handleNavigate = (row) => {
+    router.push(`/payment/${row?.personal_id}`)
+  }
+
+  const customStyles = {
+    rows: {
+      style: {
+        cursor: 'pointer',
+      },
     },
-    {
-      name: 'User ID',
-      selector: (row) => row?.user_id,
-      width: '250px',
-      sortable: true,
-    },
-    {
-      name: 'Bank ID',
-      selector: (row) => row?.bank_detail?.bank_id,
-      width: '250px',
-      sortable: true,
-    },
-    {
-      name: 'Bank Name',
-      selector: (row) => row?.bank_detail?.bank_name,
-      width: '200px',
-      sortable: true,
-    },
-    {
-      name: 'Bank Account Number',
-      selector: (row) => row?.bank_detail?.account_number,
-      width: '200px',
-      sortable: true,
-    },
-    {
-      name: 'Bank Account Owner',
-      selector: (row) => row?.bank_detail?.account_owner,
-      sortable: true,
-    },
-    {
-      name: 'Bank Branch Number',
-      selector: (row) => row?.bank_detail?.branch_number,
-      width: '200px',
-      sortable: true,
-    },
-    {
-      name: 'Created At',
-      selector: (row) => format(parseISO(row?.createdAt), 'yyyy-MM-dd'),
-      width: '150px',
-      sortable: true,
-    },
-    {
-      name: 'Updated At',
-      selector: (row) => format(parseISO(row?.updatedAt), 'yyyy-MM-dd'),
-      width: '150px',
-      sortable: true,
-    },
-  ]
+  }
 
   return (
-    <div className="pr-6">
-      <h1 className="rtl text-2xl font-bold p-4 uppercase">Payment</h1>
-
+    <div className="pr-4">
+      <div className="rtl">
+        <h1 className="text-2xl font-bold py-4 uppercase">Payment</h1>
+        <div className="space-y-2 py-6">
+          <p className="text-sm">Personal ID</p>
+          <input
+            type="text"
+            placeholder="Search"
+            className="border border-slate-300 rounded-md px-2 py-1"
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
+      </div>
       <DataTable
         columns={columns}
         data={payment}
         direction="rtl"
         fixedHeader
         fixedHeaderScrollHeight={`${tableHeight}px`}
+        progressPending={loading}
+        pagination
+        paginationServer
+        paginationTotalRows={totalRows}
+        onChangeRowsPerPage={handlePerRowsChange}
+        onChangePage={handlePageChange}
+        paginationPerPage={20}
+        paginationRowsPerPageOptions={[10, 20, 30, 50]}
+        onRowClicked={handleNavigate}
+        customStyles={customStyles}
       />
     </div>
   )
