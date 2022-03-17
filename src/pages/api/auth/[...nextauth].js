@@ -2,7 +2,6 @@ import { LOGIN } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import LoginApi from './login'
 
 export default NextAuth({
   providers: [
