@@ -1,6 +1,6 @@
-import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { Fragment } from 'react'
 
 const userType = [{ name: 'freelancer' }, { name: 'delivery' }]
 

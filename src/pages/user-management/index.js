@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import FilterUser from './components/FilterUser'
+import { ExpandedComponent } from './components/UserExpandedComponent'
 import { columnsUser, getUser } from './user.logic'
 
 const userType = [{ name: 'freelancer' }, { name: 'delivery' }]
@@ -97,6 +98,7 @@ export default function Index() {
         paginationTotalRows={totalRows * 10}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
+        expandableRowsComponent={ExpandedComponent}
       />
     </div>
   )
