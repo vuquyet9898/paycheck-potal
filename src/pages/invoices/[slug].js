@@ -1,13 +1,25 @@
 import { Dialog, Transition } from '@headlessui/react'
 import UploadButton from 'components/Button/UploadButton'
 import { useRouter } from 'next/router'
-import React, { useEffect, useMemo, useState, Fragment } from 'react'
+import React, {
+  forwardRef,
+  Fragment,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import DataTable from 'react-data-table-component'
-import { columnsInvoices, getInvoicesDetail } from './invoices.logic'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { formatDate } from 'utils/date'
+import {
+  columnsInvoices,
+  getInvoicesDetail,
+  upFileInvoices,
+} from './invoices.logic'
 
 export default function InvoiceDetail() {
   // data table
-
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
@@ -15,6 +27,7 @@ export default function InvoiceDetail() {
   //
   const router = useRouter()
   const idUser = router?.query?.slug
+  const _id = router?.query?.id
 
   const [isOpen, setIsOpen] = useState(false)
   const closeModal = () => {
@@ -53,9 +66,34 @@ export default function InvoiceDetail() {
     setPerPage(newPerPage)
     setLoading(false)
   }
-
-  //
   const memoColumnsInvoices = useMemo(() => columnsInvoices, [])
+
+  const [selectedFile, setSelectedFile] = useState(null)
+  //
+  const onFileChange = (event) => {
+    // Update the state
+    setSelectedFile(event.target.files[0])
+  }
+  //
+  const [startDate, setStartDate] = useState(new Date())
+  // eslint-disable-next-line react/display-name
+  const CustomInputDate = forwardRef(({ value, onClick }, ref) => (
+    <div className="px-4 pt-2 border-1 rounded-sm pb-2">
+      <button type="button" onClick={onClick} ref={ref}>
+        <div className="font-medium">{value}</div>
+      </button>
+    </div>
+  ))
+  //
+  const onUploadInvoices = async () => {
+    const selectDateFormat = formatDate(startDate)
+    const formData = new FormData() // formdata object
+    formData.append('invoice', selectedFile) // append the values with key, value pair
+    const responseUpFile = await upFileInvoices(formData)
+    const dataUpFile = responseUpFile.data
+    console.log('responseUpFile', dataUpFile)
+  }
+  const isFileSelect = !!selectedFile?.name
 
   return (
     <div className="pt-10">
@@ -84,9 +122,7 @@ export default function InvoiceDetail() {
               <span
                 className="inline-block h-screen align-middle"
                 aria-hidden="true"
-              >
-                &#8203;
-              </span>
+              />
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -96,27 +132,50 @@ export default function InvoiceDetail() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <div className="pt-6 inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6 text-gray-900 "
                   >
-                    Payment successful
+                    Upload invoices
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
-                  </div>
-
-                  <div className="mt-4">
+                  <div className="flex w-96 h-72 items-center mt-6 bg-grey-lighter  flex-col">
+                    <div className="flex flex-row items-center w-full ">
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        customInput={<CustomInputDate />}
+                      />
+                      <div className=" font-medium">Date</div>
+                    </div>
+                    <label className="mt-4 w-full flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                      </svg>
+                      <span className=" ml-2 text-sm leading-normal">
+                        {isFileSelect
+                          ? selectedFile.name
+                          : 'Select a file invoices'}
+                      </span>
+                      <input
+                        type="file"
+                        className="hidden"
+                        required
+                        onChange={onFileChange}
+                      />
+                    </label>
                     <button
+                      onClick={onUploadInvoices}
+                      disabled={!isFileSelect}
                       type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                      onClick={closeModal}
+                      className="mt-28 w-full bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-white py-2 rounded-md text-lg font-semibold"
                     >
-                      Got it, thanks!
+                      Up Load
                     </button>
                   </div>
                 </div>

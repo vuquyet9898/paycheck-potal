@@ -20,7 +20,7 @@ export function ExpandedComponent({ data }) {
           <Link
             href={{
               pathname: `${item.href}[slug]`,
-              query: { slug: data?.personal_id },
+              query: { slug: data?.personal_id, id: data?._id },
             }}
           >
             <a>{item.name}</a>

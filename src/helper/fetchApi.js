@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { post } from 'axios'
 import { getSession } from 'next-auth/react'
 
 const { API_URL } = process.env
@@ -33,8 +33,8 @@ const fetchApi = async (
     } else {
       opts.data = params
     }
-
     const res = await axios(opts)
+
     cb(null, res)
     return res
   } catch (err) {
@@ -50,3 +50,32 @@ const fetchApi = async (
 }
 
 export default fetchApi
+
+export const uploadFileApi = async ({ data, url }, cb = (f) => f) => {
+  try {
+    const defaultOptions = {
+      method: 'POST',
+      baseURL: API_URL,
+      url,
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    }
+    const session = await getSession()
+
+    // Set auth token
+    if (session && session?.accessToken) {
+      defaultOptions.headers.authorization = `Bearer ${session?.accessToken}`
+    }
+    return await post(`${url}`, data, defaultOptions)
+  } catch (err) {
+    if (process.env.NODE_ENV !== 'production') {
+      // console.error('Call API Error: ', err);
+    }
+    if (err?.response?.data) {
+      return err?.response?.data
+    }
+    cb(err)
+    return Promise.reject(err)
+  }
+}

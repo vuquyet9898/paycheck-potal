@@ -1,5 +1,5 @@
-import { INVOICES } from 'constants/request'
-import fetchApi from 'helper/fetchApi'
+import { INVOICES, UP_FILE } from 'constants/request'
+import fetchApi, { uploadFileApi } from 'helper/fetchApi'
 
 export const getInvoicesDetail = (id, page = 0, limit = 10) =>
   fetchApi({
@@ -11,6 +11,12 @@ export const getInvoicesDetail = (id, page = 0, limit = 10) =>
       page,
       limit,
     },
+  })
+
+export const upFileInvoices = (data) =>
+  uploadFileApi({
+    url: `${UP_FILE}/6233f651e52ac26b0042001c`,
+    data,
   })
 
 export const columnsInvoices = [
