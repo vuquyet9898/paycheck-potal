@@ -1,6 +1,7 @@
 export const ERROR_TYPES = {
   AUTH: 'auth',
   COMMON: 'common',
+  USER: 'user',
 }
 
 export const ERRORS = {
@@ -18,4 +19,7 @@ export const ERRORS = {
     default: 'Unable to sign in.',
   },
   common: 'Common error, please try again',
+  user: {
+    TEST_ERROR_CODE: 'TEST ERROR MESSAGE HERE',
+  },
 }

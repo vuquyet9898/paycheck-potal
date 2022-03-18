@@ -3,12 +3,18 @@ import { AUTH_STATUS } from 'constants/auth'
 import { getSession, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { Fragment, useMemo } from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 import Navbar from './Navbar'
 
 function LayoutWithHeader({ children }) {
   const { data: session, status } = useSession()
   const router = useRouter()
+
+  const [collapse, setCollapse] = useState(false)
+
+  const handleCollapse = () => {
+    setCollapse(!collapse)
+  }
 
   const renderNameAbbr = () => {
     if (session?.user) {
@@ -78,11 +84,13 @@ function LayoutWithHeader({ children }) {
     )
   }, [status])
 
-  if (typeof window === 'undefined') return null
-
   const renderChildren = () => {
     if (session) {
-      return <div className="w-full pr-[250px]">{children}</div>
+      return (
+        <div className={`w-full ${collapse ? 'pr-[58px]' : 'pr-[250px]'}`}>
+          {children}
+        </div>
+      )
     }
     if (router.pathname === '/login') {
       return <div className="w-full">{children}</div>
@@ -100,13 +108,17 @@ function LayoutWithHeader({ children }) {
 
   return (
     <>
-      <div className="px-3 py-2 bg-gradient-to-r to-indigo-500 from-purple-500 text-white flex items-center justify-between fixed w-full top-0 left-0 right-0 z-10">
+      <div className="px-3 py-2 bg-gradient-to-r to-indigo-500 from-purple-500 text-white flex items-center justify-between fixed w-full top-0 left-0 right-0 z-20">
         <p className="uppercase font-bold">paycheck portal</p>
         {renderLoginBtn}
       </div>
       <div className="flex justify-between pt-[72px]">
         {renderChildren()}
-        <Navbar isLogin={!!session?.user} />
+        <Navbar
+          isLogin={!!session?.user}
+          collapse={collapse}
+          handleCollapse={handleCollapse}
+        />
       </div>
     </>
   )
