@@ -1,3 +1,4 @@
+import { useTableHeight } from 'helper/utils'
 import { debounce } from 'lodash'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
@@ -12,8 +13,10 @@ export default function Index() {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, setPerPage] = useState(20)
+
   const [keyword, setKeyword] = useState('')
+  const { tableHeight } = useTableHeight(302)
 
   const changeHandler = (event) => {
     setKeyword(event.target.value)
@@ -24,14 +27,14 @@ export default function Index() {
   //
   const fetchUsers = async (page) => {
     setLoading(true)
-    const response = await getUser(
+    const response = await getUser({
       page,
-      perPage,
-      selectedUserType.name,
-      keyword
-    )
+      limit: perPage,
+      freelancerType: selectedUserType.name,
+      personalId: keyword,
+    })
     setData(response.data.data)
-    setTotalRows(response.data.total_page)
+    setTotalRows(response.data.total_page * perPage)
     setLoading(false)
   }
 
@@ -40,26 +43,19 @@ export default function Index() {
   }
 
   const handlePerRowsChange = async (newPerPage, page) => {
-    setLoading(true)
-    const response = await getUser(page - 1, newPerPage, selectedUserType.name)
-    setData(response.data.data)
     setPerPage(newPerPage)
-
-    setLoading(false)
   }
-
   useEffect(() => {
     fetchUsers(0)
-  }, [selectedUserType, keyword])
+  }, [selectedUserType, keyword, perPage])
   const memoColumnsUser = useMemo(() => columnsUser, [])
 
   return (
     <div>
       <div className="w-full flex justify-end flex-row pt-8 ">
-        <div className="w-96">
+        <div className="w-96 rtl">
           <label className="relative block" htmlFor="first-name">
-            <span className="sr-only">Search</span>
-            <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+            <span className="absolute inset-y-0 right-3 flex items-center pl-2">
               <Image
                 src="/search.svg"
                 alt=""
@@ -70,7 +66,7 @@ export default function Index() {
               />
             </span>
             <input
-              className="placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+              className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
               placeholder="Search personal Id"
               type="text"
               name="search"
@@ -95,10 +91,13 @@ export default function Index() {
         progressPending={loading}
         pagination
         paginationServer
-        paginationTotalRows={totalRows * 10}
+        paginationTotalRows={totalRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
         expandableRowsComponent={ExpandedComponent}
+        paginationPerPage={20}
+        fixedHeaderScrollHeight={`${tableHeight}px`}
+        paginationRowsPerPageOptions={[10, 20, 30, 50]}
       />
     </div>
   )
