@@ -1,12 +1,7 @@
 import { USER } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
 
-export const getUser = ({
-  page = 0,
-  limit,
-  freelancerType = 'freelancer',
-  personalId = '',
-}) =>
+export const getUser = ({ page = 0, limit, freelancerType, personalId = '' }) =>
   fetchApi({
     url: USER,
     options: {

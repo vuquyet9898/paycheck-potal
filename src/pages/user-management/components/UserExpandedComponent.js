@@ -3,12 +3,13 @@ import React from 'react'
 
 const listMenuExpanded = [
   { name: 'PayCheck', href: 'user-management/' },
-  { name: 'Bank Transfer', href: 'user-management/' },
+  { name: 'Bank Transfer', href: 'bank-transfer/' },
   { name: 'Invoices', href: '/invoices/' },
   { name: 'Payment', href: 'user-management/' },
   { name: 'Edit', href: 'user-management/edit-user' },
 ]
 export function ExpandedComponent({ data }) {
+  console.log('data', data?.payment)
   return (
     <div className="flex pr-10 pt-2 gap-x-4 pl-5 ">
       {listMenuExpanded.map((item) => (
@@ -20,7 +21,13 @@ export function ExpandedComponent({ data }) {
           <Link
             href={{
               pathname: `${item.href}[slug]`,
-              query: { slug: data?.personal_id, id: data?._id },
+              query: {
+                slug: data?.personal_id,
+                id: data?._id,
+                branchNumber: data?.payment?.bank_detail?.branch_number,
+                bankName: data?.payment?.bank_detail?.bank_name,
+                accountNumber: data?.payment?.bank_detail?.account_number,
+              },
             }}
           >
             <a>{item.name}</a>
