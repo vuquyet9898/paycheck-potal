@@ -9,7 +9,6 @@ const listMenuExpanded = [
   { name: 'Edit', href: 'user-management/edit-user' },
 ]
 export function ExpandedComponent({ data }) {
-  console.log('data', data?.payment)
   return (
     <div className="flex pr-10 pt-2 gap-x-4 pl-5 ">
       {listMenuExpanded.map((item) => (

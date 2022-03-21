@@ -64,6 +64,8 @@ export default function Index({ pathRedirect }) {
         slug: row?.personal_id,
         id: row?._id,
         branchNumber: row?.payment?.bank_detail?.branch_number,
+        bankName: row?.payment?.bank_detail?.bank_name,
+        accountNumber: row?.payment?.bank_detail?.account_number,
       },
     })
   }

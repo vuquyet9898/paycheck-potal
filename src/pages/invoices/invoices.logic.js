@@ -1,5 +1,6 @@
 import { INVOICES, UP_FILE } from 'constants/request'
 import fetchApi, { uploadFileApi } from 'helper/fetchApi'
+import { format, parseISO } from 'date-fns'
 
 export const getInvoicesDetail = (id, page, limit) =>
   fetchApi({
@@ -36,8 +37,10 @@ export const columnsInvoices = [
   },
   {
     name: 'Date',
-    selector: (row) => row.date,
+    // selector: (row) => format(parseISO(row?.date), 'yyyy-MM-dd'),
     width: '300px',
+    selector: (row) => row.date,
+    // selector: (row) => format(row?.date, 'yyyy-MM-dd'),
   },
   {
     name: 'Number',

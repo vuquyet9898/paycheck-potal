@@ -15,13 +15,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { formatDate } from 'utils/date'
 import Spin from 'components/Spin'
 import {
-  columnsBankTransfer,
-  createBankTransfer,
-  getBankTransferDetail,
-  upFileBankTransfer,
-} from './bankTransfer.logic'
+  createPayCheck,
+  getPayCheckDetail,
+  upFilePayCheck,
+  columnsPayCheck,
+} from './paycheck.logic'
 
-export default function InvoiceDetail() {
+export default function PaymentDetail() {
   // data table
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
@@ -34,11 +34,7 @@ export default function InvoiceDetail() {
   const router = useRouter()
   const idUser = router?.query?.slug
   const userId = router?.query?.id
-  const branchNumber = router?.query?.branchNumber
-  const bankName = router?.query?.bankName
-  const accountNumber = router?.query?.accountNumber
   const [amount, setAmount] = useState('')
-  const isVerifyBank = !!(branchNumber && bankName && accountNumber)
 
   const [isOpen, setIsOpen] = useState(false)
   const closeModal = () => {
@@ -49,10 +45,10 @@ export default function InvoiceDetail() {
     setIsOpen(true)
   }
 
-  const fetchBankTransfer = async (page) => {
+  const fetchPayCheck = async (page) => {
     try {
       setLoading(true)
-      const response = await getBankTransferDetail(idUser, page, perPage)
+      const response = await getPayCheckDetail(idUser, page, perPage)
       setData(response.data.data)
       setTotalRows(response.data.total_page * perPage)
 
@@ -63,18 +59,18 @@ export default function InvoiceDetail() {
   }
 
   useEffect(() => {
-    fetchBankTransfer(0)
+    fetchPayCheck(0)
   }, [perPage])
 
   //
   const handlePageChange = (page) => {
-    fetchBankTransfer(page - 1)
+    fetchPayCheck(page - 1)
   }
 
   const handlePerRowsChange = async (newPerPage, page) => {
     setPerPage(newPerPage)
   }
-  const memoColumnsBankTransfer = useMemo(() => columnsBankTransfer, [])
+  const memoPayCheckColumnsPayCheck = useMemo(() => columnsPayCheck, [])
 
   const [selectedFile, setSelectedFile] = useState(null)
   //
@@ -98,20 +94,17 @@ export default function InvoiceDetail() {
       setLoadingUpFile(true)
       const selectDateFormat = formatDate(startDate)
       const formData = new FormData()
-      formData.append('bank_transfer', selectedFile)
-      const responseUpFile = await upFileBankTransfer(formData)
+      formData.append('pay_check', selectedFile)
+      const responseUpFile = await upFilePayCheck(formData)
       const dataUpFile = responseUpFile.data
       const dataBankTransfer = {
         userId,
-        accountNumber,
-        branchNumber,
-        bankName,
-        amount,
-        invoiceFileUrl: dataUpFile?.file_url,
-        transferDate: selectDateFormat,
+        file_url: dataUpFile?.file_url,
+        date: selectDateFormat,
+        file_name: dataUpFile?.file_name,
       }
-      await createBankTransfer(dataBankTransfer)
-      await fetchBankTransfer(0)
+      await createPayCheck(dataBankTransfer)
+      await fetchPayCheck(0)
       closeModal()
       setSelectedFile(null)
       setLoadingUpFile(false)
@@ -130,17 +123,7 @@ export default function InvoiceDetail() {
     <div className="pt-10">
       <div className="w-full  flex flex-row  justify-end px-20">
         <div className="flex flex-row items-center">
-          {!isVerifyBank && (
-            <div className=" mr-6 font-medium text-red-400 text-xl">
-              This bank account is not verify
-            </div>
-          )}
-
-          <UploadButton
-            title="Upload Bank Transfer"
-            action={openModal}
-            isDisable={!isVerifyBank}
-          />
+          <UploadButton title="Upload PayCheck" action={openModal} />
         </div>
 
         <Transition appear show={isOpen} as={Fragment}>
@@ -181,9 +164,9 @@ export default function InvoiceDetail() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 "
                   >
-                    Upload Bank Transfer
+                    Upload PayCheck
                   </Dialog.Title>
-                  <div className="flex w-96 h-96 items-center mt-6 bg-grey-lighter  flex-col">
+                  <div className="flex w-96 h-72 items-center mt-6 bg-grey-lighter  flex-col">
                     <div className="flex flex-row items-center w-full ">
                       <DatePicker
                         selected={startDate}
@@ -193,37 +176,7 @@ export default function InvoiceDetail() {
                       <div className=" font-medium">Date</div>
                     </div>
 
-                    {/* // */}
-
-                    <div className=" flex flex-row items-center w-full justify-between mt-2 ">
-                      <input
-                        type="text"
-                        placeholder="Amount"
-                        className="border border-slate-300 rounded-md px-2 py-1"
-                        value={amount}
-                        onChange={changeHandler}
-                      />
-                      <p className="text-sm">Amount</p>
-                    </div>
-                    <div className=" flex flex-row items-center w-full justify-between mt-4 ">
-                      <p>{idUser}</p>
-                      <p className="text-sm">Personal ID</p>
-                    </div>
-                    <div className=" flex flex-row items-center w-full justify-between mt-4 ">
-                      <p>{bankName}</p>
-                      <p className="text-sm">Bank Name</p>
-                    </div>
-                    <div className=" flex flex-row items-center w-full justify-between mt-4 ">
-                      <p>{branchNumber}</p>
-                      <p className="text-sm">Branch Number</p>
-                    </div>
-
-                    <div className=" flex flex-row items-center w-full justify-between mt-4 ">
-                      <p>{accountNumber}</p>
-                      <p className="text-sm">Bank Number</p>
-                    </div>
-                    {/* / */}
-                    <label className="mt-4 w-full flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
+                    <label className="mt-14 w-full flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
                       <svg
                         className="w-6 h-6"
                         fill="currentColor"
@@ -235,7 +188,7 @@ export default function InvoiceDetail() {
                       <span className=" ml-2 text-sm leading-normal">
                         {isFileSelect
                           ? selectedFile.name
-                          : 'Select a file bank transfer'}
+                          : 'Select a file paycheck'}
                       </span>
                       <input
                         type="file"
@@ -268,8 +221,8 @@ export default function InvoiceDetail() {
         </Transition>
       </div>
       <DataTable
-        title="All BankTransfer"
-        columns={memoColumnsBankTransfer}
+        title="All PayCheck"
+        columns={memoPayCheckColumnsPayCheck}
         data={data}
         direction="rtl"
         //
