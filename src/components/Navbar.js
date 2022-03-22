@@ -66,8 +66,14 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
     },
     {
       id: 7,
-      name: 'Setting',
-      url: '/setting',
+      name: 'Company',
+      url: '/company',
+      icon: <IconSetting />,
+    },
+    {
+      id: 8,
+      name: 'Banks',
+      url: '/banks',
       icon: <IconSetting />,
     },
   ]

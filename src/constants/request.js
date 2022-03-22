@@ -9,3 +9,6 @@ export const PAYMENT = `${API_SUFFIX}/payments`
 export const BANK_TRANSFER = `${API_SUFFIX}/bank-transfer`
 export const PAY_CHECK = `${API_SUFFIX}/pay-checks`
 export const HELP = `${API_SUFFIX}/help-request`
+
+export const COMPANY = `${API_SUFFIX}/companies`
+export const BANKS = `${API_SUFFIX}/banks`

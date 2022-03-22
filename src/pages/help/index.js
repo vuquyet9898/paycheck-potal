@@ -22,17 +22,16 @@ const columnsHelp = [
     selector: (row) => row.content,
   },
 ]
-const getHelp = ({ page = 0, limit, freelancerType, personalId = '' }) =>
+const getHelp = ({ page = 0, limit, phoneNumber = '' }) =>
   fetchApi({
-    url: HELP,
+    url: `${HELP}/admin`,
     options: {
       method: 'GET',
     },
     params: {
       page,
       limit,
-      freelancer_type: freelancerType,
-      personal_id: personalId,
+      phone_number: phoneNumber,
     },
   })
 
@@ -54,7 +53,7 @@ export default function Index() {
   //
   const fetchUsers = async (page) => {
     setLoading(true)
-    const response = await getHelp({ page, limit, personalId: keyword })
+    const response = await getHelp({ page, limit, phoneNumber: keyword })
     setData(response?.data?.data)
     setTotalRows(response?.data?.total_page * limit)
 
@@ -77,7 +76,7 @@ export default function Index() {
     <div className="pt-8 ">
       <div className="rtl flex flex-row items-center pr-4">
         <div className="pl-2">
-          <p>Search User</p>
+          <p>Search Help Request</p>
         </div>
         <div className="w-96 rtl">
           <label className="relative block" htmlFor="first-name">
@@ -93,7 +92,7 @@ export default function Index() {
             </span>
             <input
               className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-              placeholder="Personal Id"
+              placeholder="Phone Number"
               type="text"
               name="search"
               onChange={debouncedChangeHandler}
