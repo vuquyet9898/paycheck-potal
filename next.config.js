@@ -5,6 +5,9 @@ const nextConfig = {
   env: {
     API_URL,
   },
+  images: {
+    domains: ['159.223.75.67'],
+  },
 }
 
 module.exports = nextConfig
