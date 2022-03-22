@@ -40,7 +40,7 @@ export default function Banks() {
     try {
       setLoading(true)
       const response = await getBanks(keyword, page, perPage)
-      setData(response.data.data)
+      setData(response.data)
       setTotalRows(response.data.total_page * perPage)
 
       setLoading(false)
