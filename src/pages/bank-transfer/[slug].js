@@ -268,6 +268,7 @@ export default function InvoiceDetail() {
         </Transition>
       </div>
       <DataTable
+        fixedHeader
         title="All BankTransfer"
         columns={memoColumnsBankTransfer}
         data={data}

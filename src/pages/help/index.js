@@ -101,6 +101,7 @@ export default function Index() {
         </div>
       </div>
       <DataTable
+        fixedHeader
         expandableRows
         title="All Messages"
         columns={columnsHelp}

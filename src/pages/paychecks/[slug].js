@@ -221,6 +221,7 @@ export default function PaymentDetail() {
         </Transition>
       </div>
       <DataTable
+        fixedHeader
         title="All PayCheck"
         columns={memoPayCheckColumnsPayCheck}
         data={data}

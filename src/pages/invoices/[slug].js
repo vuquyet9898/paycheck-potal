@@ -213,6 +213,7 @@ export default function InvoiceDetail() {
         </Transition>
       </div>
       <DataTable
+        fixedHeader
         title="All invoices"
         columns={memoColumnsInvoices}
         data={data}

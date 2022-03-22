@@ -99,6 +99,7 @@ export default function Index({ pathRedirect }) {
         </div>
       </div>
       <DataTable
+        fixedHeader
         title="All user"
         columns={memoColumnsUser}
         data={data}

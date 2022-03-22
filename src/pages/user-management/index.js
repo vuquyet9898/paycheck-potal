@@ -82,6 +82,7 @@ export default function Index() {
         </div>
       </div>
       <DataTable
+        fixedHeader
         title="All user"
         columns={memoColumnsUser}
         data={data}
