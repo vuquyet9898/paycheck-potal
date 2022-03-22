@@ -7,6 +7,7 @@ import DataTable from 'react-data-table-component'
 
 function Payment() {
   const [payment, setPayment] = useState([])
+  console.log('🚀 ===== payment', payment)
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
   const [perPage, setPerPage] = useState(20)
@@ -63,33 +64,33 @@ function Payment() {
         sortable: true,
       },
       {
+        name: 'Invoice Name',
+        selector: (row) => row?.invoice_name,
+      },
+      {
         name: 'Bank ID',
         selector: (row) => row?.bank_detail?.bank_id,
         width: '220px',
-        sortable: true,
       },
       {
         name: 'Bank Name',
         selector: (row) => row?.bank_detail?.bank_name,
         width: '200px',
-        sortable: true,
       },
       {
         name: 'Bank Account Number',
         selector: (row) => row?.bank_detail?.account_number,
         width: '200px',
-        sortable: true,
       },
       {
         name: 'Bank Account Owner',
         selector: (row) => row?.bank_detail?.account_owner,
-        sortable: true,
+        minWidth: '200px',
       },
       {
         name: 'Bank Branch Number',
         selector: (row) => row?.bank_detail?.branch_number,
         width: '200px',
-        sortable: true,
       },
       {
         name: 'Created At',
@@ -112,7 +113,7 @@ function Payment() {
   }
 
   const handleNavigate = (row) => {
-    router.push(`/payment/${row?.personal_id}`)
+    router.push(`/payment/${row?.personal_id}?id=${row?._id}`)
   }
 
   const customStyles = {

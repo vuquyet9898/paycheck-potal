@@ -16,3 +16,29 @@ export const getPaymentData = async ({ page = 0, limit = 20, query = '' }) => {
     console.log(error)
   }
 }
+
+export const getPaymentDetail = async ({ id }) => {
+  try {
+    const result = await fetchApi({
+      url: `${PAYMENT}/${id}/admin`,
+    })
+    return result
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updatePaymentDetail = async ({ id, data }) => {
+  try {
+    const result = await fetchApi({
+      url: `${PAYMENT}/${id}`,
+      options: {
+        method: 'PATCH',
+      },
+      params: data,
+    })
+    return result
+  } catch (error) {
+    console.log(error)
+  }
+}
