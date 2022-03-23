@@ -3,8 +3,8 @@ import fetchApi from 'helper/fetchApi'
 
 export const getCompany = (name, page, limit) =>
   fetchApi({
-    // url: `${COMPANY}/${id}/admin`,
-    url: COMPANY,
+    url: `${COMPANY}/admin`,
+    // url: COMPANY,
 
     options: {
       method: 'GET',

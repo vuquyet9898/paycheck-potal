@@ -93,7 +93,8 @@ export default function Company() {
         </button>
       </div>
       <div className=" flex flex-row justify-end">
-        <div className="w-96 rtl ">
+        <div className="w-96 rtl flex flex-row items-center">
+          <p className="text-sm px-4">Company name</p>
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">
               <Image
@@ -105,17 +106,16 @@ export default function Company() {
                 height={20}
               />
             </span>
-            <input
-              className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-              placeholder="Company name"
-              type="text"
-              name="search"
-              onChange={debouncedChangeHandler}
-            />
+            <div className="flex flex-row">
+              <input
+                className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                placeholder="Search"
+                type="text"
+                name="search"
+                onChange={debouncedChangeHandler}
+              />
+            </div>
           </label>
-        </div>
-        <div className="flex flex-row  items-center justify-center text-sm ml-4">
-          <p>search Company</p>
         </div>
       </div>
 

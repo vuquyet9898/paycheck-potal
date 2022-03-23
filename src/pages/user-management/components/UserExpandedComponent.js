@@ -5,8 +5,8 @@ const listMenuExpanded = [
   { name: 'PayCheck', href: 'user-management/' },
   { name: 'Bank Transfer', href: 'bank-transfer/' },
   { name: 'Invoices', href: '/invoices/' },
-  { name: 'Payment', href: 'user-management/' },
-  { name: 'Edit', href: 'user-management/edit-user' },
+  { name: 'Payment', href: 'user-payment/' },
+  // { name: 'Edit', href: 'user-management/edit-user' },
 ]
 export function ExpandedComponent({ data }) {
   return (

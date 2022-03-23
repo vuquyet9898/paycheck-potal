@@ -36,11 +36,11 @@ export default function Banks() {
     setIsOpen(true)
   }
 
-  const fetchPayCheck = async (page) => {
+  const fetchListBank = async (page) => {
     try {
       setLoading(true)
       const response = await getBanks(keyword, page, perPage)
-      setData(response.data)
+      setData(response.data.data)
       setTotalRows(response.data.total_page * perPage)
 
       setLoading(false)
@@ -50,12 +50,12 @@ export default function Banks() {
   }
 
   useEffect(() => {
-    fetchPayCheck(0)
+    fetchListBank(0)
   }, [perPage, keyword])
 
   //
   const handlePageChange = (page) => {
-    fetchPayCheck(page - 1)
+    fetchListBank(page - 1)
   }
 
   const handlePerRowsChange = async (newPerPage, page) => {
@@ -69,7 +69,7 @@ export default function Banks() {
       await createBank({
         bank_name: bankName,
       })
-      fetchPayCheck(0)
+      fetchListBank(0)
       setLoading(false)
       setBankName('')
       closeModal()
