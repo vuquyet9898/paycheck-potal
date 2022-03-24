@@ -19,7 +19,7 @@ import {
   createInvoices,
   getInvoicesDetail,
   upFileInvoices,
-} from './invoices.logic'
+} from 'actions/invoices'
 
 export default function InvoiceDetail() {
   // data table

@@ -19,7 +19,7 @@ import {
   createBankTransfer,
   getBankTransferDetail,
   upFileBankTransfer,
-} from './bankTransfer.logic'
+} from 'actions/bankTransfer'
 
 export default function InvoiceDetail() {
   // data table

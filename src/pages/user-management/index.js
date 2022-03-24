@@ -3,9 +3,9 @@ import { debounce } from 'lodash'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
+import { columnsUser, getUser } from 'actions/user'
 import FilterUser from './components/FilterUser'
 import { ExpandedComponent } from './components/UserExpandedComponent'
-import { columnsUser, getUser } from './user.logic'
 
 const userType = [{ name: 'freelancer' }, { name: 'delivery' }]
 

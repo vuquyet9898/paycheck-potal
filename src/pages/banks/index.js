@@ -11,7 +11,7 @@ import {
   createBank,
   ExpandedComponentBank,
   getBanks,
-} from './bank.logic'
+} from 'actions/bank'
 
 export default function Banks() {
   // data table

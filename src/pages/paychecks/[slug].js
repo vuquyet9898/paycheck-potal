@@ -19,7 +19,7 @@ import {
   getPayCheckDetail,
   upFilePayCheck,
   columnsPayCheck,
-} from './paycheck.logic'
+} from 'actions/paycheck'
 
 export default function PaymentDetail() {
   // data table

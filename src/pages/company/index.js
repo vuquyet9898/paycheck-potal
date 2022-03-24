@@ -11,7 +11,7 @@ import {
   createCompany,
   ExpandedComponentCompany,
   getCompany,
-} from './company.logic'
+} from 'actions/company'
 
 export default function Company() {
   // data table
