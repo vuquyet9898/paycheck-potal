@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import LayoutWithHeader from 'components/LayoutWithHeader'
 import { SessionProvider } from 'next-auth/react'
 import { toast } from 'react-toastify'
