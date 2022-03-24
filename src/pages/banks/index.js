@@ -6,7 +6,12 @@ import Image from 'next/image'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import 'react-datepicker/dist/react-datepicker.css'
-import { columnsCompany, createBank, getBanks } from './bank.logic'
+import {
+  columnsCompany,
+  createBank,
+  ExpandedComponentBank,
+  getBanks,
+} from './bank.logic'
 
 export default function Banks() {
   // data table
@@ -206,6 +211,11 @@ export default function Banks() {
         onChangePage={handlePageChange}
         paginationPerPage={20}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
+        expandableRows
+        // eslint-disable-next-line react/no-unstable-nested-components
+        expandableRowsComponent={({ data }) => (
+          <ExpandedComponentBank data={data} callback={fetchListBank} />
+        )}
       />
     </div>
   )

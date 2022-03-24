@@ -6,7 +6,12 @@ import Image from 'next/image'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import 'react-datepicker/dist/react-datepicker.css'
-import { columnsCompany, createCompany, getCompany } from './company.logic'
+import {
+  columnsCompany,
+  createCompany,
+  ExpandedComponentCompany,
+  getCompany,
+} from './company.logic'
 
 export default function Company() {
   // data table
@@ -77,6 +82,7 @@ export default function Company() {
       setLoading(false)
     }
   }
+
   return (
     <div className="pr-4 pl-12  py-4">
       <div className="rtl flex justify-between">
@@ -206,6 +212,11 @@ export default function Company() {
         onChangePage={handlePageChange}
         paginationPerPage={20}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
+        expandableRows
+        // eslint-disable-next-line react/no-unstable-nested-components
+        expandableRowsComponent={({ data }) => (
+          <ExpandedComponentCompany data={data} callback={fetchPayCheck} />
+        )}
       />
     </div>
   )

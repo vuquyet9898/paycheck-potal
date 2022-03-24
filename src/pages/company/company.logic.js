@@ -15,6 +15,14 @@ export const getCompany = (name, page, limit) =>
       limit,
     },
   })
+export const deleteCompany = (id) =>
+  fetchApi({
+    url: `${COMPANY}/${id}`,
+
+    options: {
+      method: 'DELETE',
+    },
+  })
 
 export const createCompany = (params) =>
   fetchApi({
@@ -37,3 +45,26 @@ export const columnsCompany = [
     width: '350px',
   },
 ]
+
+export function ExpandedComponentCompany({ data, callback }) {
+  const onDeleteCompany = async () => {
+    try {
+      await deleteCompany(data?._id)
+      if (typeof callback === 'function') {
+        callback(0)
+      }
+    } catch (error) {}
+  }
+  return (
+    <div className="flex pr-10 pt-3 gap-x-4 pl-5 ">
+      <button
+        onClick={onDeleteCompany}
+        key={data.name}
+        type="button"
+        className="bg-red-500 hover:bg-red-500 text-white  py-2 px-4 rounded  text-xs"
+      >
+        <div>Delete</div>
+      </button>
+    </div>
+  )
+}
