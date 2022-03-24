@@ -8,16 +8,11 @@ module.exports = {
     es6: true,
     jest: true,
   },
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'next',
-    'prettier',
-  ],
+  extends: ['airbnb', 'airbnb/hooks', 'next', 'prettier'],
   settings: {
     'import/resolver': {
       node: {
-        "config": "./next.config.js",
+        config: './next.config.js',
         extensions: ['.js', '.jsx', '.json', '.css'],
         moduleDirectory: ['node_modules', 'src/'],
       },
@@ -40,7 +35,11 @@ module.exports = {
         extensions: ['.js', '.jsx', '.json'],
       },
     ],
-    'react/destructuring-assignment': ['error', 'always', { ignoreClassFields: true }],
+    'react/destructuring-assignment': [
+      'error',
+      'always',
+      { ignoreClassFields: true },
+    ],
     'react/prefer-stateless-function': ['off', { ignorePureComponents: true }],
     'react/button-has-type': 'warn',
     'no-irregular-whitespace': 'error',
@@ -59,5 +58,13 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'warn',
     'react/no-array-index-key': 'warn',
+    'no-underscore-dangle': ['off', { allow: ['_place'] }],
+    'jsx-a11y/label-has-associated-control': 'off',
+    'react/jsx-no-bind': 'off',
+    'react/function-component-definition': 'off',
+    'arrow-body-style': 'off',
+    'no-unsafe-optional-chaining': 'off',
+    'no-shadow': 'off',
+    'no-empty': 'off',
   },
-};
+}

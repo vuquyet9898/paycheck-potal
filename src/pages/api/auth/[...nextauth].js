@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { LOGIN } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
 import NextAuth from 'next-auth'
