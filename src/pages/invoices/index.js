@@ -1,10 +1,10 @@
 import { debounce } from 'lodash'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { columnsUser, getUser } from 'pages/user-management/user.logic'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useTableHeight } from 'helper/utils'
+import { columnsUser, getUser } from 'actions/user'
 
 const customStyles = {
   rows: {
