@@ -20,8 +20,9 @@ function PersonalPaymentDetail() {
       const temp = {}
       PAYMENT_APPROVAL.forEach((info) => {
         temp[info.fieldApprovalName] =
-          paymentDetail[info.fieldApprovalName] || 'pending'
+          paymentDetail[info.fieldApprovalName] || ''
       })
+      console.log('temp', temp)
       setFinalizeData(temp)
     }
   }, [paymentDetail])
@@ -45,6 +46,7 @@ function PersonalPaymentDetail() {
 
   const handleUpdatePayment = async () => {
     const result = await updatePaymentDetail({ id, data: finalizeData })
+    console.log('finalizeData', finalizeData)
     if (result?.status === 200) {
       toast.success('Update successfully!')
     } else {

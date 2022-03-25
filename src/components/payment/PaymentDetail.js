@@ -27,7 +27,7 @@ function PaymentDetail({
   }
 
   useEffect(() => {
-    setSelectedStatus({ name: data?.[detail.fieldApprovalName] || 'pending' })
+    setSelectedStatus({ name: data?.[detail.fieldApprovalName] || '' })
   }, [data, detail])
 
   const isImage = (url) => /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
@@ -37,7 +37,7 @@ function PaymentDetail({
     <Listbox value={selectedStatus} onChange={handleUpdateApproval}>
       <div className="relative mt-1">
         <Listbox.Button className="relative w-full max-w-[120px] py-2 px-3 text-left bg-white border border-slate-200 rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-indigo-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-          <span className="block truncate text-right capitalize">
+          <span className="block truncate text-right capitalize h-5">
             {selectedStatus.name}
           </span>
           <span className="absolute top-2 left-2">
