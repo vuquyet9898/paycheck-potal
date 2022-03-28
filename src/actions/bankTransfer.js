@@ -39,7 +39,9 @@ export const columnsBankTransfer = [
         rel="noreferrer"
         className="text-indigo-500 whitespace-nowrap overflow-hidden  overflow-ellipsis"
       >
-        {row?.invoiceFileUrl ? row?.invoiceFileUrl : ''}
+        {row?.invoiceFileUrl
+          ? row?.invoiceFileUrl[0].replace(/^.*[\\\/]/, '')
+          : ''}
       </a>
     ),
   },

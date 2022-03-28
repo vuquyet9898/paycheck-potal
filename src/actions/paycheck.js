@@ -41,7 +41,7 @@ export const columnsPayCheck = [
         rel="noreferrer"
         className="text-indigo-500 whitespace-nowrap overflow-hidden  overflow-ellipsis"
       >
-        {row.file_url}
+        {row.file_url.replace(/^.*[\\\/]/, '')}
       </a>
     ),
   },

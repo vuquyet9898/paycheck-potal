@@ -30,9 +30,19 @@ export const createInvoices = (params) =>
 
 export const columnsInvoices = [
   {
-    name: 'File name',
-    selector: (row) => row.file_name,
+    name: 'File Url',
+    selector: (row) => row.file_url,
     width: '450px',
+    cell: (row) => (
+      <a
+        href={row?.file_url ? row?.file_url : ''}
+        target="paycheck"
+        rel="noreferrer"
+        className="text-indigo-500 whitespace-nowrap overflow-hidden  overflow-ellipsis"
+      >
+        {row?.file_name ? row?.file_name : ''}
+      </a>
+    ),
   },
   {
     name: 'Date',
