@@ -1,38 +1,36 @@
 import Link from 'next/link'
 import React from 'react'
+import { getQuery } from 'utils/getQuery'
 
 const listMenuExpanded = [
-  { name: 'PayCheck', href: 'user-management/' },
+  { name: 'PayCheck', href: 'paychecks' },
   { name: 'Bank Transfer', href: 'bank-transfer/' },
   { name: 'Invoices', href: '/invoices/' },
-  { name: 'Payment', href: 'user-payment/' },
-  // { name: 'Edit', href: 'user-management/edit-user' },
+  { name: 'Payment', href: 'payment' },
 ]
+
 export function ExpandedComponent({ data }) {
   return (
     <div className="flex pr-10 pt-2 gap-x-4 pl-5 ">
-      {listMenuExpanded.map((item) => (
-        <button
-          key={item.name}
-          type="button"
-          className="bg-blue-500 hover:bg-blue-500 text-white  py-2 px-4 rounded  text-xs"
-        >
-          <Link
-            href={{
-              pathname: `${item.href}[slug]`,
-              query: {
-                slug: data?.personal_id,
-                id: data?._id,
-                branchNumber: data?.payment?.bank_detail?.branch_number,
-                bankName: data?.payment?.bank_detail?.bank_name,
-                accountNumber: data?.payment?.bank_detail?.account_number,
-              },
-            }}
+      {listMenuExpanded.map((item) => {
+        const query = getQuery(item.name, data)
+        return (
+          <button
+            key={item.name}
+            type="button"
+            className="bg-blue-500 hover:bg-blue-500 text-white  py-2 px-4 rounded  text-xs"
           >
-            <a>{item.name}</a>
-          </Link>
-        </button>
-      ))}
+            <Link
+              href={{
+                pathname: `${item.href}/${data?.personal_id}`,
+                query,
+              }}
+            >
+              <a>{item.name}</a>
+            </Link>
+          </button>
+        )
+      })}
     </div>
   )
 }

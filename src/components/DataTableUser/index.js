@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
+import { getQuery } from 'utils/getQuery'
 
 const customStyles = {
   rows: {
@@ -14,7 +15,7 @@ const customStyles = {
   },
 }
 
-export default function Index({ pathRedirect }) {
+export default function Index({ pathRedirect, tableName }) {
   const [keyword, setKeyword] = useState('')
   const changeHandler = (event) => {
     setKeyword(event.target.value)
@@ -54,19 +55,11 @@ export default function Index({ pathRedirect }) {
   }, [keyword, limit])
 
   const handleNavigate = (row) => {
-    // router.push({
-    //   pathname: `/invoices/[slug]`,
-    //   query: { slug: row?.personal_id, id: row?._id },
-    // })
+    const query = getQuery(tableName, row)
+
     router.push({
-      pathname: pathRedirect,
-      query: {
-        slug: row?.personal_id,
-        id: row?._id,
-        branchNumber: row?.payment?.bank_detail?.branch_number,
-        bankName: row?.payment?.bank_detail?.bank_name,
-        accountNumber: row?.payment?.bank_detail?.account_number,
-      },
+      pathname: `${pathRedirect}/${row.personal_id}`,
+      query,
     })
   }
 
