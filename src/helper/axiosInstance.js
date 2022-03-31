@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const axiosInstance = axios.create({
   // baseURL: process.env.REACT_APP_BASE_URL,
-  baseURL: 'http://159.223.75.67/api/v1/',
+  baseURL: 'https://dev.paycheck.just.engineer/api/v1/',
 })
 
 axiosInstance.interceptors.request.use(
