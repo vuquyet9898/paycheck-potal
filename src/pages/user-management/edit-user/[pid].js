@@ -1,7 +1,6 @@
-import { getPaymentDetail, updatePaymentDetail } from 'actions/payment'
-import BankInfoModal from 'components/payment/BankInfoModal'
-import PaymentDetail from 'components/payment/PaymentDetail'
-import { PAYMENT_APPROVAL } from 'constants/payment-approval'
+import { getUserDetail, updateUserDetail } from 'actions/user'
+import UserDetail from 'components/user/UserDetail'
+import { USER_APPROVAL, USER_DELIVERY_APPROVAL } from 'constants/user-approval'
 import { renderErrorMessage } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, { Fragment, useEffect, useState } from 'react'
@@ -11,25 +10,27 @@ function PersonalPaymentDetail() {
   const router = useRouter()
   const { pid, id } = router.query
 
-  const [paymentDetail, setPaymentDetail] = useState(null)
+  const [userDetail, setUserDetail] = useState(null)
   const [bankModalVisible, setBankModalVisible] = useState(false)
   const [finalizeData, setFinalizeData] = useState(null)
-
+  const dataApproval =
+    userDetail?.freelancer_type === 'freelancer'
+      ? USER_APPROVAL
+      : USER_DELIVERY_APPROVAL
   useEffect(() => {
-    if (paymentDetail) {
+    if (userDetail) {
       const temp = {}
-      PAYMENT_APPROVAL.forEach((info) => {
-        temp[info.fieldApprovalName] =
-          paymentDetail[info.fieldApprovalName] || ''
+      dataApproval.forEach((info) => {
+        temp[info.fieldApprovalName] = userDetail[info.fieldApprovalName] || ''
       })
       setFinalizeData(temp)
     }
-  }, [paymentDetail])
+  }, [userDetail])
 
   const getPaymentDataDetail = async () => {
-    const result = await getPaymentDetail({ id: pid })
+    const result = await getUserDetail(id)
     if (result?.data) {
-      setPaymentDetail(result.data)
+      setUserDetail(result.data)
     }
   }
 
@@ -44,7 +45,7 @@ function PersonalPaymentDetail() {
   }, [pid])
 
   const handleUpdatePayment = async () => {
-    const result = await updatePaymentDetail({ id, data: finalizeData })
+    const result = await updateUserDetail({ id, data: finalizeData })
     if (result?.status === 200) {
       toast.success('Update successfully!')
     } else {
@@ -69,11 +70,11 @@ function PersonalPaymentDetail() {
         </button>
       </div>
       <div className="flex flex-col gap-4 pl-4">
-        {PAYMENT_APPROVAL.map((info) => (
+        {dataApproval.map((info) => (
           <Fragment key={info.id}>
-            <PaymentDetail
+            <UserDetail
               detail={info}
-              data={paymentDetail}
+              data={userDetail}
               handleVisibleBankModal={handleVisibleBankModal}
               setFinalizeData={setFinalizeData}
               finalizeData={finalizeData}
@@ -81,11 +82,7 @@ function PersonalPaymentDetail() {
           </Fragment>
         ))}
       </div>
-      <BankInfoModal
-        info={paymentDetail}
-        visible={bankModalVisible}
-        setVisible={handleVisibleBankModal}
-      />
+
       <button
         type="button"
         className="mt-10 btn-primary px-3 py-2 rounded-md text-sm"

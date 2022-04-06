@@ -2,12 +2,11 @@ import { getPaymentData } from 'actions/payment'
 import { format, parseISO } from 'date-fns'
 import { useDebounce, useTableHeight } from 'helper/utils'
 import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 
 function Payment() {
   const [payment, setPayment] = useState([])
-  console.log('🚀 ===== payment', payment)
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
   const [perPage, setPerPage] = useState(20)

@@ -15,6 +15,29 @@ export const getUser = ({ page = 0, limit, freelancerType, personalId = '' }) =>
     },
   })
 
+export const getUserDetail = (id) =>
+  fetchApi({
+    url: `https://dev.paycheck.just.engineer/api/v1/users/${id}`,
+    options: {
+      method: 'GET',
+    },
+  })
+
+export const updateUserDetail = async ({ id, data }) => {
+  try {
+    const result = await fetchApi({
+      url: `https://dev.paycheck.just.engineer/api/v1/users/${id}`,
+      options: {
+        method: 'PATCH',
+      },
+      params: data,
+    })
+    return result
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const columnsUser = [
   {
     name: 'Type of user',
