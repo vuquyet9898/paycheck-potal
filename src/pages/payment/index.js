@@ -161,12 +161,6 @@ function Payment() {
             </div>
           </label>
         </div>
-        <div className="w-48 z-10 ml-4">
-          <FilterUser
-            selectedUserType={selectedUserType}
-            setSelectedUserType={setSelectedUserType}
-          />
-        </div>
       </div>
       <div className="mt-12">
         <DataTable

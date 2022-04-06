@@ -7,7 +7,7 @@ import { columnsUser, getUser } from 'actions/user'
 import { ExpandedComponent } from 'components/user/UserExpandedComponent'
 import FilterUser from 'components/user/FilterUser'
 
-const userType = [{ name: 'freelancer' }, { name: 'delivery' }]
+export const userType = [{ name: 'freelancer' }, { name: 'delivery' }]
 
 export default function Index() {
   const [data, setData] = useState([])

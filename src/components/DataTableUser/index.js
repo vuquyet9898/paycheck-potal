@@ -1,8 +1,10 @@
 import { columnsUser, getUser } from 'actions/user'
+import FilterUser from 'components/user/FilterUser'
 import { useTableHeight } from 'helper/utils'
 import { debounce } from 'lodash'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { userType } from 'pages/user-management'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { getQuery } from 'utils/getQuery'
@@ -30,12 +32,18 @@ export default function Index({ pathRedirect, tableName }) {
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
   const [limit, setPerPage] = useState(20)
+  const [selectedUserType, setSelectedUserType] = useState(userType[0])
 
   //
   //
   const fetchUsers = async (page) => {
     setLoading(true)
-    const response = await getUser({ page, limit, personalId: keyword })
+    const response = await getUser({
+      page,
+      limit,
+      personalId: keyword,
+      freelancerType: selectedUserType.name,
+    })
     setData(response.data.data)
     setTotalRows(response.data.total_page * limit)
 
@@ -52,7 +60,7 @@ export default function Index({ pathRedirect, tableName }) {
 
   useEffect(() => {
     fetchUsers()
-  }, [keyword, limit])
+  }, [keyword, limit, selectedUserType])
 
   const handleNavigate = (row) => {
     const query = getQuery(tableName, row)
@@ -88,6 +96,12 @@ export default function Index({ pathRedirect, tableName }) {
               />
             </div>
           </label>
+        </div>
+        <div className="w-48 z-10 ml-4">
+          <FilterUser
+            selectedUserType={selectedUserType}
+            setSelectedUserType={setSelectedUserType}
+          />
         </div>
       </div>
       <DataTable
