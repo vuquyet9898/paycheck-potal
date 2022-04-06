@@ -5,8 +5,13 @@ export default function index() {
   const pathRedirect = '/paychecks'
 
   return (
-    <div>
-      <DataTableUser pathRedirect={pathRedirect} tableName="PayCheck" />
+    <div className="px-4  py-4">
+      <h1 className="text-2xl font-bold uppercase flex justify-end">
+        PAY CHECK
+      </h1>
+      <div className="">
+        <DataTableUser pathRedirect={pathRedirect} tableName="PayCheck" />
+      </div>
     </div>
   )
 }

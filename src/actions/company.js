@@ -1,5 +1,6 @@
 import { COMPANY } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
+import { XIcon } from '@heroicons/react/solid'
 
 export const getCompany = (name, page, limit) =>
   fetchApi({
@@ -56,14 +57,15 @@ export function ExpandedComponentCompany({ data, callback }) {
     } catch (error) {}
   }
   return (
-    <div className="flex pr-10 pt-3 gap-x-4 pl-5 ">
+    <div className="flex pr-10 pt-3 gap-x-4 pl-5  pb-2">
       <button
         onClick={onDeleteCompany}
         key={data.name}
         type="button"
-        className="bg-red-500 hover:bg-red-500 text-white  py-2 px-4 rounded  text-xs"
+        className="bg-red-500 hover:bg-red-500 text-white  py-2 px-4 rounded mt-2  text-xs flex items-center"
       >
         <div>Delete</div>
+        <XIcon className="w-5 h-5" aria-hidden="true" />
       </button>
     </div>
   )

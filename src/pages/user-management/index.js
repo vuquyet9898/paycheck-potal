@@ -51,10 +51,13 @@ export default function Index() {
   const memoColumnsUser = useMemo(() => columnsUser, [])
 
   return (
-    <div>
-      <div className="w-full flex justify-end flex-row pt-8 ">
+    <div className="px-4 py-4">
+      <h1 className="text-2xl font-bold  uppercase flex justify-end">
+        User Management
+      </h1>
+      <div className="w-full flex justify-end flex-row mt-3 ">
         <div className="w-96 rtl flex flex-row items-center">
-          <p className="text-sm px-4">Personal ID</p>
+          {/* <p className="text-sm px-4">Personal ID</p> */}
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">
               <Image
@@ -69,7 +72,7 @@ export default function Index() {
             <div className="flex flex-row">
               <input
                 className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Search"
+                placeholder="Search Personal ID"
                 type="text"
                 name="search"
                 onChange={debouncedChangeHandler}
