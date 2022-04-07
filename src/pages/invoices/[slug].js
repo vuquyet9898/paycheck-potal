@@ -80,9 +80,9 @@ export default function InvoiceDetail() {
   const [startDate, setStartDate] = useState(new Date())
   // eslint-disable-next-line react/display-name
   const CustomInputDate = forwardRef(({ value, onClick }, ref) => (
-    <div className="px-4 pt-2 border-1 rounded-sm pb-2">
+    <div className=" pt-2 border-1 rounded-sm pb-2">
       <button type="button" onClick={onClick} ref={ref}>
-        <div className="font-medium">{value}</div>
+        <div className="">{value}</div>
       </button>
     </div>
   ))
@@ -166,7 +166,7 @@ export default function InvoiceDetail() {
                         customInput={<CustomInputDate />}
                         // dateFormat=""
                       />
-                      <div className=" font-medium">Date</div>
+                      <div className="">Date</div>
                     </div>
                     <label className="mt-4 w-full flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
                       <svg
