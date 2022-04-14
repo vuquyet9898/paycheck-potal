@@ -21,13 +21,11 @@ export const USER_APPROVAL = [
     id: 8,
     name: 'Address',
     fieldName: 'address',
-    // fieldApprovalName: 'address_approval',
   },
   {
     id: 9,
     name: 'Phone number',
     fieldName: 'phone_number',
-    // fieldApprovalName: 'phone_number_approval',
   },
   {
     id: 0,
@@ -64,6 +62,34 @@ export const USER_APPROVAL = [
 ]
 
 export const USER_DELIVERY_APPROVAL = [
+  {
+    id: 6,
+    name: 'Full Name',
+    fieldName: 'full_name',
+    fieldApprovalName: 'full_name_approval',
+  },
+  {
+    id: 7,
+    name: 'Email',
+    fieldName: 'email',
+    fieldApprovalName: 'email_approval',
+  },
+  {
+    id: 8,
+    name: 'Company',
+    fieldName: 'company_id',
+    fieldApprovalName: 'company_id_approval',
+  },
+  {
+    id: 9,
+    name: 'Address',
+    fieldName: 'address',
+  },
+  {
+    id: 10,
+    name: 'Phone number',
+    fieldName: 'phone_number',
+  },
   {
     id: 0,
     name: 'Insurance Policy',
