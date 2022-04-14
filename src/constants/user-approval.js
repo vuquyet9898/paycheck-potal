@@ -1,5 +1,35 @@
 export const USER_APPROVAL = [
   {
+    id: 5,
+    name: 'Full Name',
+    fieldName: 'full_name',
+    fieldApprovalName: 'full_name_approval',
+  },
+  {
+    id: 6,
+    name: 'Email',
+    fieldName: 'email',
+    fieldApprovalName: 'email_approval',
+  },
+  {
+    id: 7,
+    name: 'Company',
+    fieldName: 'company_id',
+    fieldApprovalName: 'company_id_approval',
+  },
+  {
+    id: 8,
+    name: 'Address',
+    fieldName: 'address',
+    // fieldApprovalName: 'address_approval',
+  },
+  {
+    id: 9,
+    name: 'Phone number',
+    fieldName: 'phone_number',
+    // fieldApprovalName: 'phone_number_approval',
+  },
+  {
     id: 0,
     name: 'Insurance Policy',
     fieldName: 'insurance_policy_url',
