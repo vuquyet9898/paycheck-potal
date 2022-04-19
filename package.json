@@ -2,11 +2,7 @@
   "name": "paycheck-portal-next",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "16.13.0",
-    "npm": "8.1.0",
-    "yarn": "1.22.17"
-  },
+ 
   "scripts": {
     "dev": "next dev",
     "build": "next build",

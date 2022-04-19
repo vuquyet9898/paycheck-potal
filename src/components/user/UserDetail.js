@@ -4,7 +4,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { IconCheck, IconChevronDown, IconPdf } from 'constants/icons'
 import React, { Fragment, useEffect, useState } from 'react'
 
-function PaymentDetail({
+function UserDetail({
   detail,
   data,
   handleVisibleBankModal,
@@ -112,70 +112,44 @@ function PaymentDetail({
   }
 
   const renderDetailDocument = () => {
-    if (detail.fieldName === 'invoice_name') {
-      return data?.invoice_name
-    }
-    if (detail.fieldName === 'bank_detail') {
-      return (
-        <button
-          type="button"
-          className="px-3 py-2 btn-primary-reverse rounded-md"
-          onClick={handleVisibleBankModal}
-        >
-          View Detail
-        </button>
-      )
-    }
     if (
-      detail.fieldName === 'additional_documents_urls' &&
-      data?.additional_documents_urls
+      detail.fieldName === 'insurance_policy_url' &&
+      data?.insurance_policy_url
     ) {
-      return data?.additional_documents_urls.map((url, index) =>
+      return data?.insurance_policy_url.map((url, index) =>
         renderImageOrPdf(url, index)
       )
     }
     if (
-      detail.fieldName === 'approval_of_illness_urls' &&
-      data?.approval_of_illness_urls
+      detail.fieldName === 'personal_accidents_insurance_url' &&
+      data?.personal_accidents_insurance_url
     ) {
-      return data?.approval_of_illness_urls.map((url, index) =>
+      return data?.personal_accidents_insurance_url.map((url, index) =>
+        renderImageOrPdf(url, index)
+      )
+    }
+    if (detail.fieldName === 'pension_policy_url' && data?.pension_policy_url) {
+      return data?.pension_policy_url.map((url, index) =>
+        renderImageOrPdf(url, index)
+      )
+    }
+    if (detail.fieldName === 'life_insurance_url' && data?.life_insurance_url) {
+      return data?.life_insurance_url.map((url, index) =>
         renderImageOrPdf(url, index)
       )
     }
     if (
-      detail.fieldName === 'disability_approval_url' &&
-      data?.disability_approval_url
+      detail.fieldName === 'health_insurance_url' &&
+      data?.health_insurance_url
     ) {
-      return data?.disability_approval_url.map((url, index) =>
+      return data?.health_insurance_url.map((url, index) =>
         renderImageOrPdf(url, index)
       )
     }
-    if (detail.fieldName === 'release_papers_url' && data?.release_papers_url) {
-      return data?.release_papers_url.map((url, index) =>
-        renderImageOrPdf(url, index)
-      )
-    }
-    if (
-      detail.fieldName === 'social_security_coordinations_urls' &&
-      data?.social_security_coordinations_urls
-    ) {
-      return data?.social_security_coordinations_urls.map((url, index) =>
-        renderImageOrPdf(url, index)
-      )
-    }
-    if (
-      detail.fieldName === 'military_work_permit_url' &&
-      data?.military_work_permit_url
-    ) {
-      return data?.military_work_permit_url.map((url, index) =>
-        renderImageOrPdf(url, index)
-      )
-    }
-    if (
-      detail.fieldName === 'tax_coordinations_urls' &&
-      data?.tax_coordinations_urls
-    ) {
-      return data?.tax_coordinations_urls.map((url, index) =>
+    // Delivery
+
+    if (detail.fieldName === 'car_license_url' && data?.car_license_url) {
+      return data?.car_license_url.map((url, index) =>
         renderImageOrPdf(url, index)
       )
     }
@@ -190,4 +164,4 @@ function PaymentDetail({
   )
 }
 
-export default PaymentDetail
+export default UserDetail

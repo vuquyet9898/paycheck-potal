@@ -1,8 +1,10 @@
 import { columnsUser, getUser } from 'actions/user'
+import FilterUser from 'components/user/FilterUser'
 import { useTableHeight } from 'helper/utils'
 import { debounce } from 'lodash'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { userType } from 'pages/user-management'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { getQuery } from 'utils/getQuery'
@@ -30,12 +32,18 @@ export default function Index({ pathRedirect, tableName }) {
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
   const [limit, setPerPage] = useState(20)
+  const [selectedUserType, setSelectedUserType] = useState(userType[0])
 
   //
   //
   const fetchUsers = async (page) => {
     setLoading(true)
-    const response = await getUser({ page, limit, personalId: keyword })
+    const response = await getUser({
+      page,
+      limit,
+      personalId: keyword,
+      freelancerType: selectedUserType.name,
+    })
     setData(response.data.data)
     setTotalRows(response.data.total_page * limit)
 
@@ -52,7 +60,7 @@ export default function Index({ pathRedirect, tableName }) {
 
   useEffect(() => {
     fetchUsers()
-  }, [keyword, limit])
+  }, [keyword, limit, selectedUserType])
 
   const handleNavigate = (row) => {
     const query = getQuery(tableName, row)
@@ -64,10 +72,9 @@ export default function Index({ pathRedirect, tableName }) {
   }
 
   return (
-    <div className="pt-8 ">
+    <div className="pt-3 ">
       <div className=" flex flex-row justify-end">
         <div className="w-96 rtl flex flex-row items-center">
-          <p className="text-sm px-4">Personal ID</p>
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">
               <Image
@@ -82,13 +89,19 @@ export default function Index({ pathRedirect, tableName }) {
             <div className="flex flex-row">
               <input
                 className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Search"
+                placeholder="Search Personal ID"
                 type="text"
                 name="search"
                 onChange={debouncedChangeHandler}
               />
             </div>
           </label>
+        </div>
+        <div className="w-48 z-10 ml-4">
+          <FilterUser
+            selectedUserType={selectedUserType}
+            setSelectedUserType={setSelectedUserType}
+          />
         </div>
       </div>
       <DataTable

@@ -5,8 +5,9 @@ import { getQuery } from 'utils/getQuery'
 const listMenuExpanded = [
   { name: 'PayCheck', href: 'paychecks' },
   { name: 'Bank Transfer', href: 'bank-transfer/' },
-  { name: 'Invoices', href: '/invoices/' },
+  { name: 'Invoices', href: 'invoices/' },
   { name: 'Payment', href: 'payment' },
+  { name: 'Edit User', href: 'user-management/edit-user' },
 ]
 
 export function ExpandedComponent({ data }) {

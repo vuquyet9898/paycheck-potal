@@ -64,9 +64,9 @@ function BankInfoModal({ info, visible = false, setVisible = false }) {
                 <p className="text-sm text-gray-500 text-right">
                   {info?.bank_detail?.account_owner}
                 </p>
-                <p className="text-sm font-medium text-right">Bank id</p>
+                <p className="text-sm font-medium text-right">Bank name</p>
                 <p className="text-sm text-gray-500 text-right">
-                  {info?.bank_detail?.bank_id}
+                  {info?.bank_detail?.bank_name}
                 </p>
                 <p className="text-sm font-medium text-right">Branch number</p>
                 <p className="text-sm text-gray-500 text-right">

@@ -84,8 +84,8 @@ export default function Banks() {
   }
   return (
     <div className="pr-4 pl-12  py-4">
-      <div className="rtl flex justify-between">
-        <h1 className="text-2xl font-bold py-4 uppercase">BANKS</h1>
+      <div className="rtl flex justify-between ">
+        <h1 className="text-2xl font-bold uppercase">BANKS</h1>
 
         <button
           onClick={openModal}
@@ -97,8 +97,9 @@ export default function Banks() {
           </div>
         </button>
       </div>
-      <div className=" flex flex-row justify-end">
-        <div className="w-96 rtl ">
+
+      <div className=" flex flex-row justify-end ">
+        <div className="w-96 rtl flex flex-row items-center">
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">
               <Image
@@ -110,17 +111,16 @@ export default function Banks() {
                 height={20}
               />
             </span>
-            <input
-              className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-              placeholder="Bank name"
-              type="text"
-              name="search"
-              onChange={debouncedChangeHandler}
-            />
+            <div className="flex flex-row">
+              <input
+                className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                placeholder="Search bank"
+                type="text"
+                name="search"
+                onChange={debouncedChangeHandler}
+              />
+            </div>
           </label>
-        </div>
-        <div className="flex flex-row  items-center justify-center text-sm ml-4">
-          <p>search Bank</p>
         </div>
       </div>
 
@@ -197,26 +197,28 @@ export default function Banks() {
           </div>
         </Dialog>
       </Transition>
-      <DataTable
-        columns={columnsCompany}
-        data={data}
-        direction="rtl"
-        fixedHeader
-        fixedHeaderScrollHeight={`${tableHeight}px`}
-        progressPending={loading}
-        pagination
-        paginationServer
-        paginationTotalRows={totalRows}
-        onChangeRowsPerPage={handlePerRowsChange}
-        onChangePage={handlePageChange}
-        paginationPerPage={20}
-        paginationRowsPerPageOptions={[10, 20, 30, 50]}
-        expandableRows
-        // eslint-disable-next-line react/no-unstable-nested-components
-        expandableRowsComponent={({ data }) => (
-          <ExpandedComponentBank data={data} callback={fetchListBank} />
-        )}
-      />
+      <div className="mt-6">
+        <DataTable
+          columns={columnsCompany}
+          data={data}
+          direction="rtl"
+          fixedHeader
+          fixedHeaderScrollHeight={`${tableHeight}px`}
+          progressPending={loading}
+          pagination
+          paginationServer
+          paginationTotalRows={totalRows}
+          onChangeRowsPerPage={handlePerRowsChange}
+          onChangePage={handlePageChange}
+          paginationPerPage={20}
+          paginationRowsPerPageOptions={[10, 20, 30, 50]}
+          expandableRows
+          // eslint-disable-next-line react/no-unstable-nested-components
+          expandableRowsComponent={({ data }) => (
+            <ExpandedComponentBank data={data} callback={fetchListBank} />
+          )}
+        />
+      </div>
     </div>
   )
 }
