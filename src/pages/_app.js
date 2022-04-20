@@ -1,6 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import LanguageProvider from 'components/LanguageProvider'
 import LayoutWithHeader from 'components/LayoutWithHeader'
+import { LanguageContext } from 'hooks/languageContent'
 import { SessionProvider } from 'next-auth/react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'styles/globals.scss'
@@ -10,13 +13,27 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
+  const [currentLanguage, setCurrentLanguage] = useState('en')
+  const setEnLanguage = useCallback(() => {
+    setCurrentLanguage('en')
+  }, [])
+  const setHbLanguage = useCallback(() => {
+    setCurrentLanguage('hb')
+  }, [])
+  const languageMemoValue = useMemo(
+    () => ({ currentLanguage, setEnLanguage, setHbLanguage }),
+    [currentLanguage, setEnLanguage, setHbLanguage]
+  )
+
   return (
-    // `session` comes from `getServerSideProps` or `getInitialProps`.
-    // Avoids flickering/session loading on first load.
-    <SessionProvider session={session} refetchInterval={5 * 60}>
-      <LayoutWithHeader>
-        <Component {...pageProps} />
-      </LayoutWithHeader>
-    </SessionProvider>
+    <LanguageContext.Provider value={languageMemoValue}>
+      <LanguageProvider>
+        <SessionProvider session={session} refetchInterval={5 * 60}>
+          <LayoutWithHeader>
+            <Component {...pageProps} />
+          </LayoutWithHeader>
+        </SessionProvider>
+      </LanguageProvider>
+    </LanguageContext.Provider>
   )
 }

@@ -4,11 +4,13 @@ import { USER_APPROVAL, USER_DELIVERY_APPROVAL } from 'constants/user-approval'
 import { renderErrorMessage } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, { Fragment, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 function PersonalPaymentDetail() {
   const router = useRouter()
   const { pid, id } = router.query
+  const [t] = useTranslation('common')
 
   const [userDetail, setUserDetail] = useState(null)
   const [bankModalVisible, setBankModalVisible] = useState(false)
@@ -59,14 +61,15 @@ function PersonalPaymentDetail() {
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
         <h1 className="py-4 uppercase">
-          Personal ID: <span className="font-bold text-2xl">{pid}</span>
+          {t('user.personalID')}
+          <span className="font-bold text-2xl">{pid}</span>
         </h1>
         <button
           type="button"
           className="ml-8 underline text-indigo-500 hover:text-indigo-400 active:text-indigo-600"
           onClick={() => router.back()}
         >
-          Back
+          {t('user.back')}
         </button>
       </div>
       <div className="flex flex-col gap-4 pl-4">
@@ -88,7 +91,7 @@ function PersonalPaymentDetail() {
         className="mt-10 btn-primary px-3 py-2 rounded-md text-sm"
         onClick={handleUpdatePayment}
       >
-        Update
+        {t('user.update')}
       </button>
     </div>
   )

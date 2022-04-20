@@ -3,14 +3,9 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { IconCheck, IconChevronDown, IconPdf } from 'constants/icons'
 import React, { Fragment, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-function UserDetail({
-  detail,
-  data,
-  handleVisibleBankModal,
-  setFinalizeData,
-  finalizeData,
-}) {
+function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
   const status = [
     { name: 'pending' },
     { name: 'invalid' },
@@ -25,6 +20,7 @@ function UserDetail({
       [detail.fieldApprovalName]: s?.name,
     })
   }
+  const [t] = useTranslation('common')
 
   useEffect(() => {
     setSelectedStatus({ name: data?.[detail.fieldApprovalName] || '' })
@@ -32,13 +28,60 @@ function UserDetail({
 
   const isImage = (url) => /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
   const isPdf = (url) => /\.(pdf)$/.test(url)
+  const renderStatus = (name) => {
+    switch (name) {
+      case 'pending':
+        return t('user.pending')
+      case 'approved':
+        return t('user.approved')
+      case 'invalid':
+        return t('user.invalid')
+      default:
+        return name
+    }
+  }
+  const renderRowName = (name) => {
+    console.log('name', name)
+    // check vale in USER_APPROVAL || USER_DELIVERY_APPROVAL
+    switch (name) {
+      case 'Insurance Policy':
+        return t('user.insurancePolicy')
+
+      case 'Name on the Invoice':
+        return t('payment.nameOnTheInvoice')
+
+      case 'Tax Coordination':
+        return t('payment.taxCoordination')
+
+      case 'Social Security Coordination':
+        return t('payment.socialSecurityCoordination')
+
+      case 'Approval of Illness':
+        return t('payment.approvalOfIllness')
+
+      case 'Release Papers':
+        return t('payment.releasePapers')
+
+      case 'Disability Approval':
+        return t('payment.disabilityApproval')
+
+      case 'Military Work Permit':
+        return t('payment.militaryWorkPermit')
+
+      case 'Additional documents':
+        return t('payment.additionalDocuments')
+
+      default:
+        return '-'
+    }
+  }
 
   const renderDetailAction = () => (
     <Listbox value={selectedStatus} onChange={handleUpdateApproval}>
       <div className="relative mt-1">
         <Listbox.Button className="relative w-full max-w-[120px] py-2 px-3 text-left bg-white border border-slate-200 rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-indigo-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
           <span className="block truncate text-right capitalize h-5">
-            {selectedStatus.name}
+            {renderStatus(selectedStatus.name)}
           </span>
           <span className="absolute top-2 left-2">
             <IconChevronDown size={20} />
@@ -157,7 +200,7 @@ function UserDetail({
 
   return (
     <div className="grid grid-cols-3 xl:grid-cols-6 gap-x-4 items-center text-sm">
-      <p className="font-medium">{detail.name}</p>
+      <p className="font-medium">{renderRowName(detail.name)}</p>
       <div className="flex items-center gap-x-4">{renderDetailDocument()}</div>
       <div>{renderDetailAction()}</div>
     </div>

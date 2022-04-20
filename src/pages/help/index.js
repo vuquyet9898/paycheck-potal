@@ -5,23 +5,12 @@ import { debounce } from 'lodash'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
+import { useTranslation } from 'react-i18next'
 
 export function ExpandedComponent({ data }) {
   return <div className="text-sm leading-7 px-6">{data.content}</div>
 }
 
-const columnsHelp = [
-  {
-    name: 'Phone number',
-    selector: (row) => row.phonenumber,
-    width: '200px',
-  },
-  {
-    width: '1200px',
-    name: 'Messages',
-    selector: (row) => row.content,
-  },
-]
 const getHelp = ({ page = 0, limit, phoneNumber = '' }) =>
   fetchApi({
     url: `${HELP}/admin`,
@@ -36,6 +25,8 @@ const getHelp = ({ page = 0, limit, phoneNumber = '' }) =>
   })
 
 export default function Index() {
+  const [t] = useTranslation('common')
+
   const [keyword, setKeyword] = useState('')
   const changeHandler = (event) => {
     setKeyword(event.target.value)
@@ -72,9 +63,24 @@ export default function Index() {
     fetchUsers()
   }, [keyword, limit])
 
+  const columnsHelp = [
+    {
+      name: t('help.phone'),
+      selector: (row) => row.phonenumber,
+      width: '200px',
+    },
+    {
+      width: '1200px',
+      name: t('help.mes'),
+      selector: (row) => row.content,
+    },
+  ]
+
   return (
     <div className="px-4 py-4">
-      <h1 className="text-2xl font-bold  uppercase flex justify-end">help</h1>
+      <h1 className="text-2xl font-bold  uppercase flex justify-end">
+        {t('help.title')}
+      </h1>
       <div className="  pt-3  flex flex-row justify-end ">
         <div className="w-96 rtl flex flex-row items-center">
           <label className="relative block" htmlFor="first-name">
@@ -91,7 +97,7 @@ export default function Index() {
             <div className="flex flex-row">
               <input
                 className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Search Personal ID"
+                placeholder={t('user.titleSearch')}
                 type="text"
                 name="search Personal ID"
                 onChange={debouncedChangeHandler}
@@ -103,7 +109,7 @@ export default function Index() {
       <DataTable
         fixedHeader
         expandableRows
-        title="All Messages"
+        title={t('user.allUser')}
         columns={columnsHelp}
         data={data}
         direction="rtl"

@@ -4,9 +4,10 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useTableHeight } from 'helper/utils'
-import { columnsUser, getUser } from 'actions/user'
+import { getUser, UseSchemaColumnsUser } from 'actions/user'
 import FilterUser from 'components/user/FilterUser'
 import { userType } from 'pages/user-management'
+import { useTranslation } from 'react-i18next'
 
 const customStyles = {
   rows: {
@@ -22,12 +23,15 @@ export default function Index() {
     setKeyword(event.target.value)
   }
   const [selectedUserType, setSelectedUserType] = useState(userType[0])
+  const [t] = useTranslation('common')
 
   const router = useRouter()
   const { tableHeight } = useTableHeight(302)
 
   const debouncedChangeHandler = useMemo(() => debounce(changeHandler, 300), [])
-  const memoColumnsUser = useMemo(() => columnsUser, [])
+
+  const columns = UseSchemaColumnsUser()
+  const memoColumnsUser = useMemo(() => columns, [columns])
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
@@ -71,7 +75,7 @@ export default function Index() {
   return (
     <div className="px-4 py-4 ">
       <h1 className="text-2xl font-bold  uppercase flex justify-end">
-        invoices
+        {t('incvoices.title')}
       </h1>
       <div className=" mt-3 flex flex-row justify-end">
         <div className="w-96 rtl flex flex-row items-center">
@@ -90,7 +94,7 @@ export default function Index() {
             <div className="flex flex-row">
               <input
                 className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Search Personal ID"
+                placeholder={t('payment.titleSearch')}
                 type="text"
                 name="search"
                 onChange={debouncedChangeHandler}
@@ -107,7 +111,7 @@ export default function Index() {
       </div>
       <DataTable
         fixedHeader
-        title="All user"
+        title={t('user.allUser')}
         columns={memoColumnsUser}
         data={data}
         direction="rtl"

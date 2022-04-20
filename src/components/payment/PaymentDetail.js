@@ -3,6 +3,7 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { IconCheck, IconChevronDown, IconPdf } from 'constants/icons'
 import React, { Fragment, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function PaymentDetail({
   detail,
@@ -11,6 +12,8 @@ function PaymentDetail({
   setFinalizeData,
   finalizeData,
 }) {
+  const [t] = useTranslation('common')
+
   const status = [
     { name: 'pending' },
     { name: 'invalid' },
@@ -33,12 +36,57 @@ function PaymentDetail({
   const isImage = (url) => /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
   const isPdf = (url) => /\.(pdf)$/.test(url)
 
+  const renderStatus = (name) => {
+    switch (name) {
+      case 'pending':
+        return t('user.pending')
+      case 'approved':
+        return t('user.approved')
+      case 'invalid':
+        return t('user.invalid')
+      default:
+        return '-'
+    }
+  }
+  const renderRowName = (name) => {
+    switch (name) {
+      case 'Bank Information':
+        return t('payment.bankInformation')
+
+      case 'Name on the Invoice':
+        return t('payment.nameOnTheInvoice')
+
+      case 'Tax Coordination':
+        return t('payment.taxCoordination')
+
+      case 'Social Security Coordination':
+        return t('payment.socialSecurityCoordination')
+
+      case 'Approval of Illness':
+        return t('payment.approvalOfIllness')
+
+      case 'Release Papers':
+        return t('payment.releasePapers')
+
+      case 'Disability Approval':
+        return t('payment.disabilityApproval')
+
+      case 'Military Work Permit':
+        return t('payment.militaryWorkPermit')
+
+      case 'Additional documents':
+        return t('payment.additionalDocuments')
+
+      default:
+        return '-'
+    }
+  }
   const renderDetailAction = () => (
     <Listbox value={selectedStatus} onChange={handleUpdateApproval}>
       <div className="relative mt-1">
         <Listbox.Button className="relative w-full max-w-[120px] py-2 px-3 text-left bg-white border border-slate-200 rounded-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-indigo-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
           <span className="block truncate text-right capitalize h-5">
-            {selectedStatus.name}
+            {renderStatus(selectedStatus.name)}
           </span>
           <span className="absolute top-2 left-2">
             <IconChevronDown size={20} />
@@ -63,12 +111,16 @@ function PaymentDetail({
               >
                 <p
                   className={`w-full truncate inline-flex items-center justify-between ${
-                    selectedStatus.name === s.name ? 'font-bold' : 'font-normal'
+                    selectedStatus.name === renderStatus(s.name)
+                      ? 'font-bold'
+                      : 'font-normal'
                   }`}
                 >
-                  <span>{s.name}</span>
+                  <span>{renderStatus(s.name)}</span>
                   <span>
-                    {selectedStatus.name === s.name && <IconCheck size={16} />}
+                    {selectedStatus.name === renderStatus(s.name) && (
+                      <IconCheck size={16} />
+                    )}
                   </span>
                 </p>
               </Listbox.Option>
@@ -105,7 +157,7 @@ function PaymentDetail({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <IconPdf /> <span>PDF</span>
+          <IconPdf /> <span>{t('payment.PDF')}</span>
         </a>
       )
     return null
@@ -122,7 +174,7 @@ function PaymentDetail({
           className="px-3 py-2 btn-primary-reverse rounded-md"
           onClick={handleVisibleBankModal}
         >
-          View Detail
+          {t('payment.viewDetail')}
         </button>
       )
     }
@@ -183,7 +235,7 @@ function PaymentDetail({
 
   return (
     <div className="grid grid-cols-3 xl:grid-cols-6 gap-x-4 items-center text-sm">
-      <p className="font-medium">{detail.name}</p>
+      <p className="font-medium">{renderRowName(detail.name)}</p>
       <div className="flex items-center gap-x-4">{renderDetailDocument()}</div>
       <div>{renderDetailAction()}</div>
     </div>

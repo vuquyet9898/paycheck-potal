@@ -1,0 +1,74 @@
+{
+  "user": {
+    "title": "USER MANAGEMENT",
+    "titleSearch": "Search Personal ID",
+    "freelance": "freelancer",
+    "delivery": "delivery",
+    "allUser": "All user",
+    "name": "Name",
+    "email": "Email",
+    "company": "Company",
+    "id": "ID",
+    "phone": "Phone",
+    "typeOffUser": "Type off user",
+    "edit": "Edit User",
+    "payment": "Payment",
+    "Invoices": "Invoices",
+    "bankTransfer": "Bank Transfer",
+    "payCheck": "PayCheck",
+    "personalID": "Personal ID:",
+    "back": "Back",
+    "update": "Update",
+    "pending": "Pending",
+    "approved": "Approved",
+    "invalid": "invalid",
+    "": "",
+    "insurancePolicy": "Insurance Policy",
+    "personalAccidentsInsurance": "Personal Accidents Insurance",
+    "pensionPolicy": "Pension Policy",
+    "lifeInsurance": "Life Insurance",
+    "healthInsurance": "Health Insurance",
+    "carLicense": "Car License"
+  },
+  "payment": {
+    "payment": "Payment",
+    "titleSearch": "Search Personal ID",
+    "personalId": "Personal ID",
+    "userId": "User ID",
+    "invoiceName": "Invoice Name",
+    "bankId": "Bank ID",
+    "bankName": "Bank Name",
+    "bankAccountNumber": "Bank Account Number",
+    "bankAccountOwner": "Bank Account Owner",
+    "bankBranchNumber": "Bank Branch Number",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "bankInformation": "Bank Information",
+    "nameOnTheInvoice": "Name on the Invoice",
+    "taxCoordination": "Tax Coordination",
+    "socialSecurityCoordination": "Social Security Coordination",
+    "approvalOfIllness": "Approval of Illness",
+    "releasePapers": "Release Papers",
+    "disabilityApproval": "Disability Approval",
+    "militaryWorkPermit": "Military Work Permit",
+    "additionalDocuments": "Additional documents",
+    "viewDetail": " View Detail",
+    "PDF": "PDF",
+    "Back": "Back",
+    "PersonalID:": "Personal ID:"
+  },
+  "bankTransfer": {
+    "title": "BANK TRANSFER"
+  },
+  "incvoices": {
+    "title": "incvoices"
+  },
+  "paycheck": {
+    "title": "PAYCHECK"
+  },
+  "help": {
+    "title": "HELP",
+    "phone": "Phone number",
+    "mes": "Messages"
+  }
+}

@@ -12,10 +12,23 @@ import { delay } from 'helper/utils'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { Dialog } from '@headlessui/react'
+import { LanguageContext } from 'hooks/languageContent'
 import NavbarTooltip from './NavbarTooltip'
 
 function Navbar({ isLogin, collapse, handleCollapse }) {
   const router = useRouter()
+  const [modalChangeLanguage, setIsOpenModalChangeLanguage] = useState(false)
+
+  const { setEnLanguage, setHbLanguage } = React.useContext(LanguageContext)
+  const onSetEnLanguage = () => {
+    setEnLanguage()
+    setIsOpenModalChangeLanguage(false)
+  }
+  const onSetHbLanguage = () => {
+    setHbLanguage()
+    setIsOpenModalChangeLanguage(false)
+  }
 
   const [showMenuText, setShowMenuText] = useState(true)
 
@@ -79,7 +92,6 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
   ]
 
   if (!isLogin) return null
-
   return (
     <div
       className={`bg-gray-100 w-full ${
@@ -107,6 +119,15 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
               </a>
             </Link>
           ))}
+          <button
+            className="py-2 px-3  flex items-center justify-center hover:bg-indigo-200 rounded-md"
+            type="button"
+            onClick={() => setIsOpenModalChangeLanguage(true)}
+          >
+            <span className="text-sm  w-full flex  justify-end ">
+              Change Language
+            </span>
+          </button>
         </div>
         <button
           className="py-2 px-3 hover:bg-gray-300 flex items-center justify-center"
@@ -116,6 +137,39 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
           {!showMenuText ? <IconExpandNav /> : 'Collapse'}
         </button>
       </div>
+      <Dialog
+        open={modalChangeLanguage}
+        onClose={() => setIsOpenModalChangeLanguage(false)}
+        className="bg-slate-400 justify-center items-center flex absolute w-full h-full top-0 bg-transparent"
+      >
+        <div className="w-72 h-40 bg-white rounded-md drop-shadow-xl flex justify-center pt-4">
+          <div>
+            <div className="w-72 flex justify-center">
+              <Dialog.Title>Choose language</Dialog.Title>
+            </div>
+            <div className="flex mt-8 w-72 justify-center gap-x-4">
+              <button
+                type="button"
+                onClick={onSetEnLanguage}
+                className="w-28 p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg hover:scale-105 border-blue-300"
+              >
+                <span className="text-sm  w-full flex  justify-center  ">
+                  English
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={onSetHbLanguage}
+                className="w-28 p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg  hover:scale-105 border-blue-300"
+              >
+                <span className="text-sm  w-full flex  justify-center ">
+                  Hebrew
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </Dialog>
     </div>
   )
 }

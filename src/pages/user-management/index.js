@@ -1,15 +1,18 @@
+import { getUser, UseSchemaColumnsUser } from 'actions/user'
+import FilterUser from 'components/user/FilterUser'
+import { ExpandedComponent } from 'components/user/UserExpandedComponent'
 import { useTableHeight } from 'helper/utils'
 import { debounce } from 'lodash'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { columnsUser, getUser } from 'actions/user'
-import { ExpandedComponent } from 'components/user/UserExpandedComponent'
-import FilterUser from 'components/user/FilterUser'
+import { useTranslation } from 'react-i18next'
 
 export const userType = [{ name: 'freelancer' }, { name: 'delivery' }]
 
 export default function Index() {
+  const [t] = useTranslation('common')
+
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
@@ -48,13 +51,16 @@ export default function Index() {
   useEffect(() => {
     fetchUsers(0)
   }, [selectedUserType, keyword, perPage])
-  const memoColumnsUser = useMemo(() => columnsUser, [])
+
+  const columns = UseSchemaColumnsUser()
+  const memoColumnsUser = useMemo(() => columns, [columns])
 
   return (
     <div className="px-4 py-4">
       <h1 className="text-2xl font-bold  uppercase flex justify-end">
-        User Management
+        {t('user.title')}
       </h1>
+
       <div className="w-full flex justify-end flex-row mt-3 ">
         <div className="w-96 rtl flex flex-row items-center">
           {/* <p className="text-sm px-4">Personal ID</p> */}
@@ -72,7 +78,7 @@ export default function Index() {
             <div className="flex flex-row">
               <input
                 className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Search Personal ID"
+                placeholder={t('user.titleSearch')}
                 type="text"
                 name="search"
                 onChange={debouncedChangeHandler}
@@ -89,7 +95,7 @@ export default function Index() {
       </div>
       <DataTable
         fixedHeader
-        title="All user"
+        title={t('user.allUser')}
         columns={memoColumnsUser}
         data={data}
         expandableRows

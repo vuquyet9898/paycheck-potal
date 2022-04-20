@@ -5,6 +5,7 @@ import { PAYMENT_APPROVAL } from 'constants/payment-approval'
 import { renderErrorMessage } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, { Fragment, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 function PersonalPaymentDetail() {
@@ -14,6 +15,7 @@ function PersonalPaymentDetail() {
   const [paymentDetail, setPaymentDetail] = useState(null)
   const [bankModalVisible, setBankModalVisible] = useState(false)
   const [finalizeData, setFinalizeData] = useState(null)
+  const [t] = useTranslation('common')
 
   useEffect(() => {
     if (paymentDetail) {
@@ -58,14 +60,15 @@ function PersonalPaymentDetail() {
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
         <h1 className="py-4 uppercase">
-          Personal ID: <span className="font-bold text-2xl">{pid}</span>
+          {t('payment.PersonalID')}
+          <span className="font-bold text-2xl">{pid}</span>
         </h1>
         <button
           type="button"
           className="ml-8 underline text-indigo-500 hover:text-indigo-400 active:text-indigo-600"
           onClick={() => router.back()}
         >
-          Back
+          {t('payment.Back')}
         </button>
       </div>
       <div className="flex flex-col gap-4 pl-4">

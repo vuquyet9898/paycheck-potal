@@ -1,16 +1,38 @@
 import Link from 'next/link'
 import React from 'react'
 import { getQuery } from 'utils/getQuery'
-
-const listMenuExpanded = [
-  { name: 'PayCheck', href: 'paychecks' },
-  { name: 'Bank Transfer', href: 'bank-transfer/' },
-  { name: 'Invoices', href: 'invoices/' },
-  { name: 'Payment', href: 'payment' },
-  { name: 'Edit User', href: 'user-management/edit-user' },
-]
+import { useTranslation } from 'react-i18next'
 
 export function ExpandedComponent({ data }) {
+  const [t] = useTranslation('common')
+
+  const listMenuExpanded = [
+    {
+      name: 'PayCheck',
+      href: 'paychecks',
+      title: t('user.payCheck'),
+    },
+    {
+      name: 'Bank Transfer',
+      href: 'bank-transfer/',
+      title: t('user.bankTransfer'),
+    },
+    {
+      name: 'Invoices',
+      href: 'invoices/',
+      title: t('user.Invoices'),
+    },
+    {
+      name: 'Payment',
+      href: 'payment',
+      title: t('user.payment'),
+    },
+    {
+      name: 'Edit User',
+      href: 'user-management/edit-user',
+      title: t('user.edit'),
+    },
+  ]
   return (
     <div className="flex pr-10 pt-2 gap-x-4 pl-5 ">
       {listMenuExpanded.map((item) => {
@@ -27,7 +49,7 @@ export function ExpandedComponent({ data }) {
                 query,
               }}
             >
-              <a>{item.name}</a>
+              <a>{item.title}</a>
             </Link>
           </button>
         )

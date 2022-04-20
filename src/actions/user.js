@@ -1,5 +1,6 @@
 import { USER } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
+import { useTranslation } from 'react-i18next'
 
 export const getUser = ({ page = 0, limit, freelancerType, personalId = '' }) =>
   fetchApi({
@@ -38,36 +39,42 @@ export const updateUserDetail = async ({ id, data }) => {
   }
 }
 
-export const columnsUser = [
-  {
-    name: 'Type of user',
-    selector: (row) => row.freelancer_type,
-    width: '250px',
-  },
-  {
-    name: 'Phone',
-    selector: (row) => row.phone_number,
-    width: '200px',
-  },
-  {
-    name: 'ID',
-    selector: (row) => row.personal_id,
-    width: '200px',
-  },
+export const UseSchemaColumnsUser = () => {
+  const [t] = useTranslation('common')
+  return [
+    {
+      name: t('user.typeOffUser'),
+      selector: (row) =>
+        row.freelancer_type === 'freelancer'
+          ? t('user.freelance')
+          : t('user.delivery'),
+      width: '250px',
+    },
+    {
+      name: t('user.phone'),
+      selector: (row) => row.phone_number,
+      width: '200px',
+    },
+    {
+      name: t('user.id'),
+      selector: (row) => row.personal_id,
+      width: '200px',
+    },
 
-  {
-    name: 'Company',
-    selector: (row) => row.company_name,
-    width: '200px',
-  },
-  {
-    name: 'Email',
-    selector: (row) => row.email,
-    width: '350px',
-  },
-  {
-    name: 'Name',
-    selector: (row) => row.full_name,
-    width: '200px',
-  },
-]
+    {
+      name: t('user.company'),
+      selector: (row) => row.company_name,
+      width: '200px',
+    },
+    {
+      name: t('user.name'),
+      selector: (row) => row.email,
+      width: '350px',
+    },
+    {
+      name: t('user.email'),
+      selector: (row) => row.full_name,
+      width: '200px',
+    },
+  ]
+}
