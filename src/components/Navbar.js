@@ -14,11 +14,13 @@ import { LanguageContext } from 'hooks/languageContent'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { XIcon } from '@heroicons/react/solid'
 import NavbarTooltip from './NavbarTooltip'
 
 function Navbar({ isLogin, collapse, handleCollapse }) {
   const router = useRouter()
   const [modalChangeLanguage, setIsOpenModalChangeLanguage] = useState(false)
+  const { currentLanguage } = React.useContext(LanguageContext)
 
   const { setEnLanguage, setHbLanguage } = React.useContext(LanguageContext)
   const onSetEnLanguage = () => {
@@ -143,24 +145,39 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
         className="bg-slate-400 justify-center items-center flex absolute w-full h-full top-0 bg-transparent"
       >
         <div className="w-72 h-40 bg-white rounded-md drop-shadow-xl flex justify-center pt-4">
+          <div className="  w-6 h-6 absolute z-10  top-4 right-4">
+            <button
+              type="button"
+              onClick={() => setIsOpenModalChangeLanguage(false)}
+              className="w-6 h-6"
+            >
+              <XIcon />
+            </button>
+          </div>
           <div>
             <div className="w-72 flex justify-center">
               <Dialog.Title>Choose language</Dialog.Title>
             </div>
             <div className="flex mt-8 w-72 justify-center gap-x-4">
               <button
+                disabled={currentLanguage === 'en'}
                 type="button"
                 onClick={onSetEnLanguage}
-                className="w-28 p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg hover:scale-105 border-blue-300"
+                className={`w-28 p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg hover:scale-105 border-blue-300 ${
+                  currentLanguage === 'en' ? 'bg-blue-300' : 'bg-blue-500'
+                }`}
               >
-                <span className="text-sm  w-full flex  justify-center  ">
+                <span className={`text-sm  w-full flex  justify-center `}>
                   English
                 </span>
               </button>
               <button
+                disabled={currentLanguage === 'hb'}
                 type="button"
                 onClick={onSetHbLanguage}
-                className="w-28 p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg  hover:scale-105 border-blue-300"
+                className={`w-28 p-2 pl-5 pr-5  text-gray-100 text-lg rounded-lg  hover:scale-105 border-blue-300 ${
+                  currentLanguage === 'hb' ? 'bg-blue-300' : 'bg-blue-500'
+                }`}
               >
                 <span className="text-sm  w-full flex  justify-center ">
                   Hebrew
