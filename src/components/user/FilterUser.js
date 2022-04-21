@@ -51,7 +51,9 @@ export default function FilterUser({ selectedUserType, setSelectedUserType }) {
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >
-                        {person.name}
+                        {person.name === 'freelancer'
+                          ? t('user.freelance')
+                          : t('user.delivery')}
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">

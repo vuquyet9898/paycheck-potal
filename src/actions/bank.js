@@ -1,6 +1,7 @@
 import { XIcon } from '@heroicons/react/solid'
 import { BANKS } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
+import { useTranslation } from 'react-i18next'
 
 export const getBanks = (name, page, limit) =>
   fetchApi({
@@ -23,19 +24,6 @@ export const createBank = (params) =>
     },
     params,
   })
-
-export const columnsCompany = [
-  {
-    name: 'Name',
-    selector: (row) => row.bank_name,
-    width: '350px',
-  },
-  {
-    name: 'Id',
-    selector: (row) => row._id,
-    width: '350px',
-  },
-]
 
 export const deleteBank = (id) =>
   fetchApi({
@@ -68,4 +56,20 @@ export function ExpandedComponentBank({ data, callback }) {
       </button>
     </div>
   )
+}
+
+export const UseSchemaColumnsCompany = () => {
+  const [t] = useTranslation('common')
+  return [
+    {
+      name: t('bank.nameTb'),
+      selector: (row) => row.bank_name,
+      width: '350px',
+    },
+    {
+      name: t('bank.id'),
+      selector: (row) => row._id,
+      width: '350px',
+    },
+  ]
 }

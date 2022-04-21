@@ -1,4 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react'
+import {
+  createBank,
+  ExpandedComponentBank,
+  getBanks,
+  UseSchemaColumnsCompany,
+} from 'actions/bank'
 import Spin from 'components/Spin'
 import { useTableHeight } from 'helper/utils'
 import { debounce } from 'lodash'
@@ -6,15 +12,15 @@ import Image from 'next/image'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import 'react-datepicker/dist/react-datepicker.css'
-import {
-  columnsCompany,
-  createBank,
-  ExpandedComponentBank,
-  getBanks,
-} from 'actions/bank'
+import { useTranslation } from 'react-i18next'
 
 export default function Banks() {
   // data table
+  const [t] = useTranslation('common')
+
+  const columns = UseSchemaColumnsCompany()
+  const columnsCompany = useMemo(() => columns, [columns])
+
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)
@@ -85,7 +91,7 @@ export default function Banks() {
   return (
     <div className="pr-4 pl-12  py-4">
       <div className="rtl flex justify-between ">
-        <h1 className="text-2xl font-bold uppercase">BANKS</h1>
+        <h1 className="text-2xl font-bold uppercase">{t('bank.name')}</h1>
 
         <button
           onClick={openModal}
@@ -93,7 +99,7 @@ export default function Banks() {
           className={` px-4  text-white py-2 rounded-md text-lg font-semibold  bg-green-500`}
         >
           <div className="flex flex-row  items-center justify-center">
-            <p>Create bank</p>
+            <p>{t('bank.create')}</p>
           </div>
         </button>
       </div>
@@ -114,9 +120,9 @@ export default function Banks() {
             <div className="flex flex-row">
               <input
                 className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Search bank"
+                placeholder={t('bank.search')}
                 type="text"
-                name="search"
+                name={t('bank.searchAction')}
                 onChange={debouncedChangeHandler}
               />
             </div>
@@ -162,7 +168,7 @@ export default function Banks() {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 "
                 >
-                  Create New Bank
+                  {t('bank.newBank')}
                 </Dialog.Title>
                 <div className="flex w-96 h-48 items-center mt-6 bg-grey-lighter  flex-col">
                   <div className=" flex flex-row items-center w-full justify-between mt-2 ">
@@ -173,7 +179,7 @@ export default function Banks() {
                       value={bankName}
                       onChange={changeBankName}
                     />
-                    <p className="text-sm">Bank</p>
+                    <p className="text-sm lowercase">{t('bank.newBank')}</p>
                   </div>
 
                   <button
@@ -189,7 +195,7 @@ export default function Banks() {
                     <div className="absolute mr-28 flex justify-center items-center">
                       {loading && <Spin />}
                     </div>
-                    <div className="ml-2">Create</div>
+                    <div className="ml-2">{t('bank.Create')}</div>
                   </button>
                 </div>
               </div>

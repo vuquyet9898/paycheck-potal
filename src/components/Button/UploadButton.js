@@ -7,7 +7,7 @@ export default function UploadButton({ title, action, isDisable }) {
       disabled={isDisable}
       onClick={action}
       type="button"
-      className={` px-4  text-white py-2 rounded-md text-lg font-semibold ${
+      className={` uppercase px-4  text-white py-2 rounded-md text-lg font-semibold ${
         isDisable ? 'bg-gray-400 ' : 'bg-green-500 '
       }`}
     >

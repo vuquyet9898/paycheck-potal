@@ -1,3 +1,4 @@
+import { Dialog } from '@headlessui/react'
 import {
   IconBankTransfer,
   IconExpandNav,
@@ -9,11 +10,10 @@ import {
   IconUser,
 } from 'constants/icons'
 import { delay } from 'helper/utils'
+import { LanguageContext } from 'hooks/languageContent'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { LanguageContext } from 'hooks/languageContent'
 import NavbarTooltip from './NavbarTooltip'
 
 function Navbar({ isLogin, collapse, handleCollapse }) {

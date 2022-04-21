@@ -55,20 +55,62 @@
     "viewDetail": " View Detail",
     "PDF": "PDF",
     "Back": "Back",
-    "PersonalID:": "Personal ID:"
+    "PersonalID:": "Personal ID:",
+    "accountNumber": "Account number",
+    "accountOwner": "Account owner",
+    "bankName1": "Bank name",
+    "branchNumber": "Branch number"
   },
   "bankTransfer": {
-    "title": "BANK TRANSFER"
+    "title": "BANK TRANSFER",
+    "notVerify": " This bank account is not verify",
+    "upBank": " Upload Bank Transfer",
+    "date": "Date",
+    "amount": "Amount",
+    "id": "Personal ID",
+    "bankName": "Bank Name",
+    "branch": "Branch Number",
+
+    "bankNumber": "Bank Number",
+
+    "select": "Select a file bank transfer",
+    "upload": "Upload",
+    "all": "All BankTransfer",
+    "file": "File url",
+    "bankNo": "Bank Transfers No",
+
+    "dateTransfer": "Transfer Date",
+    "dateUpload": "Upload date"
   },
   "incvoices": {
     "title": "incvoices"
   },
   "paycheck": {
-    "title": "PAYCHECK"
+    "title": "PAYCHECK",
+    "upload": "Upload PayCheck",
+    "date": "Date",
+    "select": "Select a file paycheck",
+    "uploadAction": "Upload",
+    "all": "All PayCheck"
   },
   "help": {
     "title": "HELP",
     "phone": "Phone number",
     "mes": "Messages"
+  },
+  "nav": {
+    "login": "login",
+    "logout": "logout"
+  },
+  "bank": {
+    "name": "BANKS",
+    "create": "Create bank",
+    "search": "Search bank",
+    "searchAction": "search",
+    "newBank": "Create New Bank",
+
+    "Create": "Create",
+    "nameTb": "Name",
+    "id": "Id"
   }
 }

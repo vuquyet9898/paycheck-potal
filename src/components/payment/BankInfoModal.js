@@ -1,9 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { delay } from 'helper/utils'
 import React, { Fragment, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function BankInfoModal({ info, visible = false, setVisible = false }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [t] = useTranslation('common')
 
   useEffect(() => {
     setIsOpen(visible)
@@ -56,19 +58,27 @@ function BankInfoModal({ info, visible = false, setVisible = false }) {
           >
             <div className="rtl inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
               <div className="grid grid-cols-2 gap-3">
-                <p className="text-sm font-medium text-right">Account number</p>
+                <p className="text-sm font-medium text-right">
+                  {t('payment.accountNumber')}
+                </p>
                 <p className="text-sm text-gray-500 text-right">
                   {info?.bank_detail?.account_number}
                 </p>
-                <p className="text-sm font-medium text-right">Account owner</p>
+                <p className="text-sm font-medium text-right">
+                  {t('payment.accountOwner')}
+                </p>
                 <p className="text-sm text-gray-500 text-right">
                   {info?.bank_detail?.account_owner}
                 </p>
-                <p className="text-sm font-medium text-right">Bank name</p>
+                <p className="text-sm font-medium text-right">
+                  {t('payment.bankName1')}
+                </p>
                 <p className="text-sm text-gray-500 text-right">
                   {info?.bank_detail?.bank_name}
                 </p>
-                <p className="text-sm font-medium text-right">Branch number</p>
+                <p className="text-sm font-medium text-right">
+                  {t('payment.branchNumber')}
+                </p>
                 <p className="text-sm text-gray-500 text-right">
                   {info?.bank_detail?.branch_number}
                 </p>

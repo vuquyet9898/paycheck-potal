@@ -20,9 +20,12 @@ import {
   upFilePayCheck,
   columnsPayCheck,
 } from 'actions/paycheck'
+import { useTranslation } from 'react-i18next'
 
 export default function PaymentDetail() {
   // data table
+  const [t] = useTranslation('common')
+
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingUpFile, setLoadingUpFile] = useState(false)
@@ -123,7 +126,7 @@ export default function PaymentDetail() {
     <div className="pt-10">
       <div className="w-full  flex flex-row  justify-end px-20">
         <div className="flex flex-row items-center">
-          <UploadButton title="Upload PayCheck" action={openModal} />
+          <UploadButton title={t('paycheck.upload')} action={openModal} />
         </div>
 
         <Transition appear show={isOpen} as={Fragment}>
@@ -164,7 +167,7 @@ export default function PaymentDetail() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 "
                   >
-                    Upload PayCheck
+                    {t('paycheck.upload')}
                   </Dialog.Title>
                   <div className="flex w-96 h-72 items-center mt-6 bg-grey-lighter  flex-col">
                     <div className="flex flex-row items-center w-full ">
@@ -173,7 +176,7 @@ export default function PaymentDetail() {
                         onChange={(date) => setStartDate(date)}
                         customInput={<CustomInputDate />}
                       />
-                      <div className=" font-medium">Date</div>
+                      <div className=" font-medium">{t('paycheck.date')}</div>
                     </div>
 
                     <label className="mt-14 w-full flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
@@ -188,7 +191,7 @@ export default function PaymentDetail() {
                       <span className=" ml-2 text-sm leading-normal">
                         {isFileSelect
                           ? selectedFile.name
-                          : 'Select a file paycheck'}
+                          : t('paycheck.select')}
                       </span>
                       <input
                         type="file"
@@ -211,7 +214,7 @@ export default function PaymentDetail() {
                       <div className="absolute mr-28 flex justify-center items-center">
                         {loadingUpFile && <Spin />}
                       </div>
-                      <div className="ml-2">Upload</div>
+                      <div className="ml-2">{t('paycheck.uploadAction')}</div>
                     </button>
                   </div>
                 </div>
@@ -222,7 +225,7 @@ export default function PaymentDetail() {
       </div>
       <DataTable
         fixedHeader
-        title="All PayCheck"
+        title={t('paycheck.all')}
         columns={memoPayCheckColumnsPayCheck}
         data={data}
         direction="rtl"

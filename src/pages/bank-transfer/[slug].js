@@ -1,5 +1,12 @@
 import { Dialog, Transition } from '@headlessui/react'
+import {
+  createBankTransfer,
+  getBankTransferDetail,
+  upFileBankTransfer,
+  UseSchemaColumnsBankTransfer,
+} from 'actions/bankTransfer'
 import UploadButton from 'components/Button/UploadButton'
+import Spin from 'components/Spin'
 import { useTableHeight } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, {
@@ -12,17 +19,13 @@ import React, {
 import DataTable from 'react-data-table-component'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { useTranslation } from 'react-i18next'
 import { formatDate } from 'utils/date'
-import Spin from 'components/Spin'
-import {
-  columnsBankTransfer,
-  createBankTransfer,
-  getBankTransferDetail,
-  upFileBankTransfer,
-} from 'actions/bankTransfer'
 
 export default function InvoiceDetail() {
   // data table
+  const [t] = useTranslation('common')
+
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingUpFile, setLoadingUpFile] = useState(false)
@@ -74,8 +77,10 @@ export default function InvoiceDetail() {
   const handlePerRowsChange = async (newPerPage, page) => {
     setPerPage(newPerPage)
   }
-  const memoColumnsBankTransfer = useMemo(() => columnsBankTransfer, [])
+  // UseSchemaColumnsBankTransfer
 
+  const columns = UseSchemaColumnsBankTransfer()
+  const memoColumnsBankTransfer = useMemo(() => columns, [columns])
   const [selectedFile, setSelectedFile] = useState(null)
   //
   const onFileChange = (event) => {
@@ -132,12 +137,13 @@ export default function InvoiceDetail() {
         <div className="flex flex-row items-center">
           {!isVerifyBank && (
             <div className=" mr-6 font-medium text-red-400 text-xl">
-              This bank account is not verify
+              {/* This bank account is not verify */}
+              {t('bankTransfer.notVerify')}
             </div>
           )}
 
           <UploadButton
-            title="Upload Bank Transfer"
+            title={t('bankTransfer.upBank')}
             action={openModal}
             isDisable={!isVerifyBank}
           />
@@ -181,7 +187,8 @@ export default function InvoiceDetail() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 "
                   >
-                    Upload Bank Transfer
+                    {/* Upload Bank Transfer */}
+                    {t('bankTransfer.upBank')}
                   </Dialog.Title>
                   <div className="flex w-96 h-96 items-center mt-6 bg-grey-lighter  flex-col">
                     <div className="flex flex-row items-center w-full ">
@@ -190,7 +197,7 @@ export default function InvoiceDetail() {
                         onChange={(date) => setStartDate(date)}
                         customInput={<CustomInputDate />}
                       />
-                      <div className="">Date</div>
+                      <div className="">{t('bankTransfer.date')}</div>
                     </div>
 
                     {/* // */}
@@ -198,29 +205,29 @@ export default function InvoiceDetail() {
                     <div className=" flex flex-row items-center w-full justify-between mt-2 ">
                       <input
                         type="text"
-                        placeholder="Amount"
+                        placeholder={t('bankTransfer.amount')}
                         className="border border-slate-300 rounded-md px-2 py-1"
                         value={amount}
                         onChange={changeHandler}
                       />
-                      <p className="text-sm">Amount</p>
+                      <p className="text-sm">{t('bankTransfer.amount')}</p>
                     </div>
                     <div className=" flex flex-row items-center w-full justify-between mt-4 ">
                       <p>{idUser}</p>
-                      <p className="text-sm">Personal ID</p>
+                      <p className="text-sm">{t('bankTransfer.id')}</p>
                     </div>
                     <div className=" flex flex-row items-center w-full justify-between mt-4 ">
                       <p>{bankName}</p>
-                      <p className="text-sm">Bank Name</p>
+                      <p className="text-sm">{t('bankTransfer.bankName')}</p>
                     </div>
                     <div className=" flex flex-row items-center w-full justify-between mt-4 ">
                       <p>{branchNumber}</p>
-                      <p className="text-sm">Branch Number</p>
+                      <p className="text-sm">{t('bankTransfer.branch')}</p>
                     </div>
 
                     <div className=" flex flex-row items-center w-full justify-between mt-4 ">
                       <p>{accountNumber}</p>
-                      <p className="text-sm">Bank Number</p>
+                      <p className="text-sm">{t('bankTransfer.bankNumber')}</p>
                     </div>
                     {/* / */}
                     <label className="mt-4 w-full flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
@@ -235,7 +242,7 @@ export default function InvoiceDetail() {
                       <span className=" ml-2 text-sm leading-normal">
                         {isFileSelect
                           ? selectedFile.name
-                          : 'Select a file bank transfer'}
+                          : t('bankTransfer.select')}
                       </span>
                       <input
                         type="file"
@@ -258,7 +265,7 @@ export default function InvoiceDetail() {
                       <div className="absolute mr-28 flex justify-center items-center">
                         {loadingUpFile && <Spin />}
                       </div>
-                      <div className="ml-2">Upload</div>
+                      <div className="ml-2">{t('bankTransfer.upload')}</div>
                     </button>
                   </div>
                 </div>
@@ -269,7 +276,7 @@ export default function InvoiceDetail() {
       </div>
       <DataTable
         fixedHeader
-        title="All BankTransfer"
+        title={t('bankTransfer.all')}
         columns={memoColumnsBankTransfer}
         data={data}
         direction="rtl"
