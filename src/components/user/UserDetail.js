@@ -2,6 +2,7 @@
 /* eslint-disable no-nested-ternary */
 import { Listbox, Transition } from '@headlessui/react'
 import { IconCheck, IconChevronDown, IconPdf } from 'constants/icons'
+import { isEmpty } from 'lodash'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -40,14 +41,38 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
     }
   }
   const renderRowName = (name) => {
-    console.log('name', name)
     // check vale in USER_APPROVAL || USER_DELIVERY_APPROVAL
     switch (name) {
+      //
+      case 'Full Name':
+        return t('user.fullName')
+      case 'Email':
+        return t('user.email')
+      case 'Company':
+        return t('user.company')
+      case 'Phone number':
+        return t('user.phoneNumber')
+      case 'Address':
+        return t('user.address')
+
       case 'Insurance Policy':
         return t('user.insurancePolicy')
 
       case 'Name on the Invoice':
         return t('payment.nameOnTheInvoice')
+
+      case 'Personal Accidents Insurance':
+        return t('user.personalAccidentsInsurance')
+      //
+      case 'Pension Policy':
+        return t('user.pensionPolicy')
+
+      case 'Life Insurance':
+        return t('user.lifeInsurance')
+      case 'Health Insurance':
+        return t('user.healthInsurance')
+      case 'Car License':
+        return t('user.carLicense')
 
       case 'Tax Coordination':
         return t('payment.taxCoordination')
@@ -155,7 +180,11 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
   }
 
   const renderUserInfo = (data) => {
-    return <p className="flex items-center gap-x-2 px-3 py-2">{data}</p>
+    return (
+      <p key={data} className="flex items-center gap-x-2 px-3 py-2">
+        {data}
+      </p>
+    )
   }
 
   const renderDetailDocument = () => {
@@ -215,8 +244,12 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
         renderImageOrPdf(url, index)
       )
     }
+    if (detail.fieldName === 'companies' && !isEmpty(data?.companies)) {
+      return (
+        <div>{data?.companies?.map((item) => renderUserInfo(item?.name))}</div>
+      )
+    }
   }
-
   return (
     <div className="grid grid-cols-3 xl:grid-cols-6 gap-x-4 items-center text-sm">
       <p className="font-medium">{renderRowName(detail.name)}</p>
