@@ -1,9 +1,9 @@
+import { LanguageContext } from 'hooks/languageContent'
+import i18next from 'i18next'
 import React, { useEffect } from 'react'
 import { I18nextProvider } from 'react-i18next'
-import i18next from 'i18next'
-import { LanguageContext } from 'hooks/languageContent'
-import commonHb from '../language/commonHb.json'
 import commonEn from '../language/commonEn.json'
+import commonHb from '../language/commonHb.json'
 
 export default function LanguageProvider({ children }) {
   const { currentLanguage } = React.useContext(LanguageContext)

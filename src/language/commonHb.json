@@ -1,5 +1,116 @@
 {
-  "welcome": {
-    "title": "pppppppp to {{framework}}"
+  "user": {
+    "title": "USER MANAGEMENT",
+    "titleSearch": "Search Personal ID",
+    "freelance": "freelancer",
+    "delivery": "delivery",
+    "allUser": "All user",
+    "name": "Name",
+    "email": "Email",
+    "company": "חברה",
+    "id": "ID",
+    "phone": "Phone",
+    "typeOffUser": "Type off user",
+    "edit": "Edit User",
+    "payment": "Payment",
+    "Invoices": "Invoices",
+    "bankTransfer": "Bank Transfer",
+    "payCheck": "PayCheck",
+    "personalID": "Personal ID:",
+    "back": "Back",
+    "update": "Update",
+    "pending": "Pending",
+    "approved": "Approved",
+    "invalid": "invalid",
+    "": "",
+    "insurancePolicy": "Insurance Policy",
+    "personalAccidentsInsurance": "Personal Accidents Insurance",
+    "pensionPolicy": "Pension Policy",
+    "lifeInsurance": "Life Insurance",
+    "healthInsurance": "Health Insurance",
+    "carLicense": "Car License"
+  },
+  "payment": {
+    "payment": "Payment",
+    "titleSearch": "Search Personal ID",
+    "personalId": "Personal ID",
+    "userId": "User ID",
+    "invoiceName": "Invoice Name",
+    "bankId": "Bank ID",
+    "bankName": "Bank Name",
+    "bankAccountNumber": "Bank Account Number",
+    "bankAccountOwner": "Bank Account Owner",
+    "bankBranchNumber": "Bank Branch Number",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "bankInformation": "Bank Information",
+    "nameOnTheInvoice": "Name on the Invoice",
+    "taxCoordination": "Tax Coordination",
+    "socialSecurityCoordination": "Social Security Coordination",
+    "approvalOfIllness": "Approval of Illness",
+    "releasePapers": "Release Papers",
+    "disabilityApproval": "Disability Approval",
+    "militaryWorkPermit": "Military Work Permit",
+    "additionalDocuments": "Additional documents",
+    "viewDetail": " View Detail",
+    "PDF": "PDF",
+    "Back": "Back",
+    "PersonalID:": "Personal ID:",
+    "accountNumber": "Account number",
+    "accountOwner": "Account owner",
+    "bankName1": "Bank name",
+    "branchNumber": "Branch number"
+  },
+  "bankTransfer": {
+    "title": "BANK TRANSFER",
+    "notVerify": " This bank account is not verify",
+    "upBank": " Upload Bank Transfer",
+    "date": "Date",
+    "amount": "Amount",
+    "id": "Personal ID",
+    "bankName": "Bank Name",
+    "branch": "Branch Number",
+
+    "bankNumber": "Bank Number",
+
+    "select": "Select a file bank transfer",
+    "upload": "Upload",
+    "all": "All BankTransfer",
+    "file": "File url",
+    "bankNo": "Bank Transfers No",
+
+    "dateTransfer": "Transfer Date",
+    "dateUpload": "Upload date"
+  },
+  "incvoices": {
+    "title": "incvoices"
+  },
+  "paycheck": {
+    "title": "PAYCHECK",
+    "upload": "Upload PayCheck",
+    "date": "Date",
+    "select": "Select a file paycheck",
+    "uploadAction": "Upload",
+    "all": "All PayCheck"
+  },
+  "help": {
+    "title": "HELP",
+    "phone": "Phone number",
+    "mes": "Messages"
+  },
+  "nav": {
+    "login": "login",
+    "logout": "logout"
+  },
+  "bank": {
+    "name": "BANKS",
+    "create": "Create bank",
+    "search": "Search bank",
+    "searchAction": "search",
+    "newBank": "Create New Bank",
+
+    "Create": "Create",
+    "nameTb": "Name",
+    "id": "Id"
   }
 }

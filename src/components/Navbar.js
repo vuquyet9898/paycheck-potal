@@ -21,6 +21,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
   const router = useRouter()
   const [modalChangeLanguage, setIsOpenModalChangeLanguage] = useState(false)
   const { currentLanguage } = React.useContext(LanguageContext)
+  const isEnLanguage = currentLanguage === 'en'
 
   const { setEnLanguage, setHbLanguage } = React.useContext(LanguageContext)
   const onSetEnLanguage = () => {
@@ -45,49 +46,49 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
   const menuItems = [
     {
       id: 0,
-      name: 'User Management',
+      name: isEnLanguage ? 'User Management' : 'Managementל',
       url: '/user-management',
       icon: <IconUser />,
     },
     {
       id: 2,
-      name: 'Payment',
+      name: isEnLanguage ? 'Payment' : 'Payment',
       url: '/payment',
       icon: <IconPayment />,
     },
     {
       id: 3,
-      name: 'Invoices',
+      name: isEnLanguage ? 'Invoices' : 'חשבוניות',
       url: '/invoices',
       icon: <IconInvoices />,
     },
     {
       id: 4,
-      name: 'Bank Transfer',
+      name: isEnLanguage ? 'Bank Transfer' : 'העברות בנקאיות',
       url: '/bank-transfer',
       icon: <IconBankTransfer />,
     },
     {
       id: 5,
-      name: 'Paychecks',
+      name: isEnLanguage ? 'Paychecks' : 'Paychecks hb',
       url: '/paychecks',
       icon: <IconPaychecks />,
     },
     {
       id: 6,
-      name: 'Help Center',
+      name: isEnLanguage ? 'Help Center' : 'Help Center hb',
       url: '/help',
       icon: <IconHelpCenter />,
     },
     {
       id: 7,
-      name: 'Company',
+      name: isEnLanguage ? 'Company' : 'חברה',
       url: '/company',
       icon: <IconSetting />,
     },
     {
       id: 8,
-      name: 'Banks',
+      name: isEnLanguage ? 'Banks' : 'Banks hb',
       url: '/banks',
       icon: <IconSetting />,
     },
@@ -127,7 +128,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
             onClick={() => setIsOpenModalChangeLanguage(true)}
           >
             <span className="text-sm  w-full flex  justify-end ">
-              Change Language
+              {isEnLanguage ? 'Change Language' : 'Change Language hb'}
             </span>
           </button>
         </div>
@@ -156,7 +157,9 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
           </div>
           <div>
             <div className="w-72 flex justify-center">
-              <Dialog.Title>Choose language</Dialog.Title>
+              <Dialog.Title>
+                {isEnLanguage ? 'Choose language' : 'בחר שפה'}
+              </Dialog.Title>
             </div>
             <div className="flex mt-8 w-72 justify-center gap-x-4">
               <button
@@ -168,7 +171,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
                 }`}
               >
                 <span className={`text-sm  w-full flex  justify-center `}>
-                  English
+                  {isEnLanguage ? 'English' : 'English'}
                 </span>
               </button>
               <button
@@ -180,7 +183,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
                 }`}
               >
                 <span className="text-sm  w-full flex  justify-center ">
-                  Hebrew
+                  {isEnLanguage ? 'Hebrew' : 'Hebrew'}
                 </span>
               </button>
             </div>

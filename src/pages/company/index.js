@@ -12,9 +12,12 @@ import {
   ExpandedComponentCompany,
   getCompany,
 } from 'actions/company'
+import { useTranslation } from 'react-i18next'
 
 export default function Company() {
   // data table
+  const [t] = useTranslation('common')
+
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [totalRows, setTotalRows] = useState(0)

@@ -24,6 +24,7 @@ export default function App({
     () => ({ currentLanguage, setEnLanguage, setHbLanguage }),
     [currentLanguage, setEnLanguage, setHbLanguage]
   )
+  // const [t] = useTranslation('common')
 
   return (
     <LanguageContext.Provider value={languageMemoValue}>
