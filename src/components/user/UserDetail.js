@@ -12,7 +12,6 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
     { name: 'approved' },
   ]
   const [selectedStatus, setSelectedStatus] = useState(status[0])
-
   const handleUpdateApproval = (s) => {
     setSelectedStatus(s)
     setFinalizeData({
@@ -151,10 +150,30 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
           <IconPdf /> <span>PDF</span>
         </a>
       )
+
     return null
   }
 
+  const renderUserInfo = (data) => {
+    return <p className="flex items-center gap-x-2 px-3 py-2">{data}</p>
+  }
+
   const renderDetailDocument = () => {
+    if (detail.fieldName === 'full_name' && data?.full_name) {
+      return renderUserInfo(data.full_name)
+    }
+    if (detail.fieldName === 'email' && data?.email) {
+      return renderUserInfo(data.email)
+    }
+    if (detail.fieldName === 'company_id' && data?.company_id) {
+      return renderUserInfo(data.company_name)
+    }
+    if (detail.fieldName === 'address' && data?.address) {
+      return renderUserInfo(data.address)
+    }
+    if (detail.fieldName === 'phone_number' && data?.phone_number) {
+      return renderUserInfo(data.phone_number)
+    }
     if (
       detail.fieldName === 'insurance_policy_url' &&
       data?.insurance_policy_url
@@ -202,7 +221,7 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
     <div className="grid grid-cols-3 xl:grid-cols-6 gap-x-4 items-center text-sm">
       <p className="font-medium">{renderRowName(detail.name)}</p>
       <div className="flex items-center gap-x-4">{renderDetailDocument()}</div>
-      <div>{renderDetailAction()}</div>
+      {detail?.fieldApprovalName && <div>{renderDetailAction()}</div>}
     </div>
   )
 }
