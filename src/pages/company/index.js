@@ -89,7 +89,7 @@ export default function Company() {
   return (
     <div className="pr-4 pl-12  py-4 ">
       <div className="rtl flex justify-between">
-        <h1 className="text-2xl font-bold uppercase">COMPANY</h1>
+        <h1 className="text-2xl font-bold uppercase">{t('company.title')}</h1>
 
         <button
           onClick={openModal}
@@ -97,7 +97,7 @@ export default function Company() {
           className={` px-4  text-white py-2 rounded-md text-lg font-semibold  bg-green-500`}
         >
           <div className="flex flex-row  items-center justify-center">
-            <p>Create Company</p>
+            <p>{t('company.create')}</p>
           </div>
         </button>
       </div>
@@ -117,9 +117,9 @@ export default function Company() {
             <div className="flex flex-row">
               <input
                 className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Search company"
+                placeholder={t('company.searchPl')}
                 type="text"
-                name="search"
+                name={t('company.search')}
                 onChange={debouncedChangeHandler}
               />
             </div>
@@ -165,7 +165,7 @@ export default function Company() {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 "
                 >
-                  Create New Company
+                  {t('company.createNew')}
                 </Dialog.Title>
                 <div className="flex w-96 h-48 items-center mt-6 bg-grey-lighter  flex-col">
                   <div className=" flex flex-row items-center w-full justify-between mt-2 ">
@@ -176,7 +176,7 @@ export default function Company() {
                       value={companyName}
                       onChange={changeCompanyName}
                     />
-                    <p className="text-sm">Company</p>
+                    <p className="text-sm  "> {t('company.createNew')}</p>
                   </div>
 
                   <button

@@ -35,6 +35,8 @@ export const deleteBank = (id) =>
   })
 
 export function ExpandedComponentBank({ data, callback }) {
+  const [t] = useTranslation('common')
+
   const onDeleteCompany = async () => {
     try {
       await deleteBank(data?._id)
@@ -51,7 +53,7 @@ export function ExpandedComponentBank({ data, callback }) {
         type="button"
         className="bg-red-500 hover:bg-red-500 text-white  py-2 px-4 rounded mt-2  text-xs flex items-center"
       >
-        <div>Delete</div>
+        <div>{t('bank.delete')}</div>
         <XIcon className="w-5 h-5" aria-hidden="true" />
       </button>
     </div>

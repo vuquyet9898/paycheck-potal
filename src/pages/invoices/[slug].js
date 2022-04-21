@@ -20,9 +20,12 @@ import {
   getInvoicesDetail,
   upFileInvoices,
 } from 'actions/invoices'
+import { useTranslation } from 'react-i18next'
 
 export default function InvoiceDetail() {
   // data table
+  const [t] = useTranslation('common')
+
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadingUpFile, setLoadingUpFile] = useState(false)
@@ -116,7 +119,7 @@ export default function InvoiceDetail() {
   return (
     <div className="pt-10">
       <div className="w-full  flex flex-row  justify-end px-20">
-        <UploadButton title="Upload Invoices" action={openModal} />
+        <UploadButton title={t('incvoices.up')} action={openModal} />
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -155,7 +158,7 @@ export default function InvoiceDetail() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 "
                   >
-                    Upload invoices
+                    {t('incvoices.up')}
                   </Dialog.Title>
                   <div className="flex w-96 h-72 items-center mt-6 bg-grey-lighter  flex-col">
                     <div className="flex flex-row items-center w-full ">
@@ -166,7 +169,7 @@ export default function InvoiceDetail() {
                         customInput={<CustomInputDate />}
                         // dateFormat=""
                       />
-                      <div className="">Date</div>
+                      <div className="">{t('incvoices.date')}</div>
                     </div>
                     <label className="mt-4 w-full flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
                       <svg
@@ -180,7 +183,7 @@ export default function InvoiceDetail() {
                       <span className=" ml-2 text-sm leading-normal">
                         {isFileSelect
                           ? selectedFile.name
-                          : 'Select a file invoices'}
+                          : t('incvoices.select')}
                       </span>
                       <input
                         type="file"
@@ -203,7 +206,7 @@ export default function InvoiceDetail() {
                       <div className="absolute mr-28 flex justify-center items-center">
                         {loadingUpFile && <Spin />}
                       </div>
-                      <div className="ml-2">Upload</div>
+                      <div className="ml-2">{t('incvoices.up')}</div>
                     </button>
                   </div>
                 </div>
@@ -214,7 +217,7 @@ export default function InvoiceDetail() {
       </div>
       <DataTable
         fixedHeader
-        title="All invoices"
+        title={t('incvoices.all')}
         columns={memoColumnsInvoices}
         data={data}
         direction="rtl"

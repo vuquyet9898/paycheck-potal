@@ -62,7 +62,8 @@
     "accountNumber": "Account number",
     "accountOwner": "Account owner",
     "bankName1": "Bank name",
-    "branchNumber": "Branch number"
+    "branchNumber": "Branch number",
+    "Update": "Update"
   },
   "bankTransfer": {
     "title": "BANK TRANSFER",
@@ -86,7 +87,12 @@
     "dateUpload": "Upload date"
   },
   "incvoices": {
-    "title": "incvoices"
+    "title": "incvoices",
+    "up": "Upload Invoices",
+    "daye": "date",
+    "select": "Select a file invoices",
+    "upload": "Upload",
+    "all": "All invoices"
   },
   "paycheck": {
     "title": "PAYCHECK",
@@ -111,12 +117,18 @@
     "search": "Search bank",
     "searchAction": "search",
     "newBank": "Create New Bank",
-
     "Create": "Create",
     "nameTb": "Name",
-    "id": "Id"
+    "id": "Id",
+    "delete": "Delete"
   },
   "company": {
-    "title": "COMPANY"
+    "title": "COMPANY",
+    "create": "Create Company",
+    "searchPl": "Search company",
+    "search": "Search",
+    "createNew": " Create New Company",
+    "delete": "Delete",
+    "edit": "Edit"
   }
 }

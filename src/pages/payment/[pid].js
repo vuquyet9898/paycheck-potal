@@ -94,7 +94,7 @@ function PersonalPaymentDetail() {
         className="mt-10 btn-primary px-3 py-2 rounded-md text-sm"
         onClick={handleUpdatePayment}
       >
-        Update
+        {t('payment.Update')}
       </button>
     </div>
   )

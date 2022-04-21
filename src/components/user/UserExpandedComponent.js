@@ -14,12 +14,12 @@ export function ExpandedComponent({ data }) {
     },
     {
       name: 'Bank Transfer',
-      href: 'bank-transfer/',
+      href: 'bank-transfer',
       title: t('user.bankTransfer'),
     },
     {
       name: 'Invoices',
-      href: 'invoices/',
+      href: 'invoices',
       title: t('user.Invoices'),
     },
     {

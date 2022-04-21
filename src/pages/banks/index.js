@@ -174,7 +174,7 @@ export default function Banks() {
                   <div className=" flex flex-row items-center w-full justify-between mt-2 ">
                     <input
                       type="text"
-                      placeholder="Name"
+                      placeholder={t('bank.nameTb')}
                       className="border border-slate-300 rounded-md px-2 py-1"
                       value={bankName}
                       onChange={changeBankName}
