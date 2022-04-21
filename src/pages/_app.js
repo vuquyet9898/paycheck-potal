@@ -27,14 +27,14 @@ export default function App({
   // const [t] = useTranslation('common')
 
   return (
-    <LanguageContext.Provider value={languageMemoValue}>
-      <LanguageProvider>
-        <SessionProvider session={session} refetchInterval={5 * 60}>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
+      <LanguageContext.Provider value={languageMemoValue}>
+        <LanguageProvider>
           <LayoutWithHeader>
             <Component {...pageProps} />
           </LayoutWithHeader>
-        </SessionProvider>
-      </LanguageProvider>
-    </LanguageContext.Provider>
+        </LanguageProvider>
+      </LanguageContext.Provider>
+    </SessionProvider>
   )
 }

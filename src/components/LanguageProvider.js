@@ -11,11 +11,16 @@ export default function LanguageProvider({ children }) {
   // useEffect(() => {
   //   localStorage.setItem('currentLanguage', JSON.stringify(currentLanguage))
   // }, [currentLanguage])
+  const { setEnLanguage, setHbLanguage } = React.useContext(LanguageContext)
 
-  // useEffect(() => {
-  //   const saved = localStorage.getItem('currentLanguage')
-  //   const initialValue = JSON.parse(saved)
-  // }, [])
+  useEffect(() => {
+    const language = localStorage.getItem('currentLanguage')
+    if (language === 'en') {
+      setEnLanguage()
+    } else {
+      setHbLanguage()
+    }
+  }, [])
 
   useEffect(() => {
     i18next.init({

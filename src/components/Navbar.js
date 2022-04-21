@@ -27,10 +27,12 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
   const onSetEnLanguage = () => {
     setEnLanguage()
     setIsOpenModalChangeLanguage(false)
+    localStorage.setItem('currentLanguage', 'en')
   }
   const onSetHbLanguage = () => {
     setHbLanguage()
     setIsOpenModalChangeLanguage(false)
+    localStorage.setItem('currentLanguage', 'hb')
   }
 
   const [showMenuText, setShowMenuText] = useState(true)
