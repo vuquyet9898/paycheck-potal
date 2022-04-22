@@ -13,6 +13,7 @@ import {
   getCompany,
 } from 'actions/company'
 import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 
 export default function Company() {
   // data table
@@ -90,16 +91,23 @@ export default function Company() {
     <div className="pr-4 pl-12  py-4 ">
       <div className="rtl flex justify-between">
         <h1 className="text-2xl font-bold uppercase">{t('company.title')}</h1>
-
-        <button
-          onClick={openModal}
-          type="button"
-          className={` px-4  text-white py-2 rounded-md text-lg font-semibold  bg-green-500`}
+        <Link
+          href={{
+            pathname: `company/create`,
+          }}
         >
-          <div className="flex flex-row  items-center justify-center">
-            <p>{t('company.create')}</p>
-          </div>
-        </button>
+          <a>
+            <button
+              // onClick={openModal}
+              type="button"
+              className={` px-4  text-white py-2 rounded-md text-lg font-semibold  bg-green-500`}
+            >
+              <div className="flex flex-row  items-center justify-center">
+                <p>{t('company.create')}</p>
+              </div>
+            </button>
+          </a>
+        </Link>
       </div>
       <div className=" flex flex-row justify-end ">
         <div className="w-96 rtl flex flex-row items-center">
