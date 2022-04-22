@@ -1,17 +1,26 @@
+import { getCompanyDetail } from 'actions/company'
 import { renderErrorMessage } from 'helper/utils'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 export default function Index() {
   const router = useRouter()
   const [companyName, setCompanyName] = useState('')
   const [companyId, setCompanyId] = useState('')
+  const { cid } = router.query
 
-  const createCompany = async ({
-    url = 'https://dev.paycheck.just.engineer/api/v1/companies',
+  useEffect(() => {
+    getCompanyDetail(cid).then((res) => {
+      setCompanyName(res.data.name)
+      setCompanyId(res.data.company_code)
+    })
+  }, [])
+
+  const editCompany = async ({
+    url = `https://dev.paycheck.just.engineer/api/v1/companies/${cid}`,
     data = {
       name: companyName,
       company_code: companyId,
@@ -21,34 +30,31 @@ export default function Index() {
     },
   }) => {
     const session = await getSession()
-
     if (session && session?.accessToken) {
       headers.authorization = `Bearer ${session?.accessToken}`
     }
+
     const res = await fetch(url, {
-      method: 'POST',
+      method: 'PATCH',
       body: JSON.stringify(data),
       headers: headers,
     })
 
     if (res?.status === 201) {
-      toast.success('Create successfully!')
+      toast.success('Change successfully!')
       router.back()
     } else if (res?.status === 422) {
       renderErrorMessage({
         message: 'Company code already exist',
       })
     }
-
     return res.json()
   }
 
   return (
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
-        <h1 className="py-4 text-2xl uppercase font-bold">
-          Create a new company
-        </h1>
+        <h1 className="py-4 text-2xl uppercase font-bold">Edit company</h1>
         <button
           type="button"
           className="ml-8 underline text-indigo-500 hover:text-indigo-400 active:text-indigo-600"
@@ -62,6 +68,7 @@ export default function Index() {
           <div className="flex items-center">
             <p className="w-60 font-bold">Name</p>
             <input
+              value={companyName}
               type="text"
               onChange={(e) => setCompanyName(e.target.value)}
               placeholder="Company name"
@@ -72,6 +79,7 @@ export default function Index() {
             <p className="w-60 font-bold">Id</p>
             <input
               type="text"
+              value={companyId}
               onChange={(e) => setCompanyId(e.target.value)}
               placeholder="Company id"
               className="border border-slate-300 rounded-md px-2 py-1 w-full"
@@ -80,7 +88,7 @@ export default function Index() {
         </div>
       </div>
       <button
-        onClick={createCompany}
+        onClick={editCompany}
         className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         Save

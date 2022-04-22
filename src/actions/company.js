@@ -2,6 +2,7 @@ import { COMPANY } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
 import { XIcon, PencilIcon } from '@heroicons/react/solid'
 import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 
 export const getCompany = (name, page, limit) =>
   fetchApi({
@@ -33,6 +34,14 @@ export const createCompany = (params) =>
       method: 'POST',
     },
     params,
+  })
+
+export const getCompanyDetail = (_id) =>
+  fetchApi({
+    url: `https://dev.paycheck.just.engineer/api/v1/companies/${_id}`,
+    options: {
+      method: 'GET',
+    },
   })
 
 export const columnsCompany = [
@@ -71,13 +80,19 @@ export function ExpandedComponentCompany({ data, callback }) {
         <XIcon className="w-5 h-5" aria-hidden="true" />
       </button>
       <button
-        onClick={onDeleteCompany}
         key={data.name}
         type="button"
         className=" bg-green-500 text-white py-2 px-4 rounded mt-2  text-xs flex items-center"
       >
-        <div>{t('company.edit')}</div>
-        <PencilIcon className="w-5 h-5" aria-hidden="true" />
+        {/* <div>{t('company.edit')}</div>
+        <PencilIcon className="w-5 h-5" aria-hidden="true" /> */}
+        <Link
+          href={{
+            pathname: `company/edit-company/${data._id}`,
+          }}
+        >
+          Edit
+        </Link>
       </button>
     </div>
   )
