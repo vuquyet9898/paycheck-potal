@@ -44,18 +44,21 @@ export const getCompanyDetail = (_id) =>
     },
   })
 
-export const columnsCompany = [
-  {
-    name: 'Name',
-    selector: (row) => row.name,
-    width: '350px',
-  },
-  {
-    name: 'Id',
-    selector: (row) => row._id,
-    width: '350px',
-  },
-]
+export const UseSchemaColumnsCompany = () => {
+  const [t] = useTranslation('common')
+  return [
+    {
+      name: t('company.name'),
+      selector: (row) => row.name,
+      width: '350px',
+    },
+    {
+      name: t('company.id'),
+      selector: (row) => row._id,
+      width: '350px',
+    },
+  ]
+}
 
 export function ExpandedComponentCompany({ data, callback }) {
   const [t] = useTranslation('common')
@@ -72,7 +75,7 @@ export function ExpandedComponentCompany({ data, callback }) {
     <div className="flex pr-10 pt-3 gap-x-4 pl-5  pb-2 ">
       <button
         onClick={onDeleteCompany}
-        key={data.name}
+        key={`${data.name}-delete`}
         type="button"
         className=" bg-red-500 text-white  py-2 px-4 rounded mt-2  text-xs flex items-center"
       >
@@ -80,18 +83,19 @@ export function ExpandedComponentCompany({ data, callback }) {
         <XIcon className="w-5 h-5" aria-hidden="true" />
       </button>
       <button
-        key={data.name}
+        key={`${data.name}-edit`}
         type="button"
-        className=" bg-green-500 text-white py-2 px-4 rounded mt-2  text-xs flex items-center"
+        className=" bg-green-500 text-white py-2 px-4 rounded mt-2 "
       >
-        {/* <div>{t('company.edit')}</div>
-        <PencilIcon className="w-5 h-5" aria-hidden="true" /> */}
         <Link
           href={{
             pathname: `company/edit-company/${data._id}`,
           }}
         >
-          Edit
+          <a className="text-xs flex items-center">
+            <div>{t('company.edit')}</div>
+            <PencilIcon className="w-5 h-5" aria-hidden="true" />
+          </a>
         </Link>
       </button>
     </div>

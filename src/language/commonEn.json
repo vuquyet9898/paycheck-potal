@@ -129,6 +129,14 @@
     "search": "Search",
     "createNew": " Create New Company",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "newCompany": "Create New Company",
+    "name": "Name",
+    "id": "ID",
+    "back": "Back",
+    "save": "Save",
+    "companyName": "Company Name",
+    "companyId": "Company ID",
+    "editCompany": "Edit Company"
   }
 }

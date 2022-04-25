@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 export default function Index() {
@@ -38,42 +39,48 @@ export default function Index() {
       renderErrorMessage({
         message: 'Company code already exist',
       })
-    }
+    } else if (res?.status === 400) {
+      renderErrorMessage({
+        message: 'Name or ID should not be empty',
+      })
 
-    return res.json()
+      return res.json()
+    }
   }
+
+  const [t] = useTranslation('common')
 
   return (
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
         <h1 className="py-4 text-2xl uppercase font-bold">
-          Create a new company
+          {t('company.newCompany')}
         </h1>
         <button
           type="button"
           className="ml-8 underline text-indigo-500 hover:text-indigo-400 active:text-indigo-600"
           onClick={() => router.back()}
         >
-          Back
+          {t('company.back')}
         </button>
       </div>
       <div className="w-11/12 py-6">
         <div className="flex flex-col gap-4 pl-4">
           <div className="flex items-center">
-            <p className="w-60 font-bold">Name</p>
+            <p className="w-60 font-bold">{t('company.name')}</p>
             <input
               type="text"
               onChange={(e) => setCompanyName(e.target.value)}
-              placeholder="Company name"
+              placeholder={t('company.companyName')}
               className="border border-slate-300 rounded-md px-2 py-1 w-full"
             />
           </div>
           <div className="flex items-center">
-            <p className="w-60 font-bold">Id</p>
+            <p className="w-60 font-bold">{t('company.id')}</p>
             <input
               type="text"
               onChange={(e) => setCompanyId(e.target.value)}
-              placeholder="Company id"
+              placeholder={t('company.companyId')}
               className="border border-slate-300 rounded-md px-2 py-1 w-full"
             />
           </div>
@@ -83,7 +90,7 @@ export default function Index() {
         onClick={createCompany}
         className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Save
+        {t('company.save')}
       </button>
     </div>
   )
