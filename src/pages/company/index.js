@@ -11,6 +11,7 @@ import {
   createCompany,
   ExpandedComponentCompany,
   getCompany,
+  UseSchemaColumnsCompany,
 } from 'actions/company'
 import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
@@ -86,6 +87,9 @@ export default function Company() {
       setLoading(false)
     }
   }
+
+  const columns = UseSchemaColumnsCompany()
+  const memoColumnsCompany = useMemo(() => columns, [columns])
 
   return (
     <div className="pr-4 pl-12  py-4 ">
@@ -210,7 +214,7 @@ export default function Company() {
       </Transition>
       <div className="mt-6">
         <DataTable
-          columns={columnsCompany}
+          columns={memoColumnsCompany}
           data={data}
           direction="rtl"
           fixedHeader
