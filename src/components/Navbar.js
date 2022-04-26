@@ -5,6 +5,7 @@ import {
   IconExpandNav,
   IconHelpCenter,
   IconInvoices,
+  IconNotification,
   IconPaychecks,
   IconPayment,
   IconSetting,
@@ -101,6 +102,12 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
       name: isEnLanguage ? 'Banks' : 'Banks hb',
       url: '/banks',
       icon: <IconBank />,
+    },
+    {
+      id: 10,
+      name: isEnLanguage ? 'Notification' : 'Notification hb',
+      url: '/notification',
+      icon: <IconNotification />,
     },
   ]
 
