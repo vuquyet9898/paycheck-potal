@@ -1,5 +1,6 @@
 import { Dialog } from '@headlessui/react'
 import {
+  IconBank,
   IconBankTransfer,
   IconExpandNav,
   IconHelpCenter,
@@ -7,6 +8,7 @@ import {
   IconPaychecks,
   IconPayment,
   IconSetting,
+  IconTexas,
   IconUser,
 } from 'constants/icons'
 import { delay } from 'helper/utils'
@@ -90,9 +92,15 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
     },
     {
       id: 8,
+      name: isEnLanguage ? 'Taxes' : 'Taxes hb',
+      url: '/taxes',
+      icon: <IconTexas />,
+    },
+    {
+      id: 9,
       name: isEnLanguage ? 'Banks' : 'Banks hb',
       url: '/banks',
-      icon: <IconSetting />,
+      icon: <IconBank />,
     },
   ]
 

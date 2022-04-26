@@ -105,7 +105,8 @@
   "help": {
     "title": "HELP",
     "phone": "מספר טלפון",
-    "mes": "Messages"
+    "mes": "Messages",
+    "search": "Search phone number"
   },
   "nav": {
     "login": "התחבר",
@@ -138,5 +139,8 @@
     "companyName": "Company Name",
     "companyId": "Company ID",
     "editCompany": "Edit Company"
+  },
+  "texas": {
+    "title": "Taxes"
   }
 }

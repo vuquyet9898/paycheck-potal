@@ -1,8 +1,7 @@
 import { renderErrorMessage } from 'helper/utils'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
@@ -29,7 +28,7 @@ export default function Index() {
     const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
-      headers: headers,
+      headers,
     })
 
     if (res?.status === 201) {
