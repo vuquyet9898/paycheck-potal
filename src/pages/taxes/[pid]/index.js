@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cloneDeep } from 'lodash'
 import { useRouter } from 'next/router'
-import { createTaxes } from 'actions/taxes'
+import { createTaxes, getDetailTaxes } from 'actions/taxes'
+import Spin from 'components/Spin'
+import { toast } from 'react-toastify'
 
 const dataField = [
   'grossAmount',
@@ -44,17 +46,26 @@ export default function Index() {
   const [data, setData] = useState(listFieldClone)
   const [t] = useTranslation('common')
   const router = useRouter()
+  const [isLoadingUpFile, setIsLoadingUpFile] = useState(false)
 
   const userId = router?.query?.id
+
   useEffect(() => {
-    const transformData = cloneDeep(data)
-    transformData.map((item) => {
-      if (dataField.includes(item?.field)) {
-        item.value = '100'
-      }
-      return null
-    })
-    setData(transformData)
+    const fetchDetailTaxes = async () => {
+      const response = await getDetailTaxes(userId)
+      console.log('data', response)
+      const valueDetail = response.data
+      const transformData = cloneDeep(data)
+      transformData.map((item) => {
+        if (dataField.includes(item?.field)) {
+          const field = item?.field
+          item.value = valueDetail[field]
+        }
+        return null
+      })
+      setData(transformData)
+    }
+    fetchDetailTaxes()
   }, [])
 
   const onChangeInput = (type, value) => {
@@ -68,6 +79,8 @@ export default function Index() {
     setData(transformData)
   }
   const onCreateTaxes = async () => {
+    if (isLoadingUpFile) return
+    setIsLoadingUpFile(true)
     const dataSendRequest = {
       userId,
     }
@@ -80,10 +93,21 @@ export default function Index() {
       return null
     })
     await createTaxes(dataSendRequest)
+    toast.success(t('alert.success'))
+    setIsLoadingUpFile(false)
   }
   return (
     <div className="rtl pr-4 py-4">
-      <h1 className="text-2xl font-bold uppercase">{t('texas.title')}</h1>
+      <div className="flex w-full justify-between">
+        <h1 className="text-2xl font-bold uppercase">{t('texas.title')}</h1>
+        <button
+          type="button"
+          className="ml-8 underline text-indigo-500 hover:text-indigo-400 active:text-indigo-600"
+          onClick={() => router.back()}
+        >
+          {t('payment.Back')}
+        </button>
+      </div>
       {data?.map((field) => {
         return (
           <div key={field?.title}>
@@ -103,13 +127,17 @@ export default function Index() {
           </div>
         )
       })}
+
       <button
         onClick={onCreateTaxes}
-        key={data?.name}
+        disabled={false}
         type="button"
-        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded mt-12"
+        className="bg-green-500 hover:bg-green-600 active:bg-green-700  w-36  flex items-center justify-center mt-10  focus:outline-none focus:ring focus:ring-violet-300 text-white py-3 rounded-md text-lg font-semibold"
       >
-        <div>{t('company.save')}</div>
+        <div className="absolute mr-16 flex justify-center items-center">
+          {isLoadingUpFile && <Spin />}
+        </div>
+        <div className="ml-2">{t('company.save')}</div>
       </button>
     </div>
   )

@@ -142,5 +142,11 @@
   },
   "texas": {
     "title": "Taxes"
+  },
+  "noti": {
+    "title": "Send alert to all drivers"
+  },
+  "alert": {
+    "success": "Successfully"
   }
 }

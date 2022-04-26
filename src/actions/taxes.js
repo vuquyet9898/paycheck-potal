@@ -10,11 +10,10 @@ export const createTaxes = (params) =>
     params,
   })
 
-export const getDetailTaxes = (params) =>
+export const getDetailTaxes = (id) =>
   fetchApi({
-    url: TAXES,
+    url: `${TAXES}/${id}`,
     options: {
       method: 'GET',
     },
-    params,
   })
