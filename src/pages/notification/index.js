@@ -1,14 +1,22 @@
 import { XIcon } from '@heroicons/react/solid'
+import { pushNotificationAll, pushNotificationPer } from 'actions/notification'
 import { getUser } from 'actions/user'
 import Spin from 'components/Spin'
 import { debounce } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 export default function Index() {
   const [t] = useTranslation('common')
   const [loading, setLoading] = useState(false)
   const [hasFocus, setFocus] = useState(false)
+  const [messages, setMessages] = useState('')
+  const onChangeMessages = (event) => {
+    setMessages(event.target.value)
+  }
+
+  const [isPushAllUser, setIsPushAllUser] = useState(false)
 
   const [listUserPick, setListUserPick] = useState([])
   const [listUserSearch, setListUserSearch] = useState([])
@@ -30,6 +38,25 @@ export default function Index() {
   useEffect(() => {
     fetchUsers()
   }, [keyword])
+
+  const onSendNotification = async () => {
+    try {
+      if (loading === true) return
+      setLoading(true)
+      if (isPushAllUser) {
+        await pushNotificationAll(messages)
+      } else {
+        const listToken = listUserPick?.map((item) => {
+          return item?._id
+        })
+        await pushNotificationPer(messages, listToken)
+      }
+      toast.success(t('alert.success'))
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
+  }
 
   const onPickUser = (user) => {
     if (listUserPick.length === 0) {
@@ -78,8 +105,19 @@ export default function Index() {
       <h1 className="text-2xl font-bold uppercase flex justify-end">
         {t('noti.title')}
       </h1>
-      <div className="w-full  mx-auto  rtl mt-12">
-        <div className="flex flex-row">
+
+      <div className="w-full  mx-auto  rtl mt-6">
+        <div className="inline-flex items-center mt-3 ">
+          <span className="ml-2 text-gray-700">Send notification All user</span>
+
+          <input
+            type="checkbox"
+            className="form-checkbox h-5 w-5 text-yellow-600"
+            value={isPushAllUser}
+            onClick={() => setIsPushAllUser(!isPushAllUser)}
+          />
+        </div>
+        <div className="flex flex-row mt-4">
           <div>Select user</div>
           <div className="text-red-500 px-2">(*)</div>
         </div>
@@ -100,7 +138,10 @@ export default function Index() {
                   </svg>
                 </div>
                 <input
-                  className="w-full rounded-md bg-gray-100 text-gray-700 leading-tight focus:outline-none py-2 px-2"
+                  disabled={isPushAllUser}
+                  className={`w-full rounded-md  text-gray-700 leading-tight focus:outline-none py-2 px-2 ${
+                    isPushAllUser ? 'bg-slate-100' : 'bg-slate-200'
+                  }`}
                   id="search"
                   type="text"
                   placeholder={t('user.titleSearch')}
@@ -122,7 +163,7 @@ export default function Index() {
                       <button
                         type="button"
                         className="flex w-full "
-                        key={itemUser?.personal_id}
+                        key={itemUser?._id}
                         onClick={() => {
                           onPickUser(itemUser)
                           setFocus(false)
@@ -154,9 +195,12 @@ export default function Index() {
             {listUserPick?.map((item) => (
               <div
                 key={item?._id}
-                className="bg-slate-200 px-4 py-2 mr-3 rounded-md flex flex-row items-center "
+                className={` px-4 py-2 mr-3 rounded-md flex flex-row items-center ${
+                  isPushAllUser ? 'bg-slate-100' : 'bg-slate-300'
+                }`}
               >
                 <button
+                  disabled={isPushAllUser}
                   onClick={() => onRemoveUser(item)}
                   type="button"
                   className="w-6 h-6 text-red-500 ml-2"
@@ -176,10 +220,13 @@ export default function Index() {
             <textarea
               className="h-24 w-full border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black p-2 transition ease-in-out duration-300"
               placeholder="The messages"
+              value={messages}
+              onChange={onChangeMessages}
             />
           </div>
 
           <button
+            onClick={onSendNotification}
             disabled={loading}
             type="button"
             className="w-40 mt-6 bg-green-500 hover:bg-green-600  px-4  flex items-center justify-center  focus:outline-none focus:ring  text-white py-3 rounded-md text-lg font-semibold"
