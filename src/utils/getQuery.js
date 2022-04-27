@@ -21,6 +21,7 @@ export const getQuery = (key, data) => {
       return {
         id: data?._id,
       }
+
     case 'Edit User':
       return {
         id: data?._id,

@@ -105,7 +105,8 @@
   "help": {
     "title": "HELP",
     "phone": "Phone number",
-    "mes": "Messages"
+    "mes": "Messages",
+    "search": "Search phone number"
   },
   "nav": {
     "login": "login",
@@ -138,5 +139,20 @@
     "companyName": "Company Name",
     "companyId": "Company ID",
     "editCompany": "Edit Company"
+  },
+  "texas": {
+    "title": "Taxes"
+  },
+  "noti": {
+    "title": "Send alert to all drivers",
+    "select": "Select user",
+    "content": "Content",
+    "send": "Send",
+    "mes": "The messages",
+    "sendType": "Send notification All user"
+  },
+  "alert": {
+    "success": "Successfully",
+    "send": "Send"
   }
 }

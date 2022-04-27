@@ -12,3 +12,8 @@ export const HELP = `${API_SUFFIX}/help-request`
 
 export const COMPANY = `${API_SUFFIX}/companies`
 export const BANKS = `${API_SUFFIX}/banks`
+
+export const TAXES = `${API_SUFFIX}/taxes`
+
+export const NOTIFICATION_ALL = `${API_SUFFIX}/notification/global`
+export const NOTIFICATION_PER = `${API_SUFFIX}/notification/per`

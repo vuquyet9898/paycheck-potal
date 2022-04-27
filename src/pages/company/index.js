@@ -1,20 +1,19 @@
 import { Dialog, Transition } from '@headlessui/react'
-import Spin from 'components/Spin'
-import { useTableHeight } from 'helper/utils'
-import { debounce } from 'lodash'
-import Image from 'next/image'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
-import DataTable from 'react-data-table-component'
-import 'react-datepicker/dist/react-datepicker.css'
 import {
-  columnsCompany,
   createCompany,
   ExpandedComponentCompany,
   getCompany,
   UseSchemaColumnsCompany,
 } from 'actions/company'
-import { useTranslation } from 'react-i18next'
+import Spin from 'components/Spin'
+import { useTableHeight } from 'helper/utils'
+import { debounce } from 'lodash'
+import Image from 'next/image'
 import Link from 'next/link'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import DataTable from 'react-data-table-component'
+import 'react-datepicker/dist/react-datepicker.css'
+import { useTranslation } from 'react-i18next'
 
 export default function Company() {
   // data table
