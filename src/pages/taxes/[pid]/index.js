@@ -53,7 +53,6 @@ export default function Index() {
   useEffect(() => {
     const fetchDetailTaxes = async () => {
       const response = await getDetailTaxes(userId)
-      console.log('data', response)
       const valueDetail = response.data
       const transformData = cloneDeep(data)
       transformData.map((item) => {

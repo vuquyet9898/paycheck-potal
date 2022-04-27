@@ -147,6 +147,7 @@
     "title": "Send alert to all drivers"
   },
   "alert": {
-    "success": "Successfully"
+    "success": "Successfully",
+    "send": "Send"
   }
 }
