@@ -2,7 +2,7 @@ import { XIcon } from '@heroicons/react/solid'
 import { pushNotificationAll, pushNotificationPer } from 'actions/notification'
 import { getUser } from 'actions/user'
 import Spin from 'components/Spin'
-import { debounce } from 'lodash'
+import { debounce, isEmpty } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
@@ -100,6 +100,9 @@ export default function Index() {
     }, 250)
   }
   //
+  const disableBtnSendNoti = isPushAllUser
+    ? loading || messages.length === 0
+    : loading || messages.length === 0 || isEmpty(listUserPick)
   return (
     <div className="px-4  py-4">
       <h1 className="text-2xl font-bold uppercase flex justify-end">
@@ -108,7 +111,7 @@ export default function Index() {
 
       <div className="w-full  mx-auto  rtl mt-6">
         <div className="inline-flex items-center mt-3 ">
-          <span className="ml-2 text-gray-700">Send notification All user</span>
+          <span className="ml-2 text-gray-700">{t('noti.sendType')}</span>
 
           <input
             type="checkbox"
@@ -118,7 +121,7 @@ export default function Index() {
           />
         </div>
         <div className="flex flex-row mt-4">
-          <div>Select user</div>
+          <div>{t('noti.select')}</div>
           <div className="text-red-500 px-2">(*)</div>
         </div>
         <div className=" p-4 px-3 ">
@@ -219,7 +222,7 @@ export default function Index() {
           <div className="w-1/2 mt-6 ">
             <textarea
               className="h-24 w-full border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black p-2 transition ease-in-out duration-300"
-              placeholder="The messages"
+              placeholder={t('noti.mes')}
               value={messages}
               onChange={onChangeMessages}
             />
@@ -227,9 +230,13 @@ export default function Index() {
 
           <button
             onClick={onSendNotification}
-            disabled={loading}
+            disabled={disableBtnSendNoti}
             type="button"
-            className="w-40 mt-6 bg-green-500 hover:bg-green-600  px-4  flex items-center justify-center  focus:outline-none focus:ring  text-white py-3 rounded-md text-lg font-semibold"
+            className={` w-40 mt-6   px-4  flex items-center justify-center  focus:outline-none focus:ring  text-white py-3 rounded-md text-lg font-semibold ${
+              !disableBtnSendNoti
+                ? 'bg-green-500 hover:bg-green-600'
+                : 'bg-gray-500 hover:bg-gray-600'
+            }`}
           >
             <div className="absolute text-white  mr-20">
               {loading && <Spin />}
