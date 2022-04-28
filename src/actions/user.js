@@ -76,5 +76,10 @@ export const UseSchemaColumnsUser = () => {
       selector: (row) => row.full_name,
       width: '200px',
     },
+    {
+      name: t('user.workingStatus'),
+      selector: (row) => row.work_status,
+      width: '200px',
+    },
   ]
 }
