@@ -1,4 +1,10 @@
-import { editCompany, getCompanyDetail } from 'actions/company'
+import { XIcon } from '@heroicons/react/solid'
+import {
+  deleteFileCompany,
+  editCompany,
+  getCompanyDetail,
+} from 'actions/company'
+import { IconPdf } from 'constants/icons'
 import { renderErrorMessage } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -9,12 +15,14 @@ export default function Index() {
   const router = useRouter()
   const [companyName, setCompanyName] = useState('')
   const [companyId, setCompanyId] = useState('')
+  const [detailCompany, setDetailCompany] = useState(null)
   const { cid } = router.query
 
   useEffect(() => {
     getCompanyDetail(cid).then((res) => {
-      setCompanyName(res.data.name)
-      setCompanyId(res.data.company_code)
+      setCompanyName(res?.data?.name)
+      setCompanyId(res?.data?.company_code)
+      setDetailCompany(res.data)
     })
   }, [])
 
@@ -38,6 +46,15 @@ export default function Index() {
   }
 
   const [t] = useTranslation('common')
+  const onRemoveFile = async (id) => {
+    await deleteFileCompany(id)
+    toast.success('Delete successfully!')
+    getCompanyDetail(cid).then((res) => {
+      setCompanyName(res?.data?.name)
+      setCompanyId(res?.data?.company_code)
+      setDetailCompany(res.data)
+    })
+  }
 
   return (
     <div className="rtl pr-4">
@@ -76,6 +93,59 @@ export default function Index() {
             />
           </div>
         </div>
+      </div>
+      <div>
+        {detailCompany?.files?.map((item, index) => {
+          const removeItemWithIndex = () => onRemoveFile(item?._id)
+          const isPdf = /^.+\.(([pP][dD][fF])|([jJ][pP][gG]))$/.test(
+            item?.file_url[0]
+          )
+
+          if (isPdf) {
+            return (
+              <div className="py-4">
+                <div className="flex flex-row items-center">
+                  <IconPdf />
+                  <button
+                    onClick={removeItemWithIndex}
+                    type="button"
+                    className="w-6 h-6 text-red-500 mr-4  "
+                  >
+                    <XIcon />
+                  </button>
+                </div>
+                <a
+                  href={item?.file_url[0]}
+                  key={index}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{t('payment.PDF')}</span>
+                  <div>{item?.file_name}</div>
+                </a>
+              </div>
+            )
+          }
+          return (
+            <div key={`${item?.lastModified}_uuid_${index}`} className="py-4">
+              <div className="flex flex-row items-center">
+                <img
+                  src={item?.file_url[0]}
+                  className="w-12 h-12"
+                  alt="Display"
+                />
+                <button
+                  onClick={removeItemWithIndex}
+                  type="button"
+                  className="w-6 h-6 text-red-500 mr-4  "
+                >
+                  <XIcon />
+                </button>
+              </div>
+              <div>{item?.currentFile?.name}</div>
+            </div>
+          )
+        })}
       </div>
       <button
         type="button"

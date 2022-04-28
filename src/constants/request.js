@@ -11,6 +11,8 @@ export const PAY_CHECK = `${API_SUFFIX}/pay-checks`
 export const HELP = `${API_SUFFIX}/help-request`
 
 export const COMPANY = `${API_SUFFIX}/companies`
+export const COMPANY_FILE_UPLOAD = `${API_SUFFIX}/company-file`
+
 export const BANKS = `${API_SUFFIX}/banks`
 
 export const TAXES = `${API_SUFFIX}/taxes`

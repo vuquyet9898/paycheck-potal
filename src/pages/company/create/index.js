@@ -1,8 +1,14 @@
-import { Dialog, Transition } from '@headlessui/react'
-import { createCompany } from 'actions/company'
+import { XIcon } from '@heroicons/react/solid'
+import {
+  createCompany,
+  saveImageCompany,
+  uploadFileCompany,
+} from 'actions/company'
+import { IconPdf } from 'constants/icons'
 import { renderErrorMessage } from 'helper/utils'
+import { isArray, isEmpty } from 'lodash'
 import { useRouter } from 'next/router'
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
@@ -10,20 +16,39 @@ export default function Index() {
   const router = useRouter()
   const [companyName, setCompanyName] = useState('')
   const [companyId, setCompanyId] = useState('')
-  const [isOpen, setIsOpen] = useState(false)
-  const closeModal = () => {
-    setIsOpen(false)
-  }
-
-  const changeCompanyName = (event) => {
-    setCompanyName(event.target.value)
-  }
+  const [selectedFile, setSelectedFile] = useState([])
 
   const onCreateCompany = async () => {
     const res = await createCompany({
       name: companyName,
       company_code: companyId,
     })
+    const _idCompany = res?.data?._id
+
+    if (!isEmpty(selectedFile)) {
+      const listPromiseUpLoadImage = []
+      selectedFile?.map((itemSelect) => {
+        const formData = new FormData()
+        formData.append('company', itemSelect.currentFile)
+        listPromiseUpLoadImage.push(uploadFileCompany(formData))
+      })
+      const responseUrlImage = await Promise.all(listPromiseUpLoadImage)
+
+      const listPromiseUpLoadCompanyImage = []
+
+      if (isArray(responseUrlImage) && !isEmpty(responseUrlImage)) {
+        responseUrlImage?.map((item) => {
+          const data = {
+            company_id: _idCompany,
+            file_url: [item?.data?.file_url[0]],
+            file_name: item?.data?.file_name,
+          }
+
+          listPromiseUpLoadCompanyImage.push(saveImageCompany(data))
+        })
+        await Promise.all(listPromiseUpLoadCompanyImage)
+      }
+    }
 
     if (res?.status === 201) {
       toast.success('Create successfully!')
@@ -38,8 +63,23 @@ export default function Index() {
       })
     }
   }
+  const onRemoveFile = (indexFile) => {
+    const arr = selectedFile.filter(function (item, index) {
+      return indexFile !== index
+    })
+    setSelectedFile(arr)
+  }
 
   const [t] = useTranslation('common')
+  const onFileChange = (event) => {
+    setSelectedFile([
+      ...selectedFile,
+      {
+        currentFile: event.target.files[0],
+        previewImage: URL.createObjectURL(event.target.files[0]),
+      },
+    ])
+  }
 
   return (
     <div className="rtl pr-4">
@@ -55,7 +95,7 @@ export default function Index() {
           {t('company.back')}
         </button>
       </div>
-      <div className="w-11/12 py-6">
+      <div className=" py-6 w-1/2">
         <div className="flex flex-col gap-4 pl-4">
           <div className="flex items-center">
             <p className="w-60 font-bold">{t('company.name')}</p>
@@ -76,68 +116,83 @@ export default function Index() {
             />
           </div>
         </div>
-      </div>
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
+        <div className="w-full  gap-4 flex justify-end  pl-4 mt-6 ">
+          <label className="mt-4 w-32 flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
+            <svg
+              className="w-6 h-6"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
             >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
+              <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+            </svg>
+            <span className="mr-2 ml-2 text-sm leading-normal">
+              {t('upload')}
+            </span>
+            <input
+              type="file"
+              className="hidden"
+              required
+              onChange={onFileChange}
             />
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="pt-6 inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900 "
-                >
-                  {t('company.createNew')}
-                </Dialog.Title>
-                <div className="flex w-96 h-48 items-center mt-6 bg-grey-lighter  flex-col">
-                  <div className=" flex flex-row items-center w-full justify-between mt-2 ">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      className="border border-slate-300 rounded-md px-2 py-1"
-                      value={companyName}
-                      onChange={changeCompanyName}
-                    />
-                    <p className="text-sm  "> {t('company.createNew')}</p>
+          </label>
+        </div>
+        <div>
+          {selectedFile?.map((item, index) => {
+            const removeItemWithIndex = () => onRemoveFile(index)
+            const isPdf = item?.currentFile?.type === 'application/pdf'
+            if (isPdf) {
+              return (
+                <div className="py-4">
+                  <div className="flex flex-row items-center">
+                    <IconPdf />
+                    <button
+                      onClick={removeItemWithIndex}
+                      type="button"
+                      className="w-6 h-6 text-red-500 mr-4  "
+                    >
+                      <XIcon />
+                    </button>
                   </div>
+                  <a
+                    href={item.previewImage}
+                    key={index}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>{t('payment.PDF')}</span>
+                    <div>{item?.currentFile?.name}</div>
+                  </a>
                 </div>
+              )
+            }
+            return (
+              <div key={`${item?.lastModified}_uuid_${index}`} className="py-4">
+                <div className="flex flex-row items-center">
+                  <img
+                    src={item.previewImage}
+                    className="w-12 h-12"
+                    alt="Display"
+                  />
+                  <button
+                    onClick={removeItemWithIndex}
+                    type="button"
+                    className="w-6 h-6 text-red-500 mr-4  "
+                  >
+                    <XIcon />
+                  </button>
+                </div>
+                <div>{item?.currentFile?.name}</div>
               </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+            )
+          })}
+        </div>
+      </div>
+
       <button
         type="button"
         onClick={onCreateCompany}
-        className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
       >
         {t('company.save')}
       </button>

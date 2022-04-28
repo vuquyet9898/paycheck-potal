@@ -1,8 +1,8 @@
-import { COMPANY } from 'constants/request'
+import { PencilIcon, XIcon } from '@heroicons/react/solid'
+import { COMPANY, COMPANY_FILE_UPLOAD, UP_FILE } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
-import { XIcon, PencilIcon } from '@heroicons/react/solid'
-import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 
 export const getCompany = (name, page, limit) =>
   fetchApi({
@@ -27,6 +27,31 @@ export const deleteCompany = (id) =>
 export const createCompany = (params) =>
   fetchApi({
     url: COMPANY,
+    options: {
+      method: 'POST',
+    },
+    params,
+  })
+
+export const uploadFileCompany = (params) =>
+  fetchApi({
+    url: UP_FILE,
+    options: {
+      method: 'POST',
+    },
+    params,
+  })
+export const deleteFileCompany = (id) =>
+  fetchApi({
+    url: `${COMPANY_FILE_UPLOAD}/${id}`,
+    options: {
+      method: 'DELETE',
+    },
+  })
+
+export const saveImageCompany = (params) =>
+  fetchApi({
+    url: COMPANY_FILE_UPLOAD,
     options: {
       method: 'POST',
     },
