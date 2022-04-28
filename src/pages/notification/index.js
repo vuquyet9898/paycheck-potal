@@ -91,6 +91,7 @@ export default function Index() {
       if (itemFilter?._id !== userRemove?._id) {
         return itemFilter
       }
+      return null
     })
     setListUserPick(listItem)
   }

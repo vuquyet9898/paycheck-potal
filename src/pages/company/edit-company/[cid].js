@@ -1,9 +1,7 @@
-import { getCompanyDetail } from 'actions/company'
+import { editCompany, getCompanyDetail } from 'actions/company'
 import { renderErrorMessage } from 'helper/utils'
-import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
@@ -20,40 +18,23 @@ export default function Index() {
     })
   }, [])
 
-  const editCompany = async ({
-    url = `https://dev.paycheck.just.engineer/api/v1/companies/${cid}`,
-    data = {
+  const onEditCompany = async () => {
+    const dataResponse = await editCompany(cid, {
       name: companyName,
       company_code: companyId,
-    },
-    headers = {
-      'content-type': 'application/json',
-    },
-  }) => {
-    const session = await getSession()
-    if (session && session?.accessToken) {
-      headers.authorization = `Bearer ${session?.accessToken}`
-    }
-
-    const res = await fetch(url, {
-      method: 'PATCH',
-      body: JSON.stringify(data),
-      headers: headers,
     })
-
-    if (res?.status === 200) {
+    if (dataResponse?.status === 200) {
       toast.success('Change successfully!')
       router.back()
-    } else if (res?.status === 422) {
+    } else if (dataResponse?.statusCode === 422) {
       renderErrorMessage({
         message: 'Company code already exist',
       })
-    } else if (res?.status === 400) {
+    } else if (dataResponse?.statusCode === 400) {
       renderErrorMessage({
         message: 'Name or ID should not be empty',
       })
     }
-    return res.json()
   }
 
   const [t] = useTranslation('common')
@@ -97,7 +78,8 @@ export default function Index() {
         </div>
       </div>
       <button
-        onClick={editCompany}
+        type="button"
+        onClick={onEditCompany}
         className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         {t('company.save')}

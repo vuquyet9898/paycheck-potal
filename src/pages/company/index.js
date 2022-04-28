@@ -41,10 +41,6 @@ export default function Company() {
     setIsOpen(false)
   }
 
-  const openModal = () => {
-    setIsOpen(true)
-  }
-
   const fetchPayCheck = async (page) => {
     try {
       setLoading(true)

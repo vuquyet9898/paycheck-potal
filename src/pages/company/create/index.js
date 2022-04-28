@@ -1,7 +1,8 @@
+import { Dialog, Transition } from '@headlessui/react'
+import { createCompany } from 'actions/company'
 import { renderErrorMessage } from 'helper/utils'
-import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
@@ -9,41 +10,32 @@ export default function Index() {
   const router = useRouter()
   const [companyName, setCompanyName] = useState('')
   const [companyId, setCompanyId] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
+  const closeModal = () => {
+    setIsOpen(false)
+  }
 
-  const createCompany = async ({
-    url = 'https://dev.paycheck.just.engineer/api/v1/companies',
-    data = {
+  const changeCompanyName = (event) => {
+    setCompanyName(event.target.value)
+  }
+
+  const onCreateCompany = async () => {
+    const res = await createCompany({
       name: companyName,
       company_code: companyId,
-    },
-    headers = {
-      'content-type': 'application/json',
-    },
-  }) => {
-    const session = await getSession()
-
-    if (session && session?.accessToken) {
-      headers.authorization = `Bearer ${session?.accessToken}`
-    }
-    const res = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers,
     })
 
     if (res?.status === 201) {
       toast.success('Create successfully!')
       router.back()
-    } else if (res?.status === 422) {
+    } else if (res?.statusCode === 422) {
       renderErrorMessage({
         message: 'Company code already exist',
       })
-    } else if (res?.status === 400) {
+    } else if (res?.statusCode === 400) {
       renderErrorMessage({
         message: 'Name or ID should not be empty',
       })
-
-      return res.json()
     }
   }
 
@@ -85,8 +77,66 @@ export default function Index() {
           </div>
         </div>
       </div>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={closeModal}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            />
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="pt-6 inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900 "
+                >
+                  {t('company.createNew')}
+                </Dialog.Title>
+                <div className="flex w-96 h-48 items-center mt-6 bg-grey-lighter  flex-col">
+                  <div className=" flex flex-row items-center w-full justify-between mt-2 ">
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      className="border border-slate-300 rounded-md px-2 py-1"
+                      value={companyName}
+                      onChange={changeCompanyName}
+                    />
+                    <p className="text-sm  "> {t('company.createNew')}</p>
+                  </div>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
       <button
-        onClick={createCompany}
+        type="button"
+        onClick={onCreateCompany}
         className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         {t('company.save')}
