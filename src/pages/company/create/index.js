@@ -143,7 +143,10 @@ export default function Index() {
             const isPdf = item?.currentFile?.type === 'application/pdf'
             if (isPdf) {
               return (
-                <div className="py-4">
+                <div
+                  className="py-4"
+                  key={`${item?.lastModified}_uuid_pdf_${index}`}
+                >
                   <div className="flex flex-row items-center">
                     <IconPdf />
                     <button
@@ -169,11 +172,18 @@ export default function Index() {
             return (
               <div key={`${item?.lastModified}_uuid_${index}`} className="py-4">
                 <div className="flex flex-row items-center">
-                  <img
-                    src={item.previewImage}
-                    className="w-12 h-12"
-                    alt="Display"
-                  />
+                  <a
+                    href={item.previewImage}
+                    key={index}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={item.previewImage}
+                      className="w-12 h-12"
+                      alt="Display"
+                    />
+                  </a>
                   <button
                     onClick={removeItemWithIndex}
                     type="button"
