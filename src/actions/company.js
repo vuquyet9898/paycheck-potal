@@ -7,8 +7,6 @@ import Link from 'next/link'
 export const getCompany = (name, page, limit) =>
   fetchApi({
     url: `${COMPANY}/admin`,
-    // url: COMPANY,
-
     options: {
       method: 'GET',
     },
@@ -21,7 +19,6 @@ export const getCompany = (name, page, limit) =>
 export const deleteCompany = (id) =>
   fetchApi({
     url: `${COMPANY}/${id}`,
-
     options: {
       method: 'DELETE',
     },
@@ -32,6 +29,15 @@ export const createCompany = (params) =>
     url: COMPANY,
     options: {
       method: 'POST',
+    },
+    params,
+  })
+
+export const editCompany = (id, params) =>
+  fetchApi({
+    url: `${COMPANY}/${id}`,
+    options: {
+      method: 'PATCH',
     },
     params,
   })
@@ -54,7 +60,7 @@ export const UseSchemaColumnsCompany = () => {
     },
     {
       name: t('company.id'),
-      selector: (row) => row._id,
+      selector: (row) => row.company_code,
       width: '350px',
     },
   ]
