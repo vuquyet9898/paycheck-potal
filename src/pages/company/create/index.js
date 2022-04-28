@@ -31,6 +31,7 @@ export default function Index() {
         const formData = new FormData()
         formData.append('company', itemSelect.currentFile)
         listPromiseUpLoadImage.push(uploadFileCompany(formData))
+        return null
       })
       const responseUrlImage = await Promise.all(listPromiseUpLoadImage)
 
@@ -45,6 +46,7 @@ export default function Index() {
           }
 
           listPromiseUpLoadCompanyImage.push(saveImageCompany(data))
+          return null
         })
         await Promise.all(listPromiseUpLoadCompanyImage)
       }
@@ -64,7 +66,7 @@ export default function Index() {
     }
   }
   const onRemoveFile = (indexFile) => {
-    const arr = selectedFile.filter(function (item, index) {
+    const arr = selectedFile.filter((item, index) => {
       return indexFile !== index
     })
     setSelectedFile(arr)
