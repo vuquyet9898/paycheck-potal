@@ -154,5 +154,6 @@
   "alert": {
     "success": "Successfully",
     "send": "Send"
-  }
+  },
+  "upload": "Upload"
 }
