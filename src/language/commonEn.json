@@ -31,7 +31,8 @@
     "pensionPolicy": "Pension Policy",
     "lifeInsurance": "Life Insurance",
     "healthInsurance": "Health Insurance",
-    "carLicense": "Car License"
+    "carLicense": "Car License",
+    "workingStatus": "Status"
   },
   "payment": {
     "payment": "Payment",

@@ -52,6 +52,15 @@ export default function Index() {
     fetchUsers(0)
   }, [selectedUserType, keyword, perPage])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchUsers(0)
+    }, 10000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [selectedUserType, keyword, perPage])
+
   const columns = UseSchemaColumnsUser()
   const memoColumnsUser = useMemo(() => columns, [columns])
 
@@ -107,7 +116,10 @@ export default function Index() {
         paginationTotalRows={totalRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
-        expandableRowsComponent={ExpandedComponent}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        expandableRowsComponent={({ data }) => (
+          <ExpandedComponent data={data} callback={fetchUsers} />
+        )}
         paginationPerPage={20}
         fixedHeaderScrollHeight={`${tableHeight}px`}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
