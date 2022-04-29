@@ -31,7 +31,8 @@
     "pensionPolicy": "פוליסת פנסיה",
     "lifeInsurance": "ביטוח חיים",
     "healthInsurance": "Health Insurance",
-    "carLicense": "שנה רשיון רכב"
+    "carLicense": "שנה רשיון רכב",
+    "driving_license_url": "Driving License"
   },
   "payment": {
     "payment": "Payment",

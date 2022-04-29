@@ -25,12 +25,14 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
   useEffect(() => {
     setSelectedStatus({ name: data?.[detail.fieldApprovalName] || '' })
   }, [data, detail])
-
-  const isImage = (url) => /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url)
-  const isPdf = (url) => /\.(pdf)$/.test(url)
+  const isImage = (url) =>
+    /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url?.toLowerCase())
+  const isPdf = (url) => /\.(pdf)$/.test(url?.toLowerCase())
   const renderStatus = (name) => {
     switch (name) {
       case 'pending':
+        return t('user.pending')
+      case 'pending_admin':
         return t('user.pending')
       case 'approved':
         return t('user.approved')
@@ -46,12 +48,19 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
       //
       case 'Full Name':
         return t('user.fullName')
+
       case 'Email':
         return t('user.email')
+
       case 'Company':
         return t('user.company')
+
       case 'Phone number':
         return t('user.phoneNumber')
+
+      case 'Driving License':
+        return t('user.driving_license_url')
+
       case 'Address':
         return t('user.address')
 
@@ -69,8 +78,10 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
 
       case 'Life Insurance':
         return t('user.lifeInsurance')
+
       case 'Health Insurance':
         return t('user.healthInsurance')
+
       case 'Car License':
         return t('user.carLicense')
 
@@ -194,6 +205,7 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
     if (detail.fieldName === 'email' && data?.email) {
       return renderUserInfo(data.email)
     }
+
     if (detail.fieldName === 'company_id' && data?.company_id) {
       return renderUserInfo(data.company_name)
     }
@@ -247,6 +259,14 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
     if (detail.fieldName === 'companies' && !isEmpty(data?.companies)) {
       return (
         <div>{data?.companies?.map((item) => renderUserInfo(item?.name))}</div>
+      )
+    }
+    if (
+      detail.fieldName === 'driving_license_url' &&
+      data?.driving_license_url
+    ) {
+      return data?.driving_license_url.map((url, index) =>
+        renderImageOrPdf(url, index)
       )
     }
   }
