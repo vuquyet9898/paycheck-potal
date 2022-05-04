@@ -1,5 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import { Dialog, Transition } from '@headlessui/react'
-import { createCompany } from 'actions/company'
+import { XIcon } from '@heroicons/react/solid'
+import {
+  createCompany,
+  saveImageCompany,
+  uploadFileCompany,
+} from 'actions/company'
+import { IconPdf } from 'constants/icons'
 import { renderErrorMessage } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, { Fragment, useState } from 'react'
@@ -11,6 +18,8 @@ export default function Index() {
   const [companyName, setCompanyName] = useState('')
   const [companyId, setCompanyId] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  const [images, setImages] = useState([])
+
   const closeModal = () => {
     setIsOpen(false)
   }
@@ -19,28 +28,65 @@ export default function Index() {
     setCompanyName(event.target.value)
   }
 
-  const onCreateCompany = async () => {
-    const res = await createCompany({
-      name: companyName,
-      company_code: companyId,
-    })
+  const onUpFile = async (companyId) => {
+    try {
+      const formData = new FormData()
+      images?.map((item) => {
+        return formData.append('company', item)
+      })
 
-    if (res?.status === 201) {
-      toast.success('Create successfully!')
-      router.back()
-    } else if (res?.statusCode === 422) {
-      renderErrorMessage({
-        message: 'Company code already exist',
+      const response = await uploadFileCompany(formData)
+      const listUrl = []
+      response?.data?.file_url.map((item) => {
+        const dataImage = {
+          company_id: companyId,
+          file_url: [item],
+          file_name: item.substring(item.lastIndexOf('/') + 1),
+        }
+        listUrl.push(saveImageCompany(dataImage))
+        return null
       })
-    } else if (res?.statusCode === 400) {
-      renderErrorMessage({
-        message: 'Name or ID should not be empty',
+      await Promise.all(listUrl)
+    } catch (error) {}
+  }
+
+  const onCreateCompany = async () => {
+    try {
+      const res = await createCompany({
+        name: companyName,
+        company_code: companyId,
       })
-    }
+      if (images.length > 0) {
+        await onUpFile(res?.data?._id)
+      }
+      if (res?.status === 201) {
+        toast.success('Create successfully!')
+        router.back()
+      } else if (res?.statusCode === 422) {
+        renderErrorMessage({
+          message: 'Company code already exist',
+        })
+      } else if (res?.statusCode === 400) {
+        renderErrorMessage({
+          message: 'Name or ID should not be empty',
+        })
+      }
+    } catch (error) {}
   }
 
   const [t] = useTranslation('common')
+  const onFileChange = (event) => {
+    try {
+      setImages([...images, event.target.files[0]])
+    } catch (error) {}
+  }
 
+  const onRemoveFile = async (indexDelete) => {
+    const newData = images?.filter((item, index) => index !== indexDelete)
+    setImages(newData)
+  }
+
+  const isDisableBtnSave = companyName.length < 1 || companyId.length < 1
   return (
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
@@ -55,7 +101,7 @@ export default function Index() {
           {t('company.back')}
         </button>
       </div>
-      <div className="w-11/12 py-6">
+      <div className="w-1/2 py-6">
         <div className="flex flex-col gap-4 pl-4">
           <div className="flex items-center">
             <p className="w-60 font-bold">{t('company.name')}</p>
@@ -77,6 +123,28 @@ export default function Index() {
           </div>
         </div>
       </div>
+      <div className="w-1/2  gap-4 flex justify-end  pl-4 mt-6 ">
+        <label className="mt-4 w-32 flex flex-row items-center px-4 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:opacity-60">
+          <svg
+            className="w-6 h-6"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+          </svg>
+          <span className="mr-2 ml-2 text-sm leading-normal">
+            {t('upload')}
+          </span>
+          <input
+            type="file"
+            className="hidden"
+            required
+            onChange={onFileChange}
+          />
+        </label>
+      </div>
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -134,10 +202,68 @@ export default function Index() {
           </div>
         </Dialog>
       </Transition>
+      {images?.map((item, index) => {
+        const isPdf = item?.type === 'application/pdf'
+
+        if (isPdf) {
+          return (
+            <div className="py-4 flex " key={`${item?.size}_uuid_pdf_${index}`}>
+              <a
+                href={URL.createObjectURL(item)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconPdf />
+                <span>{t('payment.PDF')}</span>
+                <div>{item?.name}</div>
+              </a>
+              <div className="flex flex-row items-center">
+                <button
+                  onClick={() => onRemoveFile(index)}
+                  type="button"
+                  className="w-6 h-6 text-red-500 mr-4  "
+                >
+                  <XIcon />
+                </button>
+              </div>
+            </div>
+          )
+        }
+        return (
+          <div key={`${item?.size}_uuid_${index}`} className="py-4">
+            <div className="flex flex-row items-center">
+              <a
+                href={URL.createObjectURL(item)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={URL.createObjectURL(item)}
+                  className="w-12 h-12"
+                  alt="Display"
+                />
+                <div>{item?.name}</div>
+              </a>
+
+              <button
+                onClick={() => onRemoveFile(index)}
+                type="button"
+                className="w-6 h-6 text-red-500 mr-4  "
+              >
+                <XIcon />
+              </button>
+            </div>
+            <div>{item?.currentFile?.name}</div>
+          </div>
+        )
+      })}
       <button
+        disabled={isDisableBtnSave}
         type="button"
         onClick={onCreateCompany}
-        className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className={`text-white font-bold py-2 px-4 rounded ${
+          !isDisableBtnSave ? 'bg-green-500' : 'bg-gray-400'
+        } ${!isDisableBtnSave ? 'hover:bg-green-600' : 'hover:bg-gray-400'}`}
       >
         {t('company.save')}
       </button>
