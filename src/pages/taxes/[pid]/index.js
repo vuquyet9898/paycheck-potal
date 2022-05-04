@@ -11,6 +11,7 @@ const dataField = [
   'grossAmount',
   'aCommissions',
   'incomeTax',
+  'employerSocialSercurity',
   'socialSercurityWorks',
   'healthTax',
   'compensation',
@@ -23,6 +24,12 @@ const listField = [
   { title: 'Gross amount', field: 'grossAmount', value: '' },
   { title: 'A commission', field: 'aCommissions', value: '' },
   { title: 'Income Tax', field: 'incomeTax', value: '' },
+  {
+    title: 'Employer Social Security',
+    field: 'employerSocialSercurity',
+    value: '',
+  },
+
   {
     title: 'Social Security works',
     field: 'socialSercurityWorks',
