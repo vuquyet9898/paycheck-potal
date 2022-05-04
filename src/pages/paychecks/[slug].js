@@ -1,5 +1,13 @@
 import { Dialog, Transition } from '@headlessui/react'
+import {
+  columnsPayCheck,
+  createPayCheck,
+  ExpandedComponentPaycheck,
+  getPayCheckDetail,
+  upFilePayCheck,
+} from 'actions/paycheck'
 import UploadButton from 'components/Button/UploadButton'
+import Spin from 'components/Spin'
 import { useTableHeight } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, {
@@ -12,15 +20,8 @@ import React, {
 import DataTable from 'react-data-table-component'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { formatDate } from 'utils/date'
-import Spin from 'components/Spin'
-import {
-  createPayCheck,
-  getPayCheckDetail,
-  upFilePayCheck,
-  columnsPayCheck,
-} from 'actions/paycheck'
 import { useTranslation } from 'react-i18next'
+import { formatDate } from 'utils/date'
 
 export default function PaymentDetail() {
   // data table
@@ -118,10 +119,6 @@ export default function PaymentDetail() {
   }
   const isFileSelect = !!selectedFile?.name
 
-  // const [accountNumber, setAccountNumber] = useState('')
-  const changeHandler = (event) => {
-    setAmount(event.target.value)
-  }
   return (
     <div className="pt-10">
       <div className="w-full  flex flex-row  justify-end px-20">
@@ -239,6 +236,14 @@ export default function PaymentDetail() {
         paginationPerPage={20}
         fixedHeaderScrollHeight={`${tableHeight}px`}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
+        expandableRows
+        // eslint-disable-next-line react/no-unstable-nested-components
+        expandableRowsComponent={({ data }) => (
+          <ExpandedComponentPaycheck
+            data={data}
+            callback={() => fetchPayCheck(0)}
+          />
+        )}
       />
     </div>
   )
