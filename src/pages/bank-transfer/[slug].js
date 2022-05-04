@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import {
   createBankTransfer,
+  ExpandedComponentBankTransfer,
   getBankTransferDetail,
   upFileBankTransfer,
   UseSchemaColumnsBankTransfer,
@@ -290,6 +291,14 @@ export default function InvoiceDetail() {
         paginationPerPage={20}
         fixedHeaderScrollHeight={`${tableHeight}px`}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
+        expandableRows
+        // eslint-disable-next-line react/no-unstable-nested-components
+        expandableRowsComponent={({ data }) => (
+          <ExpandedComponentBankTransfer
+            data={data}
+            callback={() => fetchBankTransfer(0)}
+          />
+        )}
       />
     </div>
   )
