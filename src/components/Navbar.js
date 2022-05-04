@@ -109,6 +109,12 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
       url: '/notification',
       icon: <IconNotification />,
     },
+    {
+      id: 11,
+      name: isEnLanguage ? 'Term' : 'Term hb',
+      url: '/term',
+      icon: <IconNotification />,
+    },
   ]
 
   if (!isLogin) return null

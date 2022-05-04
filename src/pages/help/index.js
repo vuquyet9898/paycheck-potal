@@ -3,6 +3,7 @@ import fetchApi from 'helper/fetchApi'
 import { useTableHeight } from 'helper/utils'
 import { debounce } from 'lodash'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useTranslation } from 'react-i18next'
@@ -76,6 +77,23 @@ export default function Index() {
     },
   ]
 
+  const customStyles = {
+    rows: {
+      style: {
+        cursor: 'pointer',
+      },
+    },
+  }
+
+  const router = useRouter()
+
+  const handleNavigate = (row) => {
+    router.push({
+      pathname: `/help/[hid]`,
+      query: { hid: row?._id },
+    })
+  }
+
   return (
     <div className="px-4 py-4">
       <h1 className="text-2xl font-bold  uppercase flex justify-end">
@@ -108,7 +126,6 @@ export default function Index() {
       </div>
       <DataTable
         fixedHeader
-        expandableRows
         title={t('user.allUser')}
         columns={columnsHelp}
         data={data}
@@ -123,6 +140,8 @@ export default function Index() {
         fixedHeaderScrollHeight={`${tableHeight}px`}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
         expandableRowsComponent={ExpandedComponent}
+        onRowClicked={handleNavigate}
+        customStyles={customStyles}
       />
     </div>
   )
