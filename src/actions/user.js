@@ -48,7 +48,7 @@ export const UseSchemaColumnsUser = () => {
         row.freelancer_type === 'freelancer'
           ? t('user.freelance')
           : t('user.delivery'),
-      width: '250px',
+      width: '150px',
     },
     {
       name: t('user.phone'),
@@ -58,28 +58,23 @@ export const UseSchemaColumnsUser = () => {
     {
       name: t('user.id'),
       selector: (row) => row.personal_id,
-      width: '200px',
+      width: '150px',
     },
 
     {
-      name: t('user.company'),
-      selector: (row) => row.company_name,
-      width: '200px',
-    },
-    {
       name: t('user.name'),
-      selector: (row) => row.email,
-      width: '350px',
-    },
-    {
-      name: t('user.email'),
       selector: (row) => row.full_name,
       width: '200px',
     },
     {
+      name: t('user.email'),
+      selector: (row) => row.email,
+      width: '250px',
+    },
+    {
       name: t('user.workingStatus'),
       selector: (row) => row.work_status,
-      width: '200px',
+      width: '150px',
     },
   ]
 }
