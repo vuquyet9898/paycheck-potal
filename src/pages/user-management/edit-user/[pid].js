@@ -15,7 +15,6 @@ function PersonalPaymentDetail() {
   const [userDetail, setUserDetail] = useState(null)
   const [bankModalVisible, setBankModalVisible] = useState(false)
   const [finalizeData, setFinalizeData] = useState(null)
-  console.log('finalizeData', finalizeData)
 
   const dataApproval =
     userDetail?.freelancer_type === 'freelancer'
@@ -59,7 +58,6 @@ function PersonalPaymentDetail() {
       })
     }
   }
-  console.log('userDetail', userDetail)
   return (
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">

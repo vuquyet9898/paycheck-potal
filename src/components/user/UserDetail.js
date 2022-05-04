@@ -12,13 +12,24 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
     { name: 'invalid' },
     { name: 'approved' },
   ]
+
   const [selectedStatus, setSelectedStatus] = useState(status[0])
   const handleUpdateApproval = (s) => {
-    setSelectedStatus(s)
-    setFinalizeData({
-      ...finalizeData,
-      [detail.fieldApprovalName]: s?.name,
-    })
+    if (detail.fieldName === 'phone_number') {
+      setSelectedStatus(s)
+      setFinalizeData({
+        ...finalizeData,
+        [detail.fieldApprovalName]:
+          s?.name === 'pending' ? 'pending_admin' : s?.name,
+      })
+    } else {
+      setSelectedStatus(s)
+      setFinalizeData({
+        ...finalizeData,
+        [detail.fieldApprovalName]: s?.name,
+      })
+    }
+    console.log('xxxx', s)
   }
   const [t] = useTranslation('common')
 
