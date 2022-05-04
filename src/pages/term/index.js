@@ -2,6 +2,7 @@ import { getBanks } from 'actions/bank'
 import { getTerm, postTerm } from 'actions/term'
 import { TERM } from 'constants/request'
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 export default function Index() {
@@ -24,7 +25,7 @@ export default function Index() {
     const res = await postTerm({
       content: data,
     })
-    if (res?.status === 200) {
+    if (res?.status === 201) {
       toast.success('Change successfully!')
     }
   }
@@ -33,14 +34,16 @@ export default function Index() {
     fetchTerm()
   }, [])
 
+  const [t] = useTranslation('common')
+
   return (
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
-        <h1 className="py-4 text-2xl uppercase font-bold">Term</h1>
+        <h1 className="py-4 text-2xl uppercase font-bold">{t('term.title')}</h1>
       </div>
       <div className="w-full  mx-auto  rtl mt-6">
         <div className="flex flex-row mt-4">
-          <div>Content</div>
+          <div>{t('term.content')}</div>
           <div className="text-red-500 px-2">(*)</div>
         </div>
         <div className="w-3/4 mt-6 pb-6">
@@ -59,7 +62,7 @@ export default function Index() {
             isBlock ? 'bg-green-500' : 'bg-gray-500 '
           } text-white  py-2 px-4 rounded text-xs min-w-[76px]`}
         >
-          Save
+          {t('term.save')}
         </button>
       </div>
     </div>

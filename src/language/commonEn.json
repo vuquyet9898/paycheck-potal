@@ -107,7 +107,9 @@
     "title": "HELP",
     "phone": "Phone number",
     "mes": "Messages",
-    "search": "Search phone number"
+    "search": "Search phone number",
+    "userMess": "User Message",
+    "back": "Back"
   },
   "nav": {
     "login": "login",
@@ -151,6 +153,11 @@
     "send": "Send",
     "mes": "The messages",
     "sendType": "Send notification All user"
+  },
+  "term": {
+    "title": "TERM",
+    "content": "Content",
+    "save": "Save"
   },
   "alert": {
     "success": "Successfully",

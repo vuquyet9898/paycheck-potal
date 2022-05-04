@@ -29,19 +29,21 @@ function HelpCenterDetail() {
   return (
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
-        <h1 className="py-4 text-2xl uppercase font-bold">User Message</h1>
+        <h1 className="py-4 text-2xl uppercase font-bold">
+          {t('help.userMess')}
+        </h1>
         <button
           type="button"
           className="ml-8 underline text-indigo-500 hover:text-indigo-400 active:text-indigo-600"
           onClick={() => router.back()}
         >
-          Back
+          {t('help.back')}
         </button>
       </div>
       <div className=" py-6">
         <div className="flex flex-col gap-4 pl-4">
           <div className="flex items-center">
-            <p className="w-2/12 font-bold">Phone</p>
+            <p className="w-2/12 font-bold">{t('help.phone')}</p>
             {helpDetail && (
               <p className=" rounded-md px-2 py-1 w-9/12 text-justify">
                 {helpDetail.phonenumber}
@@ -49,7 +51,7 @@ function HelpCenterDetail() {
             )}
           </div>
           <div className="flex items-center">
-            <p className="w-2/12 font-bold">Message</p>
+            <p className="w-2/12 font-bold">{t('help.mes')}</p>
             {helpDetail && (
               <p className=" rounded-md px-2 py-1 w-9/12 text-justify">
                 {helpDetail.content}
