@@ -162,7 +162,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
         onClose={() => setIsOpenModalChangeLanguage(false)}
         className="bg-slate-400 justify-center items-center flex absolute w-full h-full top-0 bg-transparent"
       >
-        <div className="w-72 h-40 bg-white rounded-md drop-shadow-xl flex justify-center pt-4">
+        <div className="w-72 h-40 bg-white rounded-md drop-shadow-xl flex justify-center pt-4 z-50">
           <div className="  w-6 h-6 absolute z-10  top-4 right-4">
             <button
               type="button"
