@@ -64,11 +64,11 @@ export const UseSchemaColumnsPayment = () => {
       name: t('payment.invoiceName'),
       selector: (row) => row?.invoice_name,
     },
-    {
-      name: t('payment.bankId'),
-      selector: (row) => row?.bank_detail?.bank_id,
-      width: '220px',
-    },
+    // {
+    //   name: t('payment.bankId'),
+    //   selector: (row) => row?.bank_detail?.bank_id,
+    //   width: '220px',
+    // },
     {
       name: t('payment.bankName'),
       selector: (row) => row?.bank_detail?.bank_name,

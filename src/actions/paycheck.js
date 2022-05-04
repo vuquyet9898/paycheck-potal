@@ -39,26 +39,26 @@ export const columnsPayCheck = [
         href={row.file_url}
         target="paycheck"
         rel="noreferrer"
-        className="text-indigo-500 whitespace-nowrap overflow-hidden  overflow-ellipsis"
+        className="truncate text-indigo-500 whitespace-nowrap overflow-hidden  overflow-ellipsis"
       >
-        {row.file_url.replace(/^.*[\\\/]/, '')}
+        {row?.file_url}
       </a>
     ),
   },
   {
     name: 'File name',
     selector: (row) => row.file_name,
-    width: '350px',
+    width: '250px',
   },
   {
     name: 'Id',
     selector: (row) => row._id,
-    width: '350px',
+    width: '250px',
   },
 
   {
     name: 'Create date',
     selector: (row) => format(parseISO(row?.createdAt), 'yyyy-MM-dd'),
-    width: '350px',
+    width: '250px',
   },
 ]

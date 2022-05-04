@@ -1,11 +1,14 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { getQuery } from 'utils/getQuery'
 import { useTranslation } from 'react-i18next'
+import { use } from 'i18next'
+import { updateUserDetail } from 'actions/user'
+import { renderErrorMessage } from 'helper/utils'
+import { toast } from 'react-toastify'
 
-export function ExpandedComponent({ data }) {
+export function ExpandedComponent({ data, callback }) {
   const [t] = useTranslation('common')
-
   const listMenuExpanded = [
     {
       name: 'PayCheck',
@@ -33,6 +36,69 @@ export function ExpandedComponent({ data }) {
       title: t('user.edit'),
     },
   ]
+
+  const [workingStatus, setWorkingStatus] = useState(data.work_status)
+  const isBlock = workingStatus === 'blocked'
+  const id = data._id
+  const changeWorkingStatus = async () => {
+    // setWorkingStatus(!workingStatus)
+    // console.log(workingStatus)
+    if (workingStatus === 'blocked') {
+      const result = await updateUserDetail({
+        id,
+        data: { work_status: 'not_working' },
+      })
+      if (typeof callback === 'function') {
+        callback(0)
+      }
+      if (result?.status === 200) {
+        toast.success('Update successfully!')
+      } else {
+        renderErrorMessage({
+          message: 'Unexpected error occurs, please try again',
+        })
+      }
+      console.log(result)
+    } else {
+      const result = await updateUserDetail({
+        id,
+        data: { work_status: 'blocked' },
+      })
+      if (typeof callback === 'function') {
+        callback(0)
+      }
+      if (result?.status === 200) {
+        toast.success('Update successfully!')
+      } else {
+        renderErrorMessage({
+          message: 'Unexpected error occurs, please try again',
+        })
+      }
+    }
+  }
+  // const ButtonStatus = () => {
+  //   if (isBlock) {
+  //     return (
+  //       <button
+  //         type="button"
+  //         onClick={changeWorkingStatus}
+  //         className="bg-green-500 text-white  py-2 px-4 rounded  text-xs"
+  //       >
+  //         Unblock
+  //       </button>
+  //     )
+  //   } else {
+  //     return (
+  //       <button
+  //         type="button"
+  //         onClick={changeWorkingStatus}
+  //         className="bg-red-500 text-white  py-2 px-4 rounded  text-xs"
+  //       >
+  //         Block
+  //       </button>
+  //     )
+  //   }
+  // }
   return (
     <div className="flex pr-10 pt-2 gap-x-4 pl-5 ">
       {listMenuExpanded.map((item) => {
@@ -54,6 +120,15 @@ export function ExpandedComponent({ data }) {
           </button>
         )
       })}
+      <button
+        type="button"
+        onClick={changeWorkingStatus}
+        className={`${
+          isBlock ? 'bg-green-500' : 'bg-red-500 '
+        } text-white  py-2 px-4 rounded text-xs min-w-[76px]`}
+      >
+        {isBlock ? 'Unblock' : 'Block'}
+      </button>
     </div>
   )
 }
