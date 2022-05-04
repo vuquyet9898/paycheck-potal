@@ -26,18 +26,21 @@ export const USER_APPROVAL = [
     id: 9,
     name: 'Phone number',
     fieldName: 'phone_number',
+    fieldApprovalName: 'phone_number_approval',
   },
+
+  // file
   {
     id: 0,
-    name: 'Insurance Policy',
-    fieldName: 'insurance_policy_url',
-    fieldApprovalName: 'insurance_policy_url_approval',
-  },
-  {
-    id: 1,
     name: 'Personal Accidents Insurance',
     fieldName: 'personal_accidents_insurance_url',
     fieldApprovalName: 'personal_accidents_insurance_url_approval',
+  },
+  {
+    id: 1,
+    name: 'Insurance Policy',
+    fieldName: 'insurance_policy_url',
+    fieldApprovalName: 'insurance_policy_url_approval',
   },
 
   {
@@ -89,18 +92,21 @@ export const USER_DELIVERY_APPROVAL = [
     id: 10,
     name: 'Phone number',
     fieldName: 'phone_number',
+    fieldApprovalName: 'phone_number_approval',
   },
+
+  // file
   {
     id: 0,
-    name: 'Insurance Policy',
-    fieldName: 'insurance_policy_url',
-    fieldApprovalName: 'insurance_policy_url_approval',
-  },
-  {
-    id: 1,
     name: 'Personal Accidents Insurance',
     fieldName: 'personal_accidents_insurance_url',
     fieldApprovalName: 'personal_accidents_insurance_url_approval',
+  },
+  {
+    id: 1,
+    name: 'Insurance Policy',
+    fieldName: 'insurance_policy_url',
+    fieldApprovalName: 'insurance_policy_url_approval',
   },
 
   {
@@ -125,7 +131,13 @@ export const USER_DELIVERY_APPROVAL = [
   {
     id: 5,
     name: 'Car License',
-    fieldName: 'car_license_ur',
+    fieldName: 'car_license_url',
     fieldApprovalName: 'car_license_url_approval',
+  },
+  {
+    id: 11,
+    name: 'Driving License',
+    fieldName: 'driving_license_url',
+    fieldApprovalName: 'driving_license_url_approval',
   },
 ]

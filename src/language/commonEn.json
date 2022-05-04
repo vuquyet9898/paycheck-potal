@@ -32,7 +32,11 @@
     "lifeInsurance": "Life Insurance",
     "healthInsurance": "Health Insurance",
     "carLicense": "Car License",
+
+    "driving_license_url": "Driving License",
+
     "workingStatus": "Status"
+
   },
   "payment": {
     "payment": "Payment",

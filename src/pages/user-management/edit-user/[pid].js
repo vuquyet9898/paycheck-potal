@@ -15,10 +15,13 @@ function PersonalPaymentDetail() {
   const [userDetail, setUserDetail] = useState(null)
   const [bankModalVisible, setBankModalVisible] = useState(false)
   const [finalizeData, setFinalizeData] = useState(null)
+  console.log('finalizeData', finalizeData)
+
   const dataApproval =
     userDetail?.freelancer_type === 'freelancer'
       ? USER_APPROVAL
       : USER_DELIVERY_APPROVAL
+
   useEffect(() => {
     if (userDetail) {
       const temp = {}
@@ -56,7 +59,7 @@ function PersonalPaymentDetail() {
       })
     }
   }
-
+  console.log('userDetail', userDetail)
   return (
     <div className="rtl pr-4">
       <div className="flex items-center justify-between">
@@ -73,17 +76,19 @@ function PersonalPaymentDetail() {
         </button>
       </div>
       <div className="flex flex-col gap-4 pl-4">
-        {dataApproval.map((info) => (
-          <Fragment key={info.id}>
-            <UserDetail
-              detail={info}
-              data={userDetail}
-              handleVisibleBankModal={handleVisibleBankModal}
-              setFinalizeData={setFinalizeData}
-              finalizeData={finalizeData}
-            />
-          </Fragment>
-        ))}
+        {dataApproval.map((info) => {
+          return (
+            <Fragment key={info.id}>
+              <UserDetail
+                detail={info}
+                data={userDetail}
+                handleVisibleBankModal={handleVisibleBankModal}
+                setFinalizeData={setFinalizeData}
+                finalizeData={finalizeData}
+              />
+            </Fragment>
+          )
+        })}
       </div>
 
       <button
