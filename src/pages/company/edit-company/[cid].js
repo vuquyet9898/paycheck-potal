@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { XIcon } from '@heroicons/react/solid'
 import {
   deleteFileCompany,
@@ -7,6 +8,7 @@ import {
   uploadFileCompany,
 } from 'actions/company'
 import { IconPdf } from 'constants/icons'
+import { format, parseISO } from 'date-fns'
 import { renderErrorMessage } from 'helper/utils'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -167,6 +169,7 @@ export default function Index() {
                   <span>{t('payment.PDF')}</span>
                   <div>{item?.file_name}</div>
                 </a>
+                <div>{format(parseISO(item?.createdAt), 'yyyy-MM-dd')}</div>
               </div>
             )
           }
@@ -184,7 +187,9 @@ export default function Index() {
                     className="w-12 h-12"
                     alt="Display"
                   />
+                  <div>{item?.file_name}</div>
                 </a>
+
                 <button
                   onClick={removeItemWithIndex}
                   type="button"
@@ -194,6 +199,7 @@ export default function Index() {
                 </button>
               </div>
               <div>{item?.currentFile?.name}</div>
+              <div>{format(parseISO(item?.createdAt), 'yyyy-MM-dd')}</div>
             </div>
           )
         })}
