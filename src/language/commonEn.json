@@ -2,9 +2,9 @@
   "user": {
     "title": "USER MANAGEMENT",
     "titleSearch": "Search Personal ID",
-    "freelance": "freelancer",
-    "delivery": "delivery",
-    "allUser": "All user",
+    "freelance": "Freelancer",
+    "delivery": "Delivery person",
+    "allUser": "All users",
     "name": "Name",
     "email": "Email",
     "fullName": "Full name",
@@ -13,7 +13,7 @@
     "phoneNumber": "Phone number",
     "id": "ID",
     "phone": "Phone",
-    "typeOffUser": "Type off user",
+    "typeOffUser": "Type of user",
     "edit": "Edit User",
     "payment": "Payment",
     "Invoices": "Invoices",
@@ -36,7 +36,6 @@
     "driving_license_url": "Driving License",
 
     "workingStatus": "Status"
-
   },
   "payment": {
     "payment": "Payment",
@@ -86,18 +85,19 @@
     "upload": "Upload",
     "all": "All BankTransfer",
     "file": "File url",
-    "bankNo": "Bank Transfers No",
+    "bankNo": "Bank Transfer No",
 
     "dateTransfer": "Transfer Date",
     "dateUpload": "Upload date"
   },
   "incvoices": {
-    "title": "incvoices",
+    "title": "invoices",
     "up": "Upload Invoices",
     "daye": "date",
     "select": "Select a file invoices",
     "upload": "Upload",
-    "all": "All invoices"
+    "all": "All invoices",
+    "delete": "Delete"
   },
   "paycheck": {
     "title": "PAYCHECKS",
@@ -105,15 +105,16 @@
     "date": "Date",
     "select": "Select a file paycheck",
     "uploadAction": "Upload",
-    "all": "All PayCheck"
+    "all": "All PayChecks"
   },
   "help": {
     "title": "Help Center ",
     "phone": "Phone number",
-    "mes": "Messages",
+    "mes": "Message",
     "search": "Search phone number",
     "userMess": "User Message",
-    "back": "Back"
+    "back": "Back",
+    "allMess": "All messages"
   },
   "nav": {
     "login": "login",
@@ -156,10 +157,10 @@
     "content": "Content",
     "send": "Send",
     "mes": "The messages",
-    "sendType": "Send notification All user"
+    "sendType": "Send notification All users"
   },
   "term": {
-    "title": "TERM",
+    "title": "TERMS",
     "content": "Content",
     "save": "Save"
   },

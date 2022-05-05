@@ -111,7 +111,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
     },
     {
       id: 11,
-      name: isEnLanguage ? 'Term' : 'Term hb',
+      name: isEnLanguage ? 'Terms' : 'Terms hb',
       url: '/term',
       icon: <IconNotification />,
     },

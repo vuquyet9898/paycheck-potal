@@ -17,6 +17,7 @@ import Spin from 'components/Spin'
 import {
   columnsInvoices,
   createInvoices,
+  ExpandedComponentInvoices,
   getInvoicesDetail,
   upFileInvoices,
 } from 'actions/invoices'
@@ -231,6 +232,14 @@ export default function InvoiceDetail() {
         paginationPerPage={20}
         fixedHeaderScrollHeight={`${tableHeight}px`}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
+        expandableRows
+        // eslint-disable-next-line react/no-unstable-nested-components
+        expandableRowsComponent={({ data }) => (
+          <ExpandedComponentInvoices
+            data={data}
+            callback={() => fetchInvoices(0)}
+          />
+        )}
       />
     </div>
   )
