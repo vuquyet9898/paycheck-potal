@@ -126,7 +126,7 @@ export default function Index() {
       </div>
       <DataTable
         fixedHeader
-        title={t('user.allUser')}
+        title={t('help.allMess')}
         columns={columnsHelp}
         data={data}
         direction="rtl"
