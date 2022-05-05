@@ -146,11 +146,15 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
             </Link>
           ))}
           <button
-            className="py-2 px-3  flex items-center justify-center hover:bg-indigo-200 rounded-md"
+            className=" py-2 px-3  flex items-center justify-center hover:bg-indigo-200 rounded-md"
             type="button"
             onClick={() => setIsOpenModalChangeLanguage(true)}
           >
-            <span className="text-sm  w-full flex  justify-end ">
+            <span
+              className={`text-sm ${
+                showMenuText ? 'flex justify-end  w-full' : 'hidden'
+              } `}
+            >
               {isEnLanguage ? 'Change Language' : 'Change Language hb'}
             </span>
           </button>

@@ -100,7 +100,7 @@
     "all": "All invoices"
   },
   "paycheck": {
-    "title": "PAYCHECK",
+    "title": "PAYCHECKS",
     "upload": "Upload PayCheck",
     "date": "Date",
     "select": "Select a file paycheck",
