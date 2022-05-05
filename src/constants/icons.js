@@ -359,3 +359,112 @@ export function IconNotification({ size = 24 }) {
     </svg>
   )
 }
+
+export function IconTerm({ size = 24 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 208 240"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8 40V199.924"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+      />
+      <path
+        d="M200 88V200"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M40 8H120"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M40 232H168"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+      />
+      <path
+        d="M200 200C200.087 215.982 184 232 168 232"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 200C8 216 24 232 40 232"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 39.9766C8 23.9998 24 8.3561 40 7.99978"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M199.913 88.0718L120 8"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M120 56C120.049 71.9129 136.065 88 152 88"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M120 56V8"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M152 88H200"
+        stroke="black"
+        strokeWidth="15.992"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M40 200H88"
+        stroke="black"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M40 168H120"
+        stroke="black"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M40 136H88"
+        stroke="black"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}

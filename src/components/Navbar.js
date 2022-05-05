@@ -11,6 +11,7 @@ import {
   IconSetting,
   IconTexas,
   IconUser,
+  IconTerm,
 } from 'constants/icons'
 import { delay } from 'helper/utils'
 import { LanguageContext } from 'hooks/languageContent'
@@ -113,7 +114,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
       id: 11,
       name: isEnLanguage ? 'Terms' : 'Terms hb',
       url: '/term',
-      icon: <IconNotification />,
+      icon: <IconTerm />,
     },
   ]
 
