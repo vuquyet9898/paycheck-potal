@@ -223,6 +223,7 @@ export default function Banks() {
           expandableRowsComponent={({ data }) => (
             <ExpandedComponentBank data={data} callback={fetchListBank} />
           )}
+          noDataComponent={<div>{t('noData')}</div>}
         />
       </div>
     </div>

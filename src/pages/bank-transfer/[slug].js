@@ -299,6 +299,7 @@ export default function InvoiceDetail() {
             callback={() => fetchBankTransfer(0)}
           />
         )}
+        noDataComponent={<div>{t('noData')}</div>}
       />
     </div>
   )

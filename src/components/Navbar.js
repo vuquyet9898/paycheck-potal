@@ -52,13 +52,13 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
   const menuItems = [
     {
       id: 0,
-      name: isEnLanguage ? 'User Management' : 'Managementל',
+      name: isEnLanguage ? 'User Management' : 'ניהול משתמשים',
       url: '/user-management',
       icon: <IconUser />,
     },
     {
       id: 2,
-      name: isEnLanguage ? 'Payment' : 'Payment',
+      name: isEnLanguage ? 'Payment' : 'תשלום',
       url: '/payment',
       icon: <IconPayment />,
     },
@@ -76,13 +76,13 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
     },
     {
       id: 5,
-      name: isEnLanguage ? 'Paychecks' : 'Paychecks hb',
+      name: isEnLanguage ? 'Paychecks' : 'תלושי שכר',
       url: '/paychecks',
       icon: <IconPaychecks />,
     },
     {
       id: 6,
-      name: isEnLanguage ? 'Help Center' : 'Help Center hb',
+      name: isEnLanguage ? 'Help Center' : 'מרכז העזרה',
       url: '/help',
       icon: <IconHelpCenter />,
     },
@@ -94,25 +94,25 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
     },
     {
       id: 8,
-      name: isEnLanguage ? 'Taxes' : 'Taxes hb',
+      name: isEnLanguage ? 'Taxes' : 'מיסים',
       url: '/taxes',
       icon: <IconTexas />,
     },
     {
       id: 9,
-      name: isEnLanguage ? 'Banks' : 'Banks hb',
+      name: isEnLanguage ? 'Banks' : 'בנקים',
       url: '/banks',
       icon: <IconBank />,
     },
     {
       id: 10,
-      name: isEnLanguage ? 'Notification' : 'Notification hb',
+      name: isEnLanguage ? 'Notification' : 'Notification',
       url: '/notification',
       icon: <IconNotification />,
     },
     {
       id: 11,
-      name: isEnLanguage ? 'Terms' : 'Terms hb',
+      name: isEnLanguage ? 'Terms' : 'תנאים',
       url: '/term',
       icon: <IconTerm />,
     },
@@ -156,7 +156,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
                 showMenuText ? 'flex justify-end  w-full' : 'hidden'
               } `}
             >
-              {isEnLanguage ? 'Change Language' : 'Change Language hb'}
+              {isEnLanguage ? 'Change Language' : 'שינוי שפה'}
             </span>
           </button>
         </div>

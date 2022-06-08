@@ -244,6 +244,7 @@ export default function PaymentDetail() {
             callback={() => fetchPayCheck(0)}
           />
         )}
+        noDataComponent={<div>{t('noData')}</div>}
       />
     </div>
   )

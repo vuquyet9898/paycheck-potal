@@ -123,6 +123,7 @@ export default function Index() {
         paginationPerPage={20}
         fixedHeaderScrollHeight={`${tableHeight}px`}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
+        noDataComponent={<div>{t('noData')}</div>}
       />
     </div>
   )
