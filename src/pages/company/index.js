@@ -227,6 +227,7 @@ export default function Company() {
           expandableRowsComponent={({ data }) => (
             <ExpandedComponentCompany data={data} callback={fetchPayCheck} />
           )}
+          noDataComponent={<div>{t('noData')}</div>}
         />
       </div>
     </div>

@@ -32,10 +32,10 @@
     "lifeInsurance": "Life Insurance",
     "healthInsurance": "Health Insurance",
     "carLicense": "Car License",
-
     "driving_license_url": "Driving License",
-
-    "workingStatus": "Status"
+    "workingStatus": "Status",
+    "block":"Block",
+    "unBlock":"UnBlock"
   },
   "payment": {
     "payment": "Payment",
@@ -168,5 +168,6 @@
     "success": "Successfully",
     "send": "Send"
   },
-  "upload": "Upload"
+  "upload": "Upload",
+  "noData":"There are no records to display"
 }

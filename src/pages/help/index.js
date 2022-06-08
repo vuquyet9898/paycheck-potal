@@ -142,6 +142,7 @@ export default function Index() {
         expandableRowsComponent={ExpandedComponent}
         onRowClicked={handleNavigate}
         customStyles={customStyles}
+        noDataComponent={<div>{t('noData')}</div>}
       />
     </div>
   )

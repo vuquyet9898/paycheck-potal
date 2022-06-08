@@ -1,11 +1,10 @@
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { getQuery } from 'utils/getQuery'
-import { useTranslation } from 'react-i18next'
-import { use } from 'i18next'
 import { updateUserDetail } from 'actions/user'
 import { renderErrorMessage } from 'helper/utils'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
+import { getQuery } from 'utils/getQuery'
 
 export function ExpandedComponent({ data, callback }) {
   const [t] = useTranslation('common')
@@ -76,29 +75,7 @@ export function ExpandedComponent({ data, callback }) {
       }
     }
   }
-  // const ButtonStatus = () => {
-  //   if (isBlock) {
-  //     return (
-  //       <button
-  //         type="button"
-  //         onClick={changeWorkingStatus}
-  //         className="bg-green-500 text-white  py-2 px-4 rounded  text-xs"
-  //       >
-  //         Unblock
-  //       </button>
-  //     )
-  //   } else {
-  //     return (
-  //       <button
-  //         type="button"
-  //         onClick={changeWorkingStatus}
-  //         className="bg-red-500 text-white  py-2 px-4 rounded  text-xs"
-  //       >
-  //         Block
-  //       </button>
-  //     )
-  //   }
-  // }
+
   return (
     <div className="flex pr-10 pt-2 gap-x-4 pl-5 ">
       {listMenuExpanded.map((item) => {
@@ -127,7 +104,7 @@ export function ExpandedComponent({ data, callback }) {
           isBlock ? 'bg-green-500' : 'bg-red-500 '
         } text-white  py-2 px-4 rounded text-xs min-w-[76px]`}
       >
-        {isBlock ? 'Unblock' : 'Block'}
+        {isBlock ? t('user.unBlock') : t('user.block')}
       </button>
     </div>
   )

@@ -120,6 +120,7 @@ function Payment() {
           paginationRowsPerPageOptions={[10, 20, 30, 50]}
           onRowClicked={handleNavigate}
           customStyles={customStyles}
+          noDataComponent={<div>{t('noData')}</div>}
         />
       </div>
     </div>
