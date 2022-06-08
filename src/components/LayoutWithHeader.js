@@ -77,7 +77,7 @@ function LayoutWithHeader({ children }) {
                   className="flex items-center justify-end btn-primary-reverse focus:outline-none px-4 py-3 rounded-md capitalize w-full"
                   onClick={signOut}
                 >
-                  {isEnLanguage ? 'logout' : 'logout hb'}
+                  {isEnLanguage ? 'logout' : 'להתנתק'}
                 </button>
               </Menu.Item>
             </div>
@@ -102,7 +102,7 @@ function LayoutWithHeader({ children }) {
       <div className="h-[calc(100vh-90px)] w-full flex flex-col space-y-4 items-center justify-center">
         <Link href="/login">
           <a className="flex items-center btn-primary px-8 py-3 rounded-md">
-            {isEnLanguage ? 'Login' : 'התחבר'}
+            {isEnLanguage ? 'Login' : 'Login'}
           </a>
         </Link>
       </div>
@@ -113,7 +113,7 @@ function LayoutWithHeader({ children }) {
     <>
       <div className="px-3 py-2 bg-gradient-to-r to-indigo-500 from-purple-500 text-white flex items-center justify-between fixed w-full top-0 left-0 right-0 z-20">
         <p className="uppercase font-bold">
-          {isEnLanguage ? ' paycheck portal' : ' paycheck portal hb'}
+          {isEnLanguage ? 'paycheck portal' : ' paycheck portal'}
         </p>
         {renderLoginBtn}
       </div>

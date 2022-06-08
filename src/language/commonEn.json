@@ -169,5 +169,10 @@
     "send": "Send"
   },
   "upload": "Upload",
-  "noData":"There are no records to display"
+  "noData":"There are no records to display",
+  "login":{
+    "title":"Login",
+    "id":"ID",
+    "pass":"Password"
+  }
 }
