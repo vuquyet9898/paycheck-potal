@@ -102,7 +102,7 @@ function LayoutWithHeader({ children }) {
       <div className="h-[calc(100vh-90px)] w-full flex flex-col space-y-4 items-center justify-center">
         <Link href="/login">
           <a className="flex items-center btn-primary px-8 py-3 rounded-md">
-            {isEnLanguage ? 'Login' : 'Login'}
+            {isEnLanguage ? 'Login' : 'התחבר'}
           </a>
         </Link>
       </div>
