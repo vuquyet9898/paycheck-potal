@@ -41,7 +41,7 @@ function LayoutWithHeader({ children }) {
             type="button"
             className="flex items-center bg-black bg-opacity-20 hover:bg-opacity-30 focus:outline-none px-8 py-3 rounded-md"
           >
-            {isEnLanguage ? 'Login' : 'login hb'}
+            {isEnLanguage ? 'Login' : 'התחבר'}
           </a>
         </Link>
       )
@@ -102,7 +102,7 @@ function LayoutWithHeader({ children }) {
       <div className="h-[calc(100vh-90px)] w-full flex flex-col space-y-4 items-center justify-center">
         <Link href="/login">
           <a className="flex items-center btn-primary px-8 py-3 rounded-md">
-            {isEnLanguage ? 'Login' : 'login hb'}
+            {isEnLanguage ? 'Login' : 'התחבר'}
           </a>
         </Link>
       </div>
