@@ -106,7 +106,7 @@ function Navbar({ isLogin, collapse, handleCollapse }) {
     },
     {
       id: 10,
-      name: isEnLanguage ? 'Notification' : 'Notification',
+      name: isEnLanguage ? 'Notification' : 'הוֹדָעָה',
       url: '/notification',
       icon: <IconNotification />,
     },
