@@ -134,8 +134,8 @@
     "searchPl": "חיפוש חברה",
     "search": "חפש",
     "createNew": " יצירת חברה חדשה",
-    "delete": "Delete",
-    "edit": "Edit",
+    "delete": "מחק",
+    "edit": "עריכת חברה",
     "newCompany": "יצירת חברה חדשה",
     "name": "שם",
     "id": "תעודת זהות",
@@ -145,8 +145,25 @@
     "companyId": "מספר חברה",
     "editCompany": "עריכת חברה"
   },
+    "term": {
+    "title": "תנאים",
+    "content": "תוכן",
+    "save": "שמור"
+  },
   "texas": {
-    "title": "מיסים"
+    "title": "מיסים",
+      "gross":"Gross amount",
+    "commission":"A commission",
+    "tax":"Income Tax",
+    "secu":"Employer Social Security",
+    "works":"Social Security works",
+    "health":"health tax",
+    "compensation":"Compensation",
+    "rewards":"Rewards",
+    "required":"Required",
+    "advances":"Advances / debt repayments",
+    "net":"Net amount",
+    "save":"save"
   },
   "noti": {
     "title": "שלח התראה לכל הנהגים",

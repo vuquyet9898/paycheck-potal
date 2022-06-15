@@ -1,7 +1,5 @@
-import { getBanks } from 'actions/bank'
 import { getTerm, postTerm } from 'actions/term'
-import { TERM } from 'constants/request'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 

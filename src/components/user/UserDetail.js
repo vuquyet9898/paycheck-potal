@@ -29,7 +29,6 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
         [detail.fieldApprovalName]: s?.name,
       })
     }
-    console.log('xxxx', s)
   }
   const [t] = useTranslation('common')
 
@@ -155,7 +154,9 @@ function UserDetail({ detail, data, setFinalizeData, finalizeData }) {
                     selectedStatus.name === s.name ? 'font-bold' : 'font-normal'
                   }`}
                 >
-                  <span>{s.name}</span>
+                  {/* <span>{s.name}</span> */}
+                  <span>{renderStatus(s.name)}</span>
+
                   <span>
                     {selectedStatus.name === s.name && <IconCheck size={16} />}
                   </span>

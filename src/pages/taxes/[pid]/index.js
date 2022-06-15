@@ -20,36 +20,36 @@ const dataField = [
   'advancesDebtRepayment',
   'netAmount',
 ]
-const listField = [
-  { title: 'Gross amount', field: 'grossAmount', value: '' },
-  { title: 'A commission', field: 'aCommissions', value: '' },
-  { title: 'Income Tax', field: 'incomeTax', value: '' },
-  {
-    title: 'Employer Social Security',
-    field: 'employerSocialSercurity',
-    value: '',
-  },
-
-  {
-    title: 'Social Security works',
-    field: 'socialSercurityWorks',
-    value: '',
-  },
-
-  { title: 'health tax', field: 'healthTax', value: '' },
-
-  { title: 'Compensation', field: 'compensation', value: '' },
-  { title: 'Rewards', field: 'reward', value: '' },
-  { title: 'Required', field: 'required', value: '' },
-  {
-    title: 'Advances / debt repayments',
-    field: 'advancesDebtRepayment',
-    value: '',
-  },
-  { title: 'Net amount', field: 'netAmount', value: '' },
-]
 
 export default function Index() {
+  const listField = [
+    { title: 'Gross amount', field: 'grossAmount', value: '' },
+    { title: 'A commission', field: 'aCommissions', value: '' },
+    { title: 'Income Tax', field: 'incomeTax', value: '' },
+    {
+      title: 'Employer Social Security',
+      field: 'employerSocialSercurity',
+      value: '',
+    },
+
+    {
+      title: 'Social Security works',
+      field: 'socialSercurityWorks',
+      value: '',
+    },
+
+    { title: 'health tax', field: 'healthTax', value: '' },
+
+    { title: 'Compensation', field: 'compensation', value: '' },
+    { title: 'Rewards', field: 'reward', value: '' },
+    { title: 'Required', field: 'required', value: '' },
+    {
+      title: 'Advances / debt repayments',
+      field: 'advancesDebtRepayment',
+      value: '',
+    },
+    { title: 'Net amount', field: 'netAmount', value: '' },
+  ]
   const listFieldClone = cloneDeep(listField)
   const [data, setData] = useState(listFieldClone)
   const [t] = useTranslation('common')

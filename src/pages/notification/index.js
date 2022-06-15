@@ -217,7 +217,7 @@ export default function Index() {
           </div>
 
           <div className="flex flex-row mt-12">
-            <div>Content</div>
+            <div>{t('noti.content')}</div>
             <div className="text-red-500 px-2">(*)</div>
           </div>
           <div className="w-1/2 mt-6 ">
