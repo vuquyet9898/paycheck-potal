@@ -143,6 +143,10 @@ export default function Index() {
         onRowClicked={handleNavigate}
         customStyles={customStyles}
         noDataComponent={<div>{t('noData')}</div>}
+        paginationComponentOptions={{
+          rangeSeparatorText: t('table.rangeSeparatorText'),
+          rowsPerPageText: t('table.rowsPerPageText'),
+        }}
       />
     </div>
   )

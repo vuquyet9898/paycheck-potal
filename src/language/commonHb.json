@@ -166,6 +166,10 @@
     "title":"התחבר",
         "id":"תעודת זהות",
     "pass":"סיסמה"
+  },
+      "table":{
+    "rowsPerPageText":"שורות בעמוד:",
+    "rangeSeparatorText":"שֶׁל"
   }
 
 }

@@ -174,5 +174,9 @@
     "title":"Login",
     "id":"ID",
     "pass":"Password"
+  },
+   "table":{
+    "rowsPerPageText":"Rows per page:",
+    "rangeSeparatorText":"of"
   }
 }

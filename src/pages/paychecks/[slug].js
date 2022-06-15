@@ -245,6 +245,10 @@ export default function PaymentDetail() {
           />
         )}
         noDataComponent={<div>{t('noData')}</div>}
+        paginationComponentOptions={{
+          rangeSeparatorText: t('table.rangeSeparatorText'),
+          rowsPerPageText: t('table.rowsPerPageText'),
+        }}
       />
     </div>
   )

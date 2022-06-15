@@ -127,6 +127,10 @@ export default function Index({ pathRedirect, tableName }) {
         fixedHeaderScrollHeight={`${tableHeight}px`}
         paginationRowsPerPageOptions={[10, 20, 30, 50]}
         noDataComponent={<div>{t('noData')}</div>}
+        paginationComponentOptions={{
+          rangeSeparatorText: t('table.rangeSeparatorText'),
+          rowsPerPageText: t('table.rowsPerPageText'),
+        }}
       />
     </div>
   )
