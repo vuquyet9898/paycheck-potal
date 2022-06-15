@@ -161,7 +161,8 @@
     "required":"Required",
     "advances":"Advances / debt repayments",
     "net":"Net amount",
-    "save":"save"
+    "save":"save",
+    "enterValue":"Enter value"
 
   },
   "noti": {

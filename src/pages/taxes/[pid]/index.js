@@ -22,37 +22,38 @@ const dataField = [
 ]
 
 export default function Index() {
+  const [t] = useTranslation('common')
+
   const listField = [
-    { title: 'Gross amount', field: 'grossAmount', value: '' },
-    { title: 'A commission', field: 'aCommissions', value: '' },
-    { title: 'Income Tax', field: 'incomeTax', value: '' },
+    { title: 'gross', field: 'grossAmount', value: '' },
+    { title: 'commission', field: 'aCommissions', value: '' },
+    { title: 'tax', field: 'incomeTax', value: '' },
     {
-      title: 'Employer Social Security',
+      title: 'secu',
       field: 'employerSocialSercurity',
       value: '',
     },
 
     {
-      title: 'Social Security works',
+      title: 'works',
       field: 'socialSercurityWorks',
       value: '',
     },
 
-    { title: 'health tax', field: 'healthTax', value: '' },
+    { title: 'health', field: 'healthTax', value: '' },
 
-    { title: 'Compensation', field: 'compensation', value: '' },
-    { title: 'Rewards', field: 'reward', value: '' },
-    { title: 'Required', field: 'required', value: '' },
+    { title: 'compensation', field: 'compensation', value: '' },
+    { title: 'rewards', field: 'reward', value: '' },
+    { title: 'required', field: 'required', value: '' },
     {
-      title: 'Advances / debt repayments',
+      title: 'advances',
       field: 'advancesDebtRepayment',
       value: '',
     },
-    { title: 'Net amount', field: 'netAmount', value: '' },
+    { title: 'net', field: 'netAmount', value: '' },
   ]
   const listFieldClone = cloneDeep(listField)
   const [data, setData] = useState(listFieldClone)
-  const [t] = useTranslation('common')
   const router = useRouter()
   const [isLoadingUpFile, setIsLoadingUpFile] = useState(false)
 
@@ -119,10 +120,10 @@ export default function Index() {
         return (
           <div key={field?.title}>
             <div className="relative flex flex-row py-4 w-1/2">
-              <div className="w-72 ml-4">{field?.title}</div>
+              <div className="w-72 ml-4">{t(`texas.${field?.title}`)}</div>
               <input
                 className=" placeholder:italic placeholder:text-slate-400  bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                placeholder="Enter value"
+                placeholder={t('texas.enterValue')}
                 type="text"
                 name="search"
                 value={field.value}
