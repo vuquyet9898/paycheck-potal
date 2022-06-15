@@ -191,5 +191,8 @@
    "table":{
     "rowsPerPageText":"Rows per page:",
     "rangeSeparatorText":"of"
+  },
+  "status":{
+    "block":"Blocked","work":"Working","notWork":"Not working"
   }
 }

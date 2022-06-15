@@ -41,6 +41,18 @@ export const updateUserDetail = async ({ id, data }) => {
 
 export const UseSchemaColumnsUser = () => {
   const [t] = useTranslation('common')
+  const renderStatus = (status) => {
+    switch (status) {
+      case 'blocked':
+        return t('status.block')
+
+      case 'not_working':
+        return t('status.work')
+
+      default:
+        return t('status.notWork')
+    }
+  }
   return [
     {
       name: t('user.typeOffUser'),
@@ -73,7 +85,7 @@ export const UseSchemaColumnsUser = () => {
     },
     {
       name: t('user.workingStatus'),
-      selector: (row) => row.work_status,
+      selector: (row) => renderStatus(row.work_status),
       width: '150px',
     },
   ]

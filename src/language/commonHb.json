@@ -187,6 +187,9 @@
       "table":{
     "rowsPerPageText":"שורות בעמוד:",
     "rangeSeparatorText":"שֶׁל"
+  },
+    "status":{
+    "block":"חסום","work":"חסום","notWork":"לא עובד"
   }
 
 }
