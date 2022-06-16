@@ -4,7 +4,7 @@ import { ExpandedComponent } from 'components/user/UserExpandedComponent'
 import { useTableHeight } from 'helper/utils'
 import { debounce } from 'lodash'
 import Image from 'next/image'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useTranslation } from 'react-i18next'
 
@@ -20,12 +20,23 @@ export default function Index() {
   const [perPage, setPerPage] = useState(20)
 
   const [keyword, setKeyword] = useState('')
+  const [fullNameSearch, setFullNameSearch] = useState('')
+
   const { tableHeight } = useTableHeight(302)
 
   const changeHandler = (event) => {
     setKeyword(event.target.value)
   }
+  const changeSearchNameHandler = (event) => {
+    setFullNameSearch(event.target.value)
+  }
   const debouncedChangeHandler = useMemo(() => debounce(changeHandler, 300), [])
+
+  const debouncedSearchNameHandler = useMemo(
+    () => debounce(changeSearchNameHandler, 300),
+    []
+  )
+
   //
   const [selectedUserType, setSelectedUserType] = useState(userType[0])
   //
@@ -36,6 +47,7 @@ export default function Index() {
       limit: perPage,
       freelancerType: selectedUserType.name,
       personalId: keyword,
+      fullName: fullNameSearch,
     })
     setData(response.data.data)
     setTotalRows(response.data.total_page * perPage)
@@ -51,7 +63,7 @@ export default function Index() {
   }
   useEffect(() => {
     fetchUsers(0)
-  }, [selectedUserType, keyword, perPage])
+  }, [selectedUserType, keyword, perPage, fullNameSearch])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,7 +72,7 @@ export default function Index() {
     return () => {
       clearInterval(interval)
     }
-  }, [selectedUserType, keyword, perPage])
+  }, [selectedUserType, keyword, perPage, fullNameSearch])
 
   const columns = UseSchemaColumnsUser()
   const memoColumnsUser = useMemo(() => columns, [columns])
@@ -71,8 +83,8 @@ export default function Index() {
         {t('user.title')}
       </h1>
 
-      <div className="w-full flex justify-end flex-row mt-3 ">
-        <div className="w-96 rtl flex flex-row items-center">
+      <div className="w-full  justify-end flex-row mt-3 md:flex grid grid-rows-2 gap-y-3 md:gap-x-4  ">
+        <div className=" rtl flex flex-row items-center">
           {/* <p className="text-sm px-4">Personal ID</p> */}
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">
@@ -96,7 +108,31 @@ export default function Index() {
             </div>
           </label>
         </div>
-        <div className="w-48 z-10 ml-4">
+        <div className=" rtl flex flex-row items-center ">
+          {/* <p className="text-sm px-4">Personal ID</p> */}
+          <label className="relative block" htmlFor="first-name">
+            <span className="absolute inset-y-0 right-3 flex items-center pl-2">
+              <Image
+                src="/search.svg"
+                alt=""
+                className="h-5 w-5 fill-slate-300"
+                viewBox="0 0 20 20"
+                width={20}
+                height={20}
+              />
+            </span>
+            <div className="flex flex-row">
+              <input
+                className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                placeholder={t('searchName')}
+                type="text"
+                name="search"
+                onChange={debouncedSearchNameHandler}
+              />
+            </div>
+          </label>
+        </div>
+        <div className="w-48 z-10 md:ml-4 ml-0">
           <FilterUser
             selectedUserType={selectedUserType}
             setSelectedUserType={setSelectedUserType}

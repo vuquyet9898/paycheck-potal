@@ -195,5 +195,7 @@
   },
   "status":{
     "block":"Blocked","work":"Working","notWork":"Not working"
-  }
+  },
+  "searchName":"Search name"
+
 }

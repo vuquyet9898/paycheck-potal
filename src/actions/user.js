@@ -2,7 +2,13 @@ import { USER } from 'constants/request'
 import fetchApi from 'helper/fetchApi'
 import { useTranslation } from 'react-i18next'
 
-export const getUser = ({ page = 0, limit, freelancerType, personalId = '' }) =>
+export const getUser = ({
+  page = 0,
+  limit,
+  freelancerType,
+  personalId = '',
+  fullName = '',
+}) =>
   fetchApi({
     url: USER,
     options: {
@@ -13,6 +19,7 @@ export const getUser = ({ page = 0, limit, freelancerType, personalId = '' }) =>
       limit,
       freelancer_type: freelancerType,
       personal_id: personalId,
+      full_name: fullName,
     },
   })
 
