@@ -15,6 +15,7 @@ export default function Index() {
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  console.log('🚀 ~ file: index.js ~ line 18 ~ Index ~ loading', loading)
   const [totalRows, setTotalRows] = useState(0)
   const [perPage, setPerPage] = useState(20)
 
