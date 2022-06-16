@@ -35,7 +35,7 @@ export default function Index() {
   const [t] = useTranslation('common')
 
   return (
-    <div className="rtl pr-4">
+    <div className="rtl px-4">
       <div className="flex items-center justify-between">
         <h1 className="py-4 text-2xl uppercase font-bold">{t('term.title')}</h1>
       </div>
