@@ -89,7 +89,9 @@ export default function Company() {
   return (
     <div className="pr-4 pl-12  py-4 ">
       <div className="rtl flex justify-between">
-        <h1 className="text-2xl font-bold uppercase">{t('company.title')}</h1>
+        <h1 className="md:text-2xl text-xl font-bold uppercase">
+          {t('company.title')}
+        </h1>
         <Link
           href={{
             pathname: `company/create`,
@@ -99,16 +101,16 @@ export default function Company() {
             <button
               // onClick={openModal}
               type="button"
-              className={` px-4  text-white py-2 rounded-md text-lg font-semibold  bg-green-500`}
+              className="md:px-4 px-2 text-white py-2 rounded-md text-lg font-semibold  bg-green-500"
             >
               <div className="flex flex-row  items-center justify-center">
-                <p>{t('company.create')}</p>
+                <p className="md:text-sm text-xs"> {t('company.create')}</p>
               </div>
             </button>
           </a>
         </Link>
       </div>
-      <div className=" flex flex-row justify-end ">
+      <div className=" flex flex-row justify-end mt-4 ">
         <div className="w-96 rtl flex flex-row items-center">
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">

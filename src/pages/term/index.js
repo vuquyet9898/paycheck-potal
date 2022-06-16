@@ -44,24 +44,23 @@ export default function Index() {
           <div>{t('term.content')}</div>
           <div className="text-red-500 px-2">(*)</div>
         </div>
-        <div className="w-3/4 mt-6 pb-6">
+        <div className="lg:w-1/2 mt-6 w-full p-4">
           <textarea
             defaultValue={termContent?.content}
             className="h-48 w-full border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black p-2 transition ease-in-out duration-300"
             onChange={(e) => setData(e.target.value)}
           />
+          <button
+            type="button"
+            onClick={updateTerm}
+            disabled={!isBlock}
+            className={`${
+              isBlock ? 'bg-green-500' : 'bg-gray-500 '
+            } text-white  py-2 px-4 rounded text-xs min-w-[76px]`}
+          >
+            {t('term.save')}
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={updateTerm}
-          disabled={!isBlock}
-          className={`${
-            isBlock ? 'bg-green-500' : 'bg-gray-500 '
-          } text-white  py-2 px-4 rounded text-xs min-w-[76px]`}
-        >
-          {t('term.save')}
-        </button>
       </div>
     </div>
   )

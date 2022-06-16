@@ -220,7 +220,7 @@ export default function Index() {
             <div>{t('noti.content')}</div>
             <div className="text-red-500 px-2">(*)</div>
           </div>
-          <div className="w-1/2 mt-6 ">
+          <div className="lg:w-1/2 mt-6 w-full ">
             <textarea
               className="h-24 w-full border rounded-xl overflow-hidden resize-none focus:border-blue-500 ring-1 ring-transparent focus:ring-blue-500 focus:outline-none text-black p-2 transition ease-in-out duration-300"
               placeholder={t('noti.mes')}
@@ -233,7 +233,7 @@ export default function Index() {
             onClick={onSendNotification}
             disabled={disableBtnSendNoti}
             type="button"
-            className={` w-40 mt-6   px-4  flex items-center justify-center  focus:outline-none focus:ring  text-white py-3 rounded-md text-lg font-semibold ${
+            className={`text-white  py-2 px-4 rounded text-xs min-w-[76px] mt-4 ${
               !disableBtnSendNoti
                 ? 'bg-green-500 hover:bg-green-600'
                 : 'bg-gray-500 hover:bg-gray-600'
