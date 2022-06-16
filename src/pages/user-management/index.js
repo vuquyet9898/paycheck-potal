@@ -110,7 +110,7 @@ export default function Index() {
         expandableRows
         direction="rtl"
         //
-        progressPending={loading}
+        // progressPending={loading}
         pagination
         paginationServer
         paginationTotalRows={totalRows}
