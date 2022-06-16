@@ -22,13 +22,22 @@ export default function Index({ pathRedirect, tableName }) {
   const [t] = useTranslation('common')
 
   const [keyword, setKeyword] = useState('')
+  const [keywordSearchName, setKeywordSearchName] = useState('')
+
   const changeHandler = (event) => {
     setKeyword(event.target.value)
+  }
+  const changeNameHandler = (event) => {
+    setKeywordSearchName(event.target.value)
   }
   const router = useRouter()
   const { tableHeight } = useTableHeight(302)
 
   const debouncedChangeHandler = useMemo(() => debounce(changeHandler, 300), [])
+  const debouncedChangeNameHandler = useMemo(
+    () => debounce(changeNameHandler, 300),
+    []
+  )
 
   const columns = UseSchemaColumnsUser()
   const memoColumnsUser = useMemo(() => columns, [columns])
@@ -48,6 +57,7 @@ export default function Index({ pathRedirect, tableName }) {
       limit,
       personalId: keyword,
       freelancerType: selectedUserType.name,
+      fullName: keywordSearchName,
     })
     setData(response.data.data)
     setTotalRows(response.data.total_page * limit)
@@ -65,7 +75,7 @@ export default function Index({ pathRedirect, tableName }) {
 
   useEffect(() => {
     fetchUsers()
-  }, [keyword, limit, selectedUserType])
+  }, [keyword, limit, selectedUserType, keywordSearchName])
 
   const handleNavigate = (row) => {
     const query = getQuery(tableName, row)
@@ -78,8 +88,8 @@ export default function Index({ pathRedirect, tableName }) {
 
   return (
     <div className="pt-3 ">
-      <div className=" flex flex-row justify-end">
-        <div className="w-96 rtl flex flex-row items-center">
+      <div className="md:flex flex-row justify-end grid grid-rows-2 gap-x-8 gap-y-3">
+        <div className=" rtl flex flex-row items-center">
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">
               <Image
@@ -102,7 +112,31 @@ export default function Index({ pathRedirect, tableName }) {
             </div>
           </label>
         </div>
-        <div className="w-48 z-10 ml-4">
+        <div className="rtl flex flex-row items-center">
+          <label className="relative block" htmlFor="first-name">
+            <span className="absolute inset-y-0 right-3 flex items-center pl-2">
+              <Image
+                src="/search.svg"
+                alt=""
+                className="h-5 w-5 fill-slate-300"
+                viewBox="0 0 20 20"
+                width={20}
+                height={20}
+              />
+            </span>
+            <div className="flex flex-row">
+              <input
+                className=" placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-10 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                // placeholder={t('user.titleSearch')}
+                placeholder={t('searchName')}
+                type="text"
+                name="search"
+                onChange={debouncedChangeNameHandler}
+              />
+            </div>
+          </label>
+        </div>
+        <div className="w-48 z-10 ">
           <FilterUser
             selectedUserType={selectedUserType}
             setSelectedUserType={setSelectedUserType}

@@ -77,8 +77,8 @@ export default function Index() {
       <h1 className="text-2xl font-bold  uppercase flex justify-end">
         {t('incvoices.title')}
       </h1>
-      <div className=" mt-3 flex flex-row justify-end">
-        <div className="w-96 rtl flex flex-row items-center">
+      <div className=" mt-3 md:flex flex-row justify-end grid grid-rows-2 gap-x-8 gap-y-3">
+        <div className="rtl flex flex-row items-center">
           {/* <p className="text-sm px-4">Personal ID</p> */}
           <label className="relative block" htmlFor="first-name">
             <span className="absolute inset-y-0 right-3 flex items-center pl-2">
@@ -102,7 +102,7 @@ export default function Index() {
             </div>
           </label>
         </div>
-        <div className="w-48 z-10 ml-4">
+        <div className="w-48 z-10 ">
           <FilterUser
             selectedUserType={selectedUserType}
             setSelectedUserType={setSelectedUserType}
